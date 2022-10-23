@@ -1,0 +1,45 @@
+@import "./base.scss";
+
+/* Utils */
+.nav-container{
+  width: 1280px;
+  max-width: 95%;
+}
+.container{
+  width: 1140px;
+  max-width: 95%;
+  margin: 0 auto;
+}
+.bg-main-primary{
+  background-color: #669C49;
+}
+.bg-notice{
+  background-color: #E93E5D;
+}
+.text-main-primary{
+  color: #669C49;
+}
+.text-main-second{
+  color: #FF904F;
+}
+
+.menuBtn{
+  width: 1.6rem;
+  height: 1.34rem;
+  flex-direction: column;
+  justify-content: space-between;
+  span{
+    border-radius: 2px;
+    width: 100%;
+    height: 3px;
+    background-color: #FF904F;
+    &:nth-of-type(2){
+      display: none;
+    }
+  }
+}
+.menuShadow{
+  @media (max-width:767px) {
+    background-image: linear-gradient( rgba(#000, .1) 0%, transparent 10%, transparent 12%);
+  }
+}
