@@ -2,15 +2,14 @@
   <nav class="nav-container tw-h-14 md:tw-h-16 tw-fixed tw-top-6 tw-left-1/2 -tw-translate-x-1/2
   tw-rounded-full tw-shadow-xl tw-bg-white tw-flex tw-items-center tw-p-1.5">
     <img src="@/assets/logo.svg" class="tw-h-8 tw-ml-6" alt="Logo">
-    <div class="menuShadow tw-shadow-xl md:tw-shadow-none tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-6 tw-items-center
-    tw-bg-white text-main-second tw-font-bold tw-text-lg tw-p-8 md:tw-p-0 md:tw-ml-auto">
+    <div class="menuList tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-8 tw-items-center
+    tw-bg-white text-main-second tw-font-bold tw-text-lg md:tw-ml-auto">
       <router-link to="/">貓の食品</router-link>
       <router-link to="/">貓の用品</router-link>
       <router-link to="/">貓の玩具</router-link>
       <router-link to="/login" class="text-main-primary">登入後台</router-link>
 </div>
-    <a class="menuBtn tw-ml-auto tw-flex md:tw-hidden">
-      <span></span>
+    <a @click="toggleMenu($event)" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
       <span></span>
       <span></span>
       <span></span>
@@ -24,9 +23,18 @@
   </nav>
 </template>
 <script>
-export default {
-    
-}
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup() {
+    return {
+      toggleMenu(e) {
+        e.target.classList.toggle('active')
+        document.querySelector('.menuList').classList.toggle('active')
+      }
+    }
+  }
+})
 </script>
 <style lang="">
     
