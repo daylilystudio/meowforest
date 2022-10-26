@@ -1,4 +1,4 @@
-@import "./base.scss";
+@import "base.scss";
 
 // Color
 $mainPrimaryColor: #669C49;
@@ -28,6 +28,7 @@ $noticeColor: #E93E5D;
   color: $mainSecondColor;
 }
 
+// Nav
 .menuBtn{
   width: 1.6rem;
   height: 1.34rem;

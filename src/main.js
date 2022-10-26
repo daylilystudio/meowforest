@@ -7,13 +7,14 @@ import router from './router'
 // index
 import App from './App.vue'
 // style
-import './assets/main.scss'
+import './assets/scss/main.scss'
 
 const app = createApp(App)
 app.use(VueAxios, axios)
 app.provide('axios', app.config.globalProperties.axios) 
 app.use(createPinia())
 app.use(router)
+
 // filter
 import filter from './utils/filter'
 app.config.globalProperties.$filter = filter
