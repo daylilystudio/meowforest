@@ -7,5 +7,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  globals: {
+    'require': true
   }
 }

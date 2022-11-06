@@ -1,11 +1,13 @@
 {
   "name": "meowforest",
   "version": "0.0.0",
+  "homepage": "https://daylilystudio.github.io/meowforest/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 4173",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "deploy": "npm run build && node ghpages.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
@@ -25,6 +27,7 @@
     "autoprefixer": "^10.4.12",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "gh-pages": "^4.0.0",
     "naive-ui": "^2.33.3",
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8",

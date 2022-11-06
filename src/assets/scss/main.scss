@@ -1,90 +1,54 @@
+@import "reset.scss";
 @import "base.scss";
 
-// Color
-$mainPrimaryColor: #669C49;
-$mainSecondColor: #FF904F;
-$noticeColor: #E93E5D;
-
 /* Utils */
+*{
+  transition: all .3s;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--themeColor);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  line-height: 1;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+/* Common */
 .nav-container{
   width: 1280px;
   max-width: 95%;
 }
 .container{
   width: 1140px;
-  max-width: 95%;
-  margin: 0 auto;
+  max-width: 92%;
+  margin-left: auto;
+  margin-right: auto;
 }
-.bg-main-primary{
-  background-color: $mainPrimaryColor;
+.bg-primary{
+  background-color: var(--primaryColor);
 }
 .bg-notice{
-  background-color: $noticeColor;
+  background-color: var(--noticeColor);
 }
-.text-main-primary{
-  color: $mainPrimaryColor;
+.bg-theme{
+  background-color: var(--themeColor);
 }
-.text-main-second{
-  color: $mainSecondColor;
+.text-primary{
+  color: var(--primaryColor);
 }
-
-// Nav
-.menuBtn{
-  width: 1.6rem;
-  height: 1.34rem;
-  flex-direction: column;
-  justify-content: space-between;
-  span{
-    border-radius: 2px;
-    width: 100%;
-    height: 3px;
-    background-color: $mainSecondColor;
-    transition: all .5s;
-    transform-origin: 50% 50%;
-    pointer-events: none;
-  }
-  &.active{
-    justify-content:center;
-    span{
-      &:nth-of-type(2) {
-        opacity: 0;
-      }
-      &:nth-of-type(1) {
-        transform: rotate(45deg) translateY(4.2px);
-      }
-      &:nth-of-type(3) {
-        transform: rotate(-45deg) translateY(-4.2px);
-      }
-    }
-  }
-}
-.menuList{
-  @media (max-width:767px) {
-    height: 0;
-    transition: height .5s ease-in-out;
-    overflow: hidden;
-    background-image: linear-gradient( rgba(#000, .1) 0%, transparent 10%, transparent 12%);
-  }
-  a {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 4px;
-      border-radius: 2px;
-      left: 0;
-      bottom: -6px;
-      background-color: #E9DECC;
-      transition: width .5s;
-    }
-    &:hover::after{
-      width: 100%;
-    }
-  }
-  &.active{
-    @media (max-width:767px) {
-      height: 16rem;
-    }
-  }
+.text-second{
+  color: var(--secondColor);
 }

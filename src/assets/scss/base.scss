@@ -4,22 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  transition: all .3s;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
-  font-weight: normal;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  line-height: 1;
+/* Color */
+:root{
+  --primaryColor: #669C49;
+  --secondColor: #FF904F;
+  --thirdColor: #E9DECC;
+  --themeColor: #786756;
+  --noticeColor: #E93E5D;
 }
