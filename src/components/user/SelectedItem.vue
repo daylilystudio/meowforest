@@ -20,9 +20,9 @@
     >
       <swiper-slide
         v-for="item in selectedList" :key="item.name"
-        class="tw-relative tw-overflow-hidden tw-border-2 tw-border-white tw-border-solid tw-font-bold tw-cursor-pointer"
+        class="!tw-overflow-hidden tw-border-2 tw-border-white tw-border-solid tw-font-bold tw-cursor-pointer"
         @click="router.push(item.link)">
-        <div :style="{backgroundImage: 'url('+ item.img +')'}"
+        <div style="border-radius:40px" :style="{backgroundImage: 'url('+ item.img +')'}"
           class="tw-absolute tw-top-0 tw-bg-cover tw-bg-center tw-w-full tw-h-full" />
         <p class="bg-second tw-relative tw-text-lg tw-rounded-full tw-py-1 tw-px-5">
           {{item.category}}
@@ -92,6 +92,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  :deep(.swiper-wrapper) {
+    align-items: center;
+  }
   :deep(.swiper-slide) {
     height: 320px;
     opacity: 0;
@@ -101,7 +104,8 @@ export default {
     align-items: center;
     justify-content: flex-end;
     padding-bottom: 20px;
-    transition: all .3s;
+    transition-duration: .3s, .3s, .3s, .3s, 0s !important;
+    transition-property: width, height, opacity, padding-bottom, z-index;
     &:hover div{
       filter: blur(1px) brightness(.7);
     }
@@ -117,12 +121,11 @@ export default {
   }
   :deep(.swiper-slide-next), :deep(.swiper-slide-prev) {
     opacity: 1;
-    transform: translateY(30%);
-    width: 31.5% !important;
     height: 200px;
+    width: 31.5% !important;
     @media (max-width:768px) {
       p, span {
-        display: none;
+        opacity: 0;
       }
     }
   }

@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// user
 import LayoutView from '../views/user/LayoutView.vue'
+import HomeView from '../views/user/HomeView.vue'
+// admin
+import LoginAdmin from '../views/admin/LoginAdmin.vue'
+import HomeAdmin from '../views/admin/HomeAdmin.vue'
+import ProductsAdmin from '../views/admin/ProductsAdmin.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,24 +21,24 @@ const router = createRouter({
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('../views/user/HomeView.vue')
+          component: HomeView
         }
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/admin/LoginAdmin.vue')
+      component: LoginAdmin
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/admin/HomeAdmin.vue'),
+      component: HomeAdmin,
       children:[
         {
           path: '/admin/products',
           name: 'admin-products',
-          component: () => import('../views/admin/ProductsAdmin.vue')
+          component: ProductsAdmin
         }
       ]
     }
