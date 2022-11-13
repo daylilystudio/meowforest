@@ -1,9 +1,9 @@
 <template>
-  <header class="tw-relative tw-w-full tw-h-screen tw-flex md:tw-items-center tw-justify-center">
+  <header class="tw-relative tw-overflow-hidden tw-w-full tw-h-screen tw-flex md:tw-items-center tw-justify-center">
     <div class="hero tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-right-0" />
     <img class="tw-relative tw-hidden sm:tw-block tw-w-5/6" src="@/assets/img/meowforestTxt.svg" alt="Meow Forest">
     <img class="tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowforestTxt_m.svg" alt="Meow Forest">
-    <span class="fa-rotate-180 tw-absolute tw-text-white tw-bottom-10 tw-p-10 md:tw-hidden">
+    <span @click="scrollNext" class="fa-rotate-180 tw-absolute tw-text-white tw-bottom-10 tw-p-10 md:tw-hidden">
       <font-awesome-icon :icon="['fas', 'paw']" class="fa-bounce fa-2x" />
     </span>
   </header>
@@ -56,7 +56,7 @@
 <script>
   import { defineComponent } from 'vue'
   import TheTitle from '@/components/global/TheTitle.vue'
-  import SelectedItem from '../components/SelectedItem.vue'
+  import SelectedItem from '@/components/user/SelectedItem.vue'
   // image
   import list1 from '@/assets/img/list1.png'
   import list2 from '@/assets/img/list2.png'
@@ -75,7 +75,15 @@
   export default defineComponent({
     components: { TheTitle, SelectedItem },
     setup() {
+      const scrollNext = () => {
+        const pos = document.querySelector('.circleBlock').offsetTop
+        window.scrollTo({
+          top: pos - 80,
+          behavior: 'smooth'
+        });
+      }
       return {
+        scrollNext,
         circle: [
           {
             link: 'products/',
@@ -148,11 +156,12 @@
 
 <style lang="scss" scoped>
 .hero{
+  animation: zoom 30s ease-out infinite;
   background-position: center;
   background-size: cover;
-  background-image: url(./../assets/img/hero_m.jpg);
+  background-image: url(@/assets/img/hero_m.jpg);
   @media (min-width: 640px) {
-    background-image: url(./../assets/img/hero.jpg);
+    background-image: url(@/assets/img/hero.jpg);
   }
 }
 .circleBlock{
@@ -187,5 +196,16 @@
 .notice{
   padding: 32px;
   border-color: var(--themeColor);
+}
+@keyframes zoom {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.16, 1.16, 1.16);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
 }
 </style>

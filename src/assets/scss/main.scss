@@ -15,6 +15,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--themeColor);
+  background-color: var(--primaryColor);
 }
 
 a {
@@ -40,6 +41,9 @@ a {
 .bg-primary{
   background-color: var(--primaryColor);
 }
+.bg-second{
+  background-color: var(--secondColor);
+}
 .bg-notice{
   background-color: var(--noticeColor);
 }
@@ -51,4 +55,7 @@ a {
 }
 .text-second{
   color: var(--secondColor);
+}
+.shadow{
+  box-shadow: 0 0 20px rgba(#000, .2);
 }
