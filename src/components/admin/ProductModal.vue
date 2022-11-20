@@ -44,9 +44,14 @@
               <n-input-number v-model:value="data.price" placeholder="Price" />
             </n-form-item-gi>
           </n-grid>
-          <n-form-item-gi label="Unit" path="unit">
-            <n-input v-model:value="data.unit" placeholder="Unit" />
-          </n-form-item-gi>
+          <n-grid :x-gap="12" cols="2">
+            <n-form-item-gi label="Amount" path="num">
+              <n-input-number v-model:value="data.num" placeholder="Amount" />
+            </n-form-item-gi>
+            <n-form-item-gi label="Unit" path="unit">
+              <n-input v-model:value="data.unit" placeholder="Unit" />
+            </n-form-item-gi>
+          </n-grid>
           <n-form-item-gi label="Description" path="description">
             <n-input v-model:value="data.description" placeholder="Description" />
           </n-form-item-gi>
@@ -63,7 +68,7 @@
   </n-card>
 </template>
 <script>
-import { defineComponent, ref, inject } from 'vue'
+import { defineComponent, ref, inject, onMounted } from 'vue'
 import { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch } from "naive-ui";
 export default defineComponent({
   components: { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch },
@@ -80,7 +85,15 @@ export default defineComponent({
   setup(props) {
     const axios = inject('axios')
     const data = ref(props.tempProduct)
+    console.log(data.value)
     const fileList = ref([])
+    onMounted(() => {
+      if(data.value.imagesUrl?.length>0) {
+        data.value.imagesUrl.forEach(el => {
+          fileList.value.push({status: "finished", url: el})
+        });
+      }
+    })
     const fileAction = ref(`${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/upload`)
     const updateFile = ({ file, action, onProgress, onFinish, onError}) => {
       const formData = new FormData();
@@ -93,20 +106,20 @@ export default defineComponent({
         if(res.data.success){
           fileList.value.push({status: "finished",url:res.data.imageUrl})
           console.log(data.value.imagesUrl, data.value);
-          if(data.value.imagesUrl===undefined){
-            data.value.imagesUrl = []
-          }
+          if(data.value.imagesUrl===undefined) data.value.imagesUrl = []
           data.value.imagesUrl.push(res.data.imageUrl)
           onFinish()
-          console.log(res.data.imageUrl)
+          alert(res.data.imageUrl)
         }
       }).catch((err) => {
         console.log(err)
         onError()
       })
     }
-    const removeFile = () => {
-      alert(1)
+    const removeFile = (img) => {
+      data.value.imagesUrl = data.value.imagesUrl.filter(el => {
+        return el !== img.file.url
+      })
     }
     const beforeUpload = (data) => {
       if (!data.file.file?.type.match("image")) {

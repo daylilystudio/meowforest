@@ -19,3 +19,7 @@ time, mark, audio, video {
 span {
 	line-height: 1;
 }
+input{
+	outline: 0;
+	transition: border-color .3s;
+}

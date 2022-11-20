@@ -26,6 +26,7 @@ export default defineComponent({
     const api = `${import.meta.env.VITE_API}api/user/check`
     axios.defaults.headers.common['Authorization'] = token
     axios.post(api).then((res) => {
+      console.log(res)
       if (!res.data.success) {
         window.$notification.warning({
           content: 'Plz Login!',

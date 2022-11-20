@@ -4,9 +4,9 @@
     <img @click="router.push('/')" src="@/assets/logo.svg" class="tw-h-8 tw-ml-6 tw-cursor-pointer" alt="Logo">
     <div class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-8 tw-items-center tw-justify-center
     tw-bg-white text-second tw-font-bold tw-text-lg md:tw-ml-auto tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none">
-      <router-link to="/">貓の食品</router-link>
-      <router-link to="/">貓の用品</router-link>
-      <router-link to="/">貓の玩具</router-link>
+      <router-link to="/products?category=food">貓の食品</router-link>
+      <router-link to="/products?category=use">貓の用品</router-link>
+      <router-link to="/products?category=toy">貓の玩具</router-link>
       <router-link to="/login" class="text-primary">登入後台</router-link>
     </div>
     <a @click="toggleMenu($event)" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">

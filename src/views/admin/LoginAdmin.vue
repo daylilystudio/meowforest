@@ -1,6 +1,6 @@
 <template>
   <n-space justify="center" align="center" class="tw-h-screen">
-    <n-spin :show="loading">
+    <n-spin :show="loading" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-px-10 tw-py-6">
       <n-form ref="formRef" :model="model">
         <n-form-item path="username" label="Account">
           <n-input type="email" v-model:value="model.username" @keydown.enter.prevent />

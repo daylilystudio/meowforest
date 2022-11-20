@@ -56,6 +56,18 @@ a {
 .text-second{
   color: var(--secondColor);
 }
+.border-primary{
+  border-color: var(--primaryColor);
+  &:focus-visible{
+    border-color: var(--secondColor);
+  }
+}
+.border-second{
+  border-color: var(--secondColor);
+}
 .shadow{
   box-shadow: 0 0 20px rgba(#000, .2);
+}
+.dropShadow{
+  filter: drop-shadow(0 0 10px rgba(#000, 1));
 }

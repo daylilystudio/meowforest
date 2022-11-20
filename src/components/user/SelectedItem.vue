@@ -1,7 +1,7 @@
 <template>
   <div class="tw-relative tw-text-white">
     <swiper
-      v-if="selectedList.length>0"
+      v-if="products.length>0"
       class="container !tw-py-10"
       :modules="modules"
       :autoplay="{
@@ -19,15 +19,15 @@
       :pagination="{ clickable: true }"
     >
       <swiper-slide
-        v-for="item in selectedList" :key="item.name"
+        v-for="item in products" :key="item.title"
         class="!tw-overflow-hidden tw-border-2 tw-border-white tw-border-solid tw-font-bold tw-cursor-pointer"
-        @click="router.push(item.link)">
-        <div style="border-radius:40px" :style="{backgroundImage: 'url('+ item.img +')'}"
+        @click="router.push('/products/'+item.id)">
+        <div style="border-radius:40px" :style="{backgroundImage: 'url('+ item.imagesUrl[0] +')'}"
           class="tw-absolute tw-top-0 tw-bg-cover tw-bg-center tw-w-full tw-h-full" />
         <p class="bg-second tw-relative tw-text-lg tw-rounded-full tw-py-1 tw-px-5">
           {{item.category}}
         </p>
-        <span class="tw-relative tw-text-xl tw-mt-1">{{item.name}}</span>
+        <span class="tw-relative tw-text-xl tw-mt-1">{{item.title}}</span>
       </swiper-slide>
     </swiper>
     <div class="swiper-navigation-prev tw-hidden md:tw-block tw-z-10 tw-absolute tw-left-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">
@@ -45,47 +45,19 @@ import { Autoplay, Pagination, Navigation } from 'swiper';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import bg from '@/assets/img/hero.jpg'
+import { storeToRefs } from 'pinia';
+import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { Swiper, SwiperSlide },
   setup() {
     const router = useRouter()
+    const globalStore = useGlobalStore();
+    const { products } = storeToRefs(globalStore);
     return {
       router,
       modules: [Autoplay, Pagination, Navigation],
-      selectedList: [
-        {
-          img: bg,
-          category: '貓の用品',
-          name: '超軟Ｑ毛絨絨床',
-          link: '/login'
-        },
-        {
-          img: bg,
-          category: '貓の用品',
-          name: '餅型踩聲玩具',
-          link: '/login'
-        },
-        {
-          img: bg,
-          category: '貓の用品',
-          name: '超軟Ｑ毛絨絨床',
-          link: '/login'
-        },
-        {
-          img: bg,
-          category: '貓の玩具',
-          name: '餅型踩聲玩具',
-          link: '/login'
-        },
-        {
-          img: bg,
-          category: '貓の食品',
-          name: '手工製作好吃肉丸',
-          link: '/login'
-        },
-      ]
+      products
     };
   }
 }

@@ -50,6 +50,7 @@ export default defineComponent({
     })
     // update item
     const updateProduct = (data) => {
+      console.log(data)
       loading.value = true
       let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product`
       let httpMethod = 'post'
@@ -117,8 +118,8 @@ export default defineComponent({
           render(row) {
             return h(
               NTag,
-              { type: row.is_enabled===1 ? 'success' : '', bordered: false },
-              { default: () => row.is_enabled===1 ? 'Yes' : 'No' }
+              { type: row.is_enabled===true ? 'success' : '', bordered: false },
+              { default: () => row.is_enabled===true ? 'Yes' : 'No' }
             );
           }
         },
@@ -141,6 +142,7 @@ export default defineComponent({
     return {
       loading,
       showModal,
+      isNew,
       tempProduct,
       tableData,
       updateProduct,
@@ -150,8 +152,21 @@ export default defineComponent({
           isNew.value = false
           showModal.value = true
         },
-        deleteList(rowData) {
-          alert("del"+rowData.name)
+        async deleteList(rowData) {
+          console.log('del', rowData)
+          loading.value = true
+          const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product/${rowData.id}`
+          await axios.delete(api).then((res) => {
+            loading.value = false
+            window.$notification.success({
+              content: res.data.message,
+              duration: 1500,
+            })
+          }).catch((err) => {
+            loading.value = false
+            console.log(err)
+          })
+          getProduct()
         }
       }),
       pagination: {
