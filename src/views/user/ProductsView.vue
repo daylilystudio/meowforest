@@ -1,6 +1,6 @@
 <template>
   <the-header />
-  <div class="container lg:tw-grid lg:tw-grid-cols-4 tw-gap-8 tw-py-10">
+  <div class="container lg:tw-grid lg:tw-grid-cols-4 tw-gap-8 tw-pt-10">
     <aside class="shadow tw-col-span-1 tw-self-start tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <label for="search" class="tw-relative">
         <input class="border-primary tw-w-full tw-rounded-full tw-border-solid tw-py-2 tw-pl-8 tw-pr-4"
@@ -16,8 +16,8 @@
     </aside>
     <main class="tw-col-span-3">
       <div class="tw-mt-8 lg:tw-mt-0">
-        <router-link to="/" class="tw-font-bold">Home</router-link> / Product List /
-        <span v-if="bread">{{ bread[0].toUpperCase()+bread.slice(1) }}</span>
+        <router-link to="/" class="tw-font-bold">Home</router-link> / Product List
+        <span v-if="bread">/ {{ bread[0].toUpperCase()+bread.slice(1) }}</span>
       </div>
       <section class="tw-grid tw-grid-cols-2 md:tw-grid-cols-3 tw-gap-x-4 tw-gap-y-10 tw-mt-6">
         <router-link :to="'/products/'+list.id" class="tw-group" v-for="list in productsList" :key="list.id">

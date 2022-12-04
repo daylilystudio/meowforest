@@ -8,6 +8,7 @@
         delay: 3000,
         disableOnInteraction: false,
       }"
+      :speed="600"
       :slides-per-view="3"
       :centeredSlides="true"
       :loop="true"
@@ -40,13 +41,14 @@
 </template>
 <script>
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia';
+import { useGlobalStore } from '@/stores/global.js'
+// swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Pagination, Navigation } from 'swiper';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { storeToRefs } from 'pinia';
-import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { Swiper, SwiperSlide },

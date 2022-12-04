@@ -1,5 +1,5 @@
 <template>
-  <footer class="tw-text-white">
+  <footer class="tw-text-white tw-mt-24">
     <section class="bg-theme tw-py-14">
       <div class="container tw-flex tw-flex-col sm:tw-flex-row">
         <img class="tw-mr-14 tw-hidden lg:tw-block" :src="logo" alt="Logo">

@@ -33,7 +33,7 @@
     </p>
     <SelectedItem />
   </section>
-  <section class="container tw-py-10 md:tw-py-28">
+  <section class="container tw-pt-10">
     <TheTitle titletxt="購物流程" subtxt="Shopping Process" />
     <div class="tw-grid sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4 lg:tw-gap-6">
       <div v-for="(item, i) in flow" :key="i" class="flow tw-flex tw-flex-col tw-bg-white">

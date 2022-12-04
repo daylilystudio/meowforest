@@ -4,33 +4,34 @@
     <img @click="router.push('/')" src="@/assets/logo.svg" class="tw-h-8 tw-ml-6 tw-cursor-pointer" alt="Logo">
     <div class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-8 tw-items-center tw-justify-center
     tw-bg-white text-second tw-font-bold tw-text-lg md:tw-ml-auto tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none">
-      <router-link to="/products?category=food">貓の食品</router-link>
-      <router-link to="/products?category=use">貓の用品</router-link>
-      <router-link to="/products?category=toy">貓の玩具</router-link>
-      <router-link to="/login" class="text-primary">登入後台</router-link>
+      <router-link to="/products?category=food" class="menuA">貓の食品</router-link>
+      <router-link to="/products?category=use" class="menuA">貓の用品</router-link>
+      <router-link to="/products?category=toy" class="menuA">貓の玩具</router-link>
+      <router-link to="/login" class="menuA text-primary">登入後台</router-link>
     </div>
     <a @click="toggleMenu($event)" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
       <span></span>
       <span></span>
       <span></span>
     </a>
-    <a class="bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">
+    <router-link to="/cart" :class="{'tw-cursor-not-allowed':route.path==='/cart'}" class="bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">
       <img src="@/assets/img/icon_cart.svg" alt="">
       <strong class="tw-w-5 tw-h-5 bg-notice tw-absolute -tw-top-1 -tw-right-1.5 tw-flex tw-justify-center tw-text-sm tw-text-white tw-rounded-full">
         2
       </strong>
-    </a>
+    </router-link>
   </nav>
 </template>
 <script>
 import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
+    const route = useRoute()
     const router = useRouter()
     return {
-      router,
+      route, router,
       toggleMenu(e) {
         e.target.classList.toggle('active')
         document.querySelector('.menuList').classList.toggle('active')
@@ -76,26 +77,6 @@ export default defineComponent({
     transition: height .5s ease-in-out;
     overflow: hidden;
     background-image: linear-gradient( rgba(#000, .1) 0%, transparent 10%, transparent 12%);
-  }
-  a {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 4px;
-      border-radius: 2px;
-      left: 0;
-      bottom: -6px;
-      background-color: #E9DECC;
-      transition: width .5s;
-    }
-    &:hover{
-      text-decoration: none;
-      &::after{
-      width: 100%;
-    }
-    }
   }
   &.active{
     @media (max-width:767px) {

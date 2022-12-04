@@ -4,6 +4,7 @@ import LayoutView from '../views/user/LayoutView.vue'
 import HomeView from '../views/user/HomeView.vue'
 import ProductsView from '../views/user/ProductsView.vue'
 import SingleView from '../views/user/SingleView.vue'
+import CartView from '../views/user/CartView.vue'
 // admin
 import LoginAdmin from '../views/admin/LoginAdmin.vue'
 import HomeAdmin from '../views/admin/HomeAdmin.vue'
@@ -34,6 +35,11 @@ const router = createRouter({
           path: '/products/:id',
           name: 'user-single-product',
           component: SingleView
+        },
+        {
+          path: '/cart',
+          name: 'user-cart',
+          component: CartView
         }
       ]
     },
