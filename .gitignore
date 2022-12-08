@@ -29,3 +29,6 @@ coverage
 
 # environment
 .env
+
+# npm
+package-lock.json

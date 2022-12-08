@@ -73,6 +73,9 @@ a {
 .border-second{
   border-color: var(--secondColor);
 }
+.border-theme{
+  border-color: var(--themeColor);
+}
 .shadow{
   box-shadow: 0 0 20px rgba(#000, .2);
 }
