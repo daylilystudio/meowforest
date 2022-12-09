@@ -68,7 +68,7 @@
       </template>
     </div>
   </section>
-  <router-link class="hover:tw-brightness-90 bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto" to="/products">
+  <router-link to="/products" class="hover:tw-brightness-90 bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
     Back to Product List
   </router-link>
 </template>

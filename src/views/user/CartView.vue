@@ -8,10 +8,10 @@
     <section class="shadow tw-bg-white tw-rounded-2xl tw-p-4 sm:tw-p-6">
       <the-process-bar :process="0" />
       <div class="tw-hidden md:tw-grid tw-bg-gray-200 tw-rounded-lg tw-py-2.5 tw-px-3 tw-grid-cols-12">
-        <span class="tw-col-span-6">Product Name</span>
-        <span class="tw-col-span-2">Price</span>
-        <span class="tw-col-span-2">Num</span>
-        <span class="tw-col-span-2">Subtotal</span>
+        <span class="tw-col-span-6">Product</span>
+        <span class="tw-col-span-2">Unit Price</span>
+        <span class="tw-col-span-2">Qty</span>
+        <span class="tw-col-span-2">Total</span>
       </div>
       <div class="tw-block md:tw-hidden tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Shop List</div>
       <n-spin :show="loading" class="tw-px-2">
@@ -40,33 +40,43 @@
         /> -->
       </n-spin>
     </section>
-    <section class="bg-third tw-rounded-2xl tw-my-6 md:tw-flex tw-gap-10 tw-p-6">
-      <div class="tw-flex-1">
-        <p class="tw-text-lg tw-font-bold">Payment Method</p>
-        <label for="creditcard" class="tw-flex tw-items-center">
-          <input name="payment" type="radio" id="creditcard" class="tw-hidden">
-          <span class="tw-w-4 tw-h-4 tw-rounded-full tw-mr-2" />
-          Credit Card
-        </label>
-        <p class="tw-ml-6 tw-mb-2 text-primary">交易安全無虞請放心使用。如超過三日未收到您的款項，您的訂購單將會自動取消。</p>
-        <label for="atm" class="tw-flex tw-items-center">
-          <input name="payment" type="radio" id="atm" class="tw-hidden">
-          <span class="tw-w-4 tw-h-4 tw-rounded-full tw-mr-2" />
-          ATM transfer
-        </label>
-        <p class="tw-ml-6 tw-mb-2 text-primary">會提供一組 ATM 專用之虛擬帳號，如三日內未收到款項，訂購將會自動取消。</p>
-      </div>
-      <div class="tw-flex-1">
-        Shipping Method
+    <section class="bg-third tw-rounded-2xl tw-my-8 tw-flex tw-flex-col md:tw-flex-row tw-gap-6 md:tw-gap-14 tw-p-6">
+      <div v-for="items in method" :key="items.title" class="tw-flex-1">
+        <p class="tw-text-xl tw-font-bold tw-pb-4 tw-mb-4 tw-border-b tw-border-solid tw-border-white">{{items.title}}</p>
+        <template v-for="item in items.option" :key="item.id">
+          <label :for="item.id" class="tw-cursor-pointer">
+            <div class="tw-flex tw-flex-wrap tw-items-center">
+              <input v-model="methodValue[items.name]" :value="item.id" :name="items.name" type="radio" :id="item.id" class="tw-hidden">
+              <i class="tw-w-4 tw-h-4 tw-rounded-full tw-mr-2" />
+              <span class="tw-font-semibold">{{item.txt}}</span>
+            </div>
+            <p class="tw-ml-6 tw-mt-2 tw-mb-4 text-primary tw-flex-1">{{item.info}}</p>
+          </label>
+        </template>
       </div>
     </section>
+    <h5>ORDER SUMMARY</h5>
+    <div class="tw-text-xl tw-text-right tw-font-bold">
+      <p class="tw-mb-2">Your Basket
+        <span class="tw-ml-4 text-primary">NT$ {{cart.final_total}}</span>
+      </p>
+      <p class="tw-pb-4 tw-border-b tw-border-solid border-theme">+ Shipping
+        <span class="tw-ml-4 text-primary">NT$ {{deliveryFee}}</span>
+      </p>
+      <p class="tw-mt-4">Order Total
+        <span class="tw-ml-4 text-second">NT$ {{cart.final_total+deliveryFee}}</span>
+      </p>
+    </div>
+    <router-link to="/products" class="hover:tw-brightness-90 bg-second tw-text-white tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
+      Checkout <font-awesome-icon :icon="['fas', 'angle-right']" />
+    </router-link>
   </main>
 </template>
 <script>
 import TheHeader from '@/components/global/TheHeader.vue'
 import TheProcessBar from '@/components/global/TheProcessBar.vue'
 import { NSpin } from 'naive-ui'
-import { onMounted, inject, ref } from 'vue'
+import { onMounted, inject, ref, reactive, watch } from 'vue'
 // import { useRouter } from 'vue-router'
 
 // const createColumns = ({
@@ -130,20 +140,58 @@ export default {
     const axios = inject('axios')
     const cart = ref({})
     const loading = ref(false)
+    const methodValue = reactive({payment:'', shipping:''})
+    const deliveryFee = ref(0)
     onMounted(() =>{
       loading.value = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
       axios.get(api).then((res) => {
         cart.value = res.data.data
         loading.value = false
-        console.log(cart.value)
       }).catch((err) => {
         console.log(err)
         loading.value = false
       })
     })
+    watch(methodValue, (newVal) => {
+      deliveryFee.value = newVal.shipping==='delivery' ? 80 : 60
+    })
     return {
-      cart, loading
+      cart, loading, methodValue, deliveryFee,
+      method: [
+        {
+          title: 'Payment Method',
+          name: 'payment',
+          option: [
+            {
+              id: 'creditcard',
+              txt: 'Credit Card',
+              info: '交易安全無虞請放心使用。如超過三日未收到您的款項，您的訂購單將會自動取消。'
+            },
+            {
+              id: 'atm',
+              txt: 'ATM transfer',
+              info: '會提供一組 ATM 專用之虛擬帳號，如三日內未收到款項，訂購將會自動取消。'
+            }
+          ]
+        },
+        {
+          title: 'Shipping Method',
+          name: 'shipping',
+          option: [
+            {
+              id: 'delivery',
+              txt: 'Home Delivery',
+              info: '未滿1000元運費80元，滿千免運。'
+            },
+            {
+              id: 'pickup',
+              txt: '7-11 pickup',
+              info: '未滿1000元運費60元，滿千免運。此出貨方式須先透過信用卡或ATM的方式付款，超商端僅提供純取貨之服務。'
+            }
+          ]
+        }
+      ]
       // columns: [
       //   {
       //     title: "Product",
@@ -192,12 +240,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  input ~ span {
+  input ~ i {
     border: 2px solid var(--themeColor);
     opacity: .4;
     position: relative;
   }
-  input:checked ~ span {
+  input:checked ~ i {
     border-color: var(--primaryColor);
     opacity: 1;
     &::after {
