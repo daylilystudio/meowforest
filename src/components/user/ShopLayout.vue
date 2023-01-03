@@ -17,16 +17,16 @@
           <span class="tw-ml-4 text-primary">NT$ {{globalStore.cart.final_total}}</span>
         </p>
         <p class="tw-pb-4 tw-border-b tw-border-solid border-theme">+ Shipping
-          <span class="tw-ml-4 text-primary">NT$ {{globalStore.shipping==='delivery' ? 80 : 60}}</span>
+          <span class="tw-ml-4 text-primary">NT$ {{globalStore.shippingMoney}}</span>
         </p>
         <p class="tw-mt-4">Order Total
-          <span class="tw-ml-4 text-second">NT$ {{globalStore.cart.final_total+(globalStore.shipping==='delivery' ? 80 : 60)}}</span>
+          <span class="tw-ml-4 text-second">NT$ {{globalStore.cart.final_total+(globalStore.shippingMoney)}}</span>
         </p>
       </div>
-      <a v-if="nextBtn" @click="$emit('onGoNext', '')" class="hover:tw-brightness-90 bg-second tw-text-white tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto tw-cursor-pointer">
-        {{ nextBtn }} <font-awesome-icon :icon="['fas', 'angle-right']" />
-      </a>
     </template>
+    <a v-if="nextBtn" @click="$emit('onGoNext', '')" class="hover:tw-brightness-90 bg-second tw-text-white tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto tw-cursor-pointer">
+      {{ nextBtn }} <font-awesome-icon :icon="['fas', 'angle-right']" />
+    </a>
   </main>
 </template>
 

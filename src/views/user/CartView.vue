@@ -1,5 +1,5 @@
 <template>
-  <shop-layout breadcrumb="Shopping Cart" nextBtn="Checkout" @onGoNext="goNext">
+  <shop-layout breadcrumb="Shopping Cart" :nextBtn="globalStore.cart.carts?.length>0?'Checkout':'Back To Home'" @onGoNext="globalStore.cart.carts?.length>0?goNext():router.push('/')">
     <template v-slot:content>
       <template v-if="globalStore.cart.carts?.length>0">
         <div class="tw-hidden md:tw-grid tw-bg-gray-200 tw-rounded-lg tw-py-2.5 tw-px-3 tw-grid-cols-12">
@@ -118,7 +118,7 @@ export default {
     //   globalStore.payment = newVal.payment
     // })
     return {
-      nodata, globalStore, deliveryFee, delCart,
+      router, nodata, globalStore, deliveryFee, delCart,
       goNext() {
         if (globalStore.shipping !=='' && globalStore.payment !=='') {
           router.push('/checkout')

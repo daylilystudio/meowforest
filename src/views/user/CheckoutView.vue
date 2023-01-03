@@ -83,11 +83,12 @@ export default {
             name: globalStore.userInfo.name,
             email: globalStore.userInfo.email,
             tel: globalStore.userInfo.tel,
-            address: globalStore.userInfo.add
+            address: globalStore.userInfo.add,
+            payment_method: globalStore.payment,
+            shipping_method: globalStore.shipping,
+            shipping_money: globalStore.shippingMoney,
           },
-          message: globalStore.msg,
-          payment_method: globalStore.payment,
-          shipping_method: globalStore.shipping
+          message: globalStore.msg
         }
       }
       globalStore.loadingPage = true
@@ -98,8 +99,10 @@ export default {
             content: res.data.message,
             duration: 2000,
           })
-          if(res.data.success) {
-            // router.push('/order/123123')
+          if (res.data.success) {
+            router.push('/order/' + res.data.orderId)
+          } else {
+            router.push('/cart')
           }
         }
         globalStore.loadingPage = false
@@ -113,7 +116,6 @@ export default {
       goNext() {
         const checkFill = Object.values(globalStore.userInfo).every(item => item!=='')
         const checkCardFill = globalStore.payment==='creditcard' ? Object.values(globalStore.cardInfo).every(item => item!=='') : true
-        console.log(checkCardFill)
         if (checkFill && checkCardFill) {
           window.$dialog.warning({
             title: "Confirm Submit Order ?",

@@ -1,4 +1,4 @@
-import { ref, reactive, inject } from 'vue'
+import { ref, reactive, inject, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useGlobalStore = defineStore('global', () => {
@@ -51,6 +51,10 @@ export const useGlobalStore = defineStore('global', () => {
   // method
   const payment = ref('')
   const shipping = ref('')
+  const shippingMoney = ref(0)
+  watch(shipping, (newVal)=>{
+    shippingMoney.value = newVal==='delivery' ? 80 : 60
+  })
   // checkout info
   const userInfo = reactive({
     name: '',
@@ -69,7 +73,7 @@ export const useGlobalStore = defineStore('global', () => {
 
   return {
     loadingPage, loading, menu, products, getProducts,
-    getCart, cart, payment, shipping,
+    getCart, cart, payment, shipping, shippingMoney,
     userInfo, msg, cardInfo, order
   }
 })

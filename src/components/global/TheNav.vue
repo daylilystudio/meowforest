@@ -98,6 +98,6 @@ export default defineComponent({
   }
 }
 .loadingBg{
-  background-color: rgba(#fff, .5);
+  background-color: rgba(#fff, .75);
 }
 </style>
