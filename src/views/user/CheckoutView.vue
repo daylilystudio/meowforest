@@ -77,6 +77,7 @@ export default {
       }
     })
     const submitOrder = () => {
+      const now = new Date()
       const data = {
         data: {
           user: {
@@ -87,6 +88,12 @@ export default {
             payment_method: globalStore.payment,
             shipping_method: globalStore.shipping,
             shipping_money: globalStore.shippingMoney,
+            card: globalStore.cardInfo.number,
+            date: {
+              y: now.getFullYear(),
+              m: now.getMonth()+1,
+              d: now.getDate()
+            }
           },
           message: globalStore.msg
         }

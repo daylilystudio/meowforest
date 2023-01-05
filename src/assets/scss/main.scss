@@ -64,6 +64,9 @@ a {
 .text-second{
   color: var(--secondColor);
 }
+.text-theme{
+  color: var(--themeColor);
+}
 .border-primary{
   border-color: var(--primaryColor);
   &:focus-visible{
