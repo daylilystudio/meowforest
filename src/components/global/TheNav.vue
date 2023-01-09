@@ -21,12 +21,18 @@
       </strong>
     </router-link>
   </nav>
+  <div v-if="globalStore.loadingPage" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center">
+    <font-awesome-icon :icon="['fas', 'spinner']" class="fa-2xl fa-spin -tw-mb-3 tw-ml-8" />
+    <img :src="loadingImg" alt="loading cat" class="tw-w-40 tw-h-auto">
+  </div>
 </template>
 <script>
 import { defineComponent, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
+// img
+import loadingImg from '@/assets/img/loading.png'
 
 export default defineComponent({
   setup() {
@@ -38,7 +44,7 @@ export default defineComponent({
       globalStore.getCart()
     })
     return {
-      route, router, globalStore,
+      loadingImg, route, router, globalStore,
       toggleMenu(e) {
         e.target.classList.toggle('active')
         document.querySelector('.menuList').classList.toggle('active')
@@ -90,5 +96,8 @@ export default defineComponent({
       height: 16rem;
     }
   }
+}
+.loadingBg{
+  background-color: rgba(#fff, .5);
 }
 </style>

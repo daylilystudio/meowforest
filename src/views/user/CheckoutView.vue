@@ -6,22 +6,27 @@
         <label for="infoName">
           Full Name <span class="text-second">*</span><br>
           <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
-            v-model="globalStore.shippingInfo.name" type="text" name="name" id="infoName" placeholder="enter full name">
+            v-model="globalStore.userInfo.name" type="text" name="name" id="infoName" placeholder="enter full name">
         </label>
         <label for="infoTel">
           Mobile Number <span class="text-second">*</span><br>
           <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="16"
-            v-model="globalStore.shippingInfo.phone" type="tel" name="tel" id="infoTel" placeholder="e.g. 0900111222">
+            v-model="globalStore.userInfo.tel" type="tel" name="tel" id="infoTel" placeholder="e.g. 0900111222">
         </label>
         <label for="infoEmail">
           E-mail <span class="text-second">*</span><br>
           <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
-            v-model="globalStore.shippingInfo.email" type="email" name="email" id="infoEmail" placeholder="name@email.com">
+            v-model="globalStore.userInfo.email" type="email" name="email" id="infoEmail" placeholder="name@email.com">
         </label>
         <label for="infoAdd">
           Address <span class="text-second">*</span><br>
           <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
-            v-model="globalStore.shippingInfo.add" type="text" name="address" id="infoAdd" placeholder="enter full address">
+            v-model="globalStore.userInfo.add" type="text" name="address" id="infoAdd" placeholder="enter full address">
+        </label>
+        <label for="msg" class="tw-col-span-2">
+          Memo<br>
+          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
+            v-model="globalStore.msg" type="text" id="msg">
         </label>
       </div>
       <hr class="tw-opacity-40 tw-mt-10 tw-mb-8">
@@ -55,7 +60,7 @@
 
 <script>
 import ShopLayout from '../../components/user/ShopLayout.vue'
-import { onMounted } from 'vue'
+import { inject, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
@@ -64,19 +69,61 @@ export default {
   components: { ShopLayout },
   setup() {
     const router = useRouter()
+    const axios = inject('axios')
     const globalStore = useGlobalStore()
     onMounted(() => {
       if (globalStore.cart.carts?.length===0 || globalStore.payment==='' || globalStore.shipping==='' ) {
         router.push('/')
       }
     })
+    const submitOrder = () => {
+      const data = {
+        data: {
+          user: {
+            name: globalStore.userInfo.name,
+            email: globalStore.userInfo.email,
+            tel: globalStore.userInfo.tel,
+            address: globalStore.userInfo.add
+          },
+          message: globalStore.msg,
+          payment_method: globalStore.payment,
+          shipping_method: globalStore.shipping
+        }
+      }
+      globalStore.loadingPage = true
+      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`
+      axios.post(api, data).then((res) => {
+        if(res) {
+          window.$notification.warning({
+            content: res.data.message,
+            duration: 2000,
+          })
+          if(res.data.success) {
+            // router.push('/order/123123')
+          }
+        }
+        globalStore.loadingPage = false
+      }).catch((err) => {
+        console.log(err)
+        globalStore.loadingPage = false
+      })
+    }
     return {
       globalStore,
       goNext() {
-        const checkFill = Object.values(globalStore.shippingInfo).every(item => item!=='')
+        const checkFill = Object.values(globalStore.userInfo).every(item => item!=='')
         const checkCardFill = globalStore.payment==='creditcard' ? Object.values(globalStore.cardInfo).every(item => item!=='') : true
+        console.log(checkCardFill)
         if (checkFill && checkCardFill) {
-          router.push('/order/123123')
+          window.$dialog.warning({
+            title: "Confirm Submit Order ?",
+            positiveText: "Sure !",
+            negativeText: "No",
+            blockScroll: false,
+            onPositiveClick: () => {
+              submitOrder()
+            }
+          })
           return
         }
         window.$notification.warning({

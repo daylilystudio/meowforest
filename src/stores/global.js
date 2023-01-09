@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useGlobalStore = defineStore('global', () => {
   const axios = inject('axios')
+  const loadingPage = ref(false)
   const loading = ref(false)
   const menu = ref([
     {
@@ -51,12 +52,13 @@ export const useGlobalStore = defineStore('global', () => {
   const payment = ref('')
   const shipping = ref('')
   // checkout info
-  const shippingInfo = reactive({
+  const userInfo = reactive({
     name: '',
-    phone: '',
+    tel: '',
     email: '',
     add: ''
   })
+  const msg = ref('')
   const cardInfo = reactive({
     number: '',
     valid: '',
@@ -66,8 +68,8 @@ export const useGlobalStore = defineStore('global', () => {
   const order = ref()
 
   return {
-    loading, menu, products, getProducts,
+    loadingPage, loading, menu, products, getProducts,
     getCart, cart, payment, shipping,
-    shippingInfo, cardInfo, order
+    userInfo, msg, cardInfo, order
   }
 })
