@@ -7,8 +7,8 @@
   // store composition API
   import { useGlobalStore } from '@/stores/global.js';
   const globalStore = useGlobalStore();
-  const { getProducts } = globalStore;
-  getProducts()
+  globalStore.getProducts()
+  globalStore.getCart()
 </script>
 
 <template>

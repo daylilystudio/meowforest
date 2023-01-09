@@ -1,8 +1,9 @@
-import { ref, inject } from 'vue'
+import { ref, reactive, inject } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useGlobalStore = defineStore('global', () => {
   const axios = inject('axios')
+  const loading = ref(false)
   const menu = ref([
     {
       name: '貓の食品',
@@ -33,6 +34,40 @@ export const useGlobalStore = defineStore('global', () => {
       console.log(err)
     })
   }
+  // get carts
+  const cart = ref([])
+  async function getCart() {
+    loading.value = true
+    const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
+    axios.get(api).then((res) => {
+      cart.value = res.data.data
+      loading.value = false
+    }).catch((err) => {
+      console.log(err)
+      loading.value = false
+    })
+  }
+  // method
+  const payment = ref('')
+  const shipping = ref('')
+  // checkout info
+  const shippingInfo = reactive({
+    name: '',
+    phone: '',
+    email: '',
+    add: ''
+  })
+  const cardInfo = reactive({
+    number: '',
+    valid: '',
+    cvv: ''
+  })
+  // order info
+  const order = ref()
 
-  return { menu, products, getProducts }
+  return {
+    loading, menu, products, getProducts,
+    getCart, cart, payment, shipping,
+    shippingInfo, cardInfo, order
+  }
 })

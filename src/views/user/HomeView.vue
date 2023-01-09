@@ -8,10 +8,10 @@
     </span>
   </header>
   <section class="circleBlock tw-relative tw-mx-auto tw-text-center tw-flex tw-flex-col sm:tw-flex-row tw-justify-between tw-gap-y-8">
-    <a class="sm:tw-w-1/4 tw-cursor-pointer hover:tw-scale-95 tw-duration-300" v-for="(list ,i) in circle" :key="i">
+    <router-link v-for="(list ,i) in circle" :key="i" :to="list.link" class="sm:tw-w-1/4 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
       <span class="circle tw-block tw-w-full tw-rounded-full" :style="{backgroundImage: 'url('+ list.img +')'}" />
       <img :src="list.imgFont" class="tw-w-3/5 tw-pt-4" :alt="list.alt">
-    </a>
+    </router-link>
   </section>
   <section class="container tw-mt-20 tw-mb-28">
     <img class="tw-w-full tw-hidden md:tw-block tw-opacity-60" :src="divider" alt="cat divider line">
@@ -86,19 +86,19 @@
         scrollNext,
         circle: [
           {
-            link: 'products/',
+            link: 'products?category=food',
             img: list1,
             imgFont: listFont1,
             alt: 'Cat Food'
           },
           {
-            link: 'products/',
+            link: 'products?category=use',
             img: list2,
             imgFont: listFont2,
             alt: 'Cat Use'
           },
           {
-            link: 'products/',
+            link: 'products?category=toy',
             img: list3,
             imgFont: listFont3,
             alt: 'Cat Toy'

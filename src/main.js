@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
@@ -10,10 +9,9 @@ import App from './App.vue'
 import './assets/scss/main.scss'
 
 const app = createApp(App)
-app.use(VueAxios, axios)
-app.provide('axios', app.config.globalProperties.axios) 
-app.use(createPinia())
 app.use(router)
+app.use(VueAxios, axios)
+app.provide('axios', app.config.globalProperties.axios)
 
 // filter
 import filter from './utils/filter'
@@ -27,5 +25,9 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 library.add(fas, far, fab)
 app.component('font-awesome-icon', FontAwesomeIcon)
+// pinia
+import { createPinia } from 'pinia'
+const pinia = createPinia()
+app.use(pinia)
 
 app.mount('#app')

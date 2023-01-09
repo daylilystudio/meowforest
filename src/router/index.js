@@ -5,6 +5,8 @@ import HomeView from '../views/user/HomeView.vue'
 import ProductsView from '../views/user/ProductsView.vue'
 import SingleView from '../views/user/SingleView.vue'
 import CartView from '../views/user/CartView.vue'
+import CheckoutView from '../views/user/CheckoutView.vue'
+import OrderView from '../views/user/OrderView.vue'
 // admin
 import LoginAdmin from '../views/admin/LoginAdmin.vue'
 import HomeAdmin from '../views/admin/HomeAdmin.vue'
@@ -40,6 +42,16 @@ const router = createRouter({
           path: '/cart',
           name: 'user-cart',
           component: CartView
+        },
+        {
+          path: '/checkout',
+          name: 'user-checkout',
+          component: CheckoutView
+        },
+        {
+          path: '/order/:orderid',
+          name: 'user-order',
+          component: OrderView
         }
       ]
     },

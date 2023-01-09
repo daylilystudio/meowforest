@@ -17,21 +17,28 @@
     <router-link to="/cart" :class="{'tw-cursor-not-allowed':route.path==='/cart'}" class="bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">
       <img src="@/assets/img/icon_cart.svg" alt="">
       <strong class="tw-w-5 tw-h-5 bg-notice tw-absolute -tw-top-1 -tw-right-1.5 tw-flex tw-justify-center tw-text-sm tw-text-white tw-rounded-full">
-        2
+        {{ globalStore.cart.carts?.length }}
       </strong>
     </router-link>
   </nav>
 </template>
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+// store composition API
+import { useGlobalStore } from '@/stores/global.js'
 
 export default defineComponent({
   setup() {
     const route = useRoute()
     const router = useRouter()
+    const globalStore = useGlobalStore()
+    onMounted(() =>  {
+      globalStore.getProducts()
+      globalStore.getCart()
+    })
     return {
-      route, router,
+      route, router, globalStore,
       toggleMenu(e) {
         e.target.classList.toggle('active')
         document.querySelector('.menuList').classList.toggle('active')

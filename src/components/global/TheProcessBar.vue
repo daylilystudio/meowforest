@@ -19,6 +19,7 @@
     </div>
   </section>
 </template>
+
 <script>
 // image
 import bar1 from '@/assets/img/processbar1.png'
