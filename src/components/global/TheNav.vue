@@ -27,6 +27,7 @@
   </div>
 </template>
 <script>
+
 import { defineComponent, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // store composition API

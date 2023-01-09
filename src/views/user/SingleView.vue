@@ -30,7 +30,10 @@
         </swiper>
       </div>
       <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
-        <h2>{{ product.title }}</h2>
+        <h2 class="tw-flex tw-justify-between tw-items-center">
+          {{ product.title }}
+          <font-awesome-icon @click="toggleFav(product.id)" :icon="[isFav?'fas':'far', 'heart']" class="text-second tw-p-2 -tw-mr-2 tw-cursor-pointer" />
+        </h2>
         <p v-html="product.description" />
         <p class="tw-my-4">
           <span class="text-second tw-text-2xl tw-font-bold tw-mr-3">NT$ {{ product.price }}</span>
@@ -96,6 +99,7 @@ export default {
     const tab = ref('spec')
     const addNum = ref(1)
     const loadingAdd = ref(false)
+    const isFav = ref(false)
     onMounted(() =>{
       const id = route.path.split('/')[2]
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
@@ -106,6 +110,9 @@ export default {
       }).catch((err) => {
         console.log(err)
       })
+      // isFav
+      const fav = window.localStorage.getItem('meowforestFav'+id)
+      if(fav==='y') isFav.value=true
     })
     // swiper
     let thumbsSwiper = ref(null)
@@ -126,6 +133,7 @@ export default {
       }
     }
     return{
+      isFav,
       thumbsSwiper,
       setThumbsSwiper,
       modules: [Thumbs],
@@ -138,6 +146,15 @@ export default {
       async buy(id) {
         await addCartApi(id)
         router.push('/cart')
+      },
+      toggleFav(id) {
+        const fav = window.localStorage.getItem('meowforestFav'+id)
+        if(fav==='y') {
+          window.localStorage.removeItem('meowforestFav'+id)
+        } else {
+          window.localStorage.setItem('meowforestFav'+id, 'y')
+        }
+        isFav.value = !isFav.value
       },
       notice: [
         {
@@ -182,5 +199,8 @@ export default {
   :deep(.swiper-slide){
     background-size: cover;
     background-position: center;
+  }
+  :deep(.n-input__input-el){
+    text-align: center;
   }
 </style>

@@ -16,7 +16,15 @@
       role="dialog"
       aria-modal="true"
     >
-      dasdsa
+      <div v-for="item in globalStore.products" :key="item.id">
+        <template v-if="fav(item.id)">
+          <div class="tw-flex tw-justify-between tw-items-center">
+            <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-20 tw-rounded-lg">
+            <p class="tw-flex-1 tw-pl-4">{{ item.title }} / ${{ item.price }}</p>
+            <font-awesome-icon :icon="['far', 'circle-xmark']" class="text-primary fa-lg" />
+          </div>
+        </template>
+      </div>
     </n-card>
   </n-modal>
 </template>
@@ -24,13 +32,17 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { NModal, NCard } from 'naive-ui'
+// store
+import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { NModal, NCard },
   setup() {
     const router = useRouter()
     const showModal = ref(false)
+    const globalStore = useGlobalStore()
     return {
+      globalStore,
       router,
       showModal,
       clickBtn(e) {
@@ -45,6 +57,10 @@ export default {
             })
             break
         }
+      },
+      fav(id) {
+        const fav = window.localStorage.getItem('meowforestFav'+id)
+        if(fav==='y') return true
       },
       list: [
         {

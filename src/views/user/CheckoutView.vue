@@ -76,6 +76,16 @@ export default {
         router.push('/')
       }
     })
+    const payOrder = (id) => {
+      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/pay/${id}`
+      axios.post(api).then((res) => {
+        if(res) {
+          return res
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
     const submitOrder = () => {
       const now = new Date()
       const data = {
@@ -100,13 +110,16 @@ export default {
       }
       globalStore.loadingPage = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`
-      axios.post(api, data).then((res) => {
+      axios.post(api, data).then(async (res) => {
         if(res) {
           window.$notification.warning({
             content: res.data.message,
             duration: 2000,
           })
           if (res.data.success) {
+            if (globalStore.payment==='creditcard') {
+              await payOrder(res.data.orderId)
+            }
             router.push('/order/' + res.data.orderId)
           } else {
             router.push('/cart')
@@ -121,6 +134,13 @@ export default {
     return {
       globalStore,
       goNext() {
+        if (globalStore.cardInfo.number.length !==16 || globalStore.cardInfo.valid.length !==4 || globalStore.cardInfo.cvv.length !==3) {
+          window.$notification.warning({
+            content: 'Please Confirm Payment Info',
+            duration: 2000,
+          })
+          return
+        }
         const checkFill = Object.values(globalStore.userInfo).every(item => item!=='')
         const checkCardFill = globalStore.payment==='creditcard' ? Object.values(globalStore.cardInfo).every(item => item!=='') : true
         if (checkFill && checkCardFill) {

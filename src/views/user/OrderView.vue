@@ -3,7 +3,7 @@
     <template v-slot:content>
       <div v-if="orderInfo!==null">
         <h4 class="tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Order Details
-          <span class="text-second border-second tw-border tw-border-solid tw-text-sm tw-rounded-full tw-px-2 tw-ml-1">{{ orderInfo.user.is_paid ? 'Paid' : 'Unpaid' }}</span>
+          <span class="text-second border-second tw-border tw-border-solid tw-text-sm tw-rounded-full tw-px-2 tw-ml-1">{{ orderInfo.is_paid ? 'Paid' : 'Unpaid' }}</span>
         </h4>
         <p class="tw-text-right tw-font-bold text-primary tw-my-2 tw-mr-4">Order No. {{ orderInfo.create_at }}
           <br class="tw-block md:tw-hidden">
@@ -33,10 +33,10 @@
           <div><span class="tw-font-bold tw-mr-1">Phone</span> {{ orderInfo.user.tel }}</div>
           <div><span class="tw-font-bold tw-mr-1">Address</span> {{ orderInfo.user.address }}</div>
         </section>
-        <h4 class="tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4 tw-mt-10 tw-mb-1
-          tw-flex tw-justify-between tw-items-center">
+        <h4 @click="openProducts=!openProducts" class="tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4 tw-mt-10 tw-mb-1
+          tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
           Products Detail
-          <p @click="openProducts=!openProducts" :class="{'fa-rotate-180':!openProducts}" class="tw-px-4 -tw-mr-4 tw-cursor-pointer"><font-awesome-icon :icon="['fas', 'angle-up']" /></p>
+          <p :class="{'fa-rotate-180':!openProducts}"><font-awesome-icon :icon="['fas', 'angle-up']" /></p>
         </h4>
         <section :class="(openProducts?'tw-h-auto ':'tw-h-0')" class="tw-overflow-hidden tw-px-4">
           <div v-for="(item, i) in orderInfo.products" :key="i" class="tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-4 tw-border-b tw-border-solid tw-border-gray-200">

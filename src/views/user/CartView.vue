@@ -153,12 +153,12 @@ export default {
             {
               id: 'delivery',
               txt: 'Home Delivery',
-              info: '未滿1000元運費80元，滿千免運。'
+              info: 'Shipping Fee is $80.'
             },
             {
               id: 'pickup',
-              txt: '7-11 pickup',
-              info: '未滿1000元運費60元，滿千免運。此出貨方式須先透過信用卡或ATM的方式付款，超商端僅提供純取貨之服務。'
+              txt: 'Store pickup',
+              info: 'Shipping Fee is $60. Pick up at Meow Store: No. 111, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan'
             }
           ]
         }
