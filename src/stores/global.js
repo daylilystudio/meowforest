@@ -22,6 +22,22 @@ export const useGlobalStore = defineStore('global', () => {
       category: 'toy'
     }
   ])
+  // favorite
+  const isfav = reactive({})
+  const favId = Object.keys(window.localStorage).filter(el => el.match(/meowforestFav/gi))
+  favId.forEach((el) => {
+    isfav[el] = true
+  })
+  const toggleFav = (id) => {
+    const fav = window.localStorage.getItem('meowforestFav' + id)
+    if(fav==='y') {
+      window.localStorage.removeItem('meowforestFav' + id)
+      isfav['meowforestFav' + id] = false
+    } else {
+      window.localStorage.setItem('meowforestFav' + id, 'y')
+      isfav['meowforestFav' + id] = true
+    }
+  }
   // get all products
   const products = ref([])
   async function getProducts() {
@@ -68,12 +84,13 @@ export const useGlobalStore = defineStore('global', () => {
     valid: '',
     cvv: ''
   })
-  // order info
-  const order = ref()
 
   return {
-    loadingPage, loading, menu, products, getProducts,
-    getCart, cart, payment, shipping, shippingMoney,
-    userInfo, msg, cardInfo, order
+    loadingPage, loading, menu,
+    isfav, toggleFav,
+    getProducts, products,
+    getCart, cart,
+    payment, shipping, shippingMoney,
+    userInfo, msg, cardInfo
   }
 })

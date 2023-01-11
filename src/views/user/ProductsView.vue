@@ -23,8 +23,8 @@
         <router-link :to="'/products/'+list.id" class="tw-group" v-for="list in productsList" :key="list.id">
           <div class="tw-relative tw-overflow-hidden">
             <img class="tw-w-full group-hover:tw-scale-110" :src="list.imagesUrl[0]" alt="product image">
-            <p @click="addFav($event, list.id)" class="text-second fa-xl tw-absolute tw-right-3 tw-top-3" title="Add Favorite">
-              <font-awesome-icon :icon="[false ? 'fas' : 'far', 'heart']" />
+            <p @click.prevent="globalStore.toggleFav(list.id)" class="text-second fa-xl tw-absolute tw-right-3 tw-top-3" title="Add Favorite">
+              <font-awesome-icon :icon="[globalStore.isfav['meowforestFav' + list.id] ? 'fas' : 'far', 'heart']" />
             </p>
           </div>
           <p class="tw-font-bold tw-mt-3 tw-mb-1">{{list.title}}</p>
@@ -47,21 +47,18 @@ export default {
   setup() {
     const route = useRoute()
     const globalStore = useGlobalStore();
-    const {menu, products} = storeToRefs(globalStore);
+    const { menu, products } = storeToRefs(globalStore);
     const searchText = ref()
     const bread = computed(() => route.query?.category ? route.query.category : '')
     if (menu.value.every(el=>!el.name.includes('All'))) {
       menu.value.unshift({name:'All', link:'/products', category:''})
-    }
-    const addFav = (e, id) => {
-      e.preventDefault()
-      alert(id)
     }
     watch(bread, ()=>{
       searchText.value = ''
     })
     const productsList = computed({
       get: () => {
+        console.log(route.query?.category)
         if (route.query?.category && searchText.value==='') {
           const category = menu.value.filter(el=>el.category===route.query?.category)
           return products.value.filter(el=>el.category===category[0].name)
@@ -75,15 +72,12 @@ export default {
       },
     });
     return {
+      globalStore,
       searchText,
       bread,
       menu,
-      productsList,
-      addFav
+      productsList
     }
   }
 }
 </script>
-<style lang="scss" scoped>
-    
-</style>

@@ -32,7 +32,7 @@
       <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
         <h2 class="tw-flex tw-justify-between tw-items-center">
           {{ product.title }}
-          <font-awesome-icon @click="toggleFav(product.id)" :icon="[isFav?'fas':'far', 'heart']" class="text-second tw-p-2 -tw-mr-2 tw-cursor-pointer" />
+          <font-awesome-icon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="text-second tw-p-2 -tw-mr-2 tw-cursor-pointer" />
         </h2>
         <p v-html="product.description" />
         <p class="tw-my-4">
@@ -82,12 +82,14 @@ import { useRoute, useRouter } from 'vue-router'
 import { NInputNumber } from 'naive-ui'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Thumbs } from 'swiper';
+import { Thumbs } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import "swiper/css/free-mode"
-import "swiper/css/thumbs"
+import 'swiper/css/free-mode'
+import 'swiper/css/thumbs'
+// store
+import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { TheHeader, Swiper, SwiperSlide, NInputNumber },
@@ -99,7 +101,7 @@ export default {
     const tab = ref('spec')
     const addNum = ref(1)
     const loadingAdd = ref(false)
-    const isFav = ref(false)
+    const globalStore = useGlobalStore()
     onMounted(() =>{
       const id = route.path.split('/')[2]
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
@@ -111,8 +113,8 @@ export default {
         console.log(err)
       })
       // isFav
-      const fav = window.localStorage.getItem('meowforestFav'+id)
-      if(fav==='y') isFav.value=true
+      // const fav = window.localStorage.getItem('meowforestFav'+id)
+      // if(fav==='y') isFav.value=true
     })
     // swiper
     let thumbsSwiper = ref(null)
@@ -133,7 +135,7 @@ export default {
       }
     }
     return{
-      isFav,
+      globalStore,
       thumbsSwiper,
       setThumbsSwiper,
       modules: [Thumbs],
@@ -146,15 +148,6 @@ export default {
       async buy(id) {
         await addCartApi(id)
         router.push('/cart')
-      },
-      toggleFav(id) {
-        const fav = window.localStorage.getItem('meowforestFav'+id)
-        if(fav==='y') {
-          window.localStorage.removeItem('meowforestFav'+id)
-        } else {
-          window.localStorage.setItem('meowforestFav'+id, 'y')
-        }
-        isFav.value = !isFav.value
       },
       notice: [
         {

@@ -82,7 +82,7 @@ export default {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order/${id}`
       axios.get(api).then((res) => {
-        if (res.data.success) orderInfo.value = res.data.order
+        orderInfo.value = res.data.success ? res.data.order : 'No order found'
         console.log(res)
         globalStore.loading = false
       }).catch((err) => {
