@@ -6,7 +6,7 @@
       <router-link to="/products" class="tw-font-bold">Product List</router-link> /
       <span>{{ product.title }}</span>
     </div>
-    <div class="shadow md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
+    <div v-if="!noProduct" class="shadow md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <div>
         <div class="tw-relative tw-w-full tw-h-0" style="padding-bottom:75%">
           <swiper
@@ -54,7 +54,7 @@
     </div>
   </main>
   <!-- tab -->
-  <section class="container tw-mt-10 md:tw-pl-1">
+  <section v-if="!noProduct" class="container tw-mt-10 md:tw-pl-1">
     <ul class="tw-flex tw-list-none tw-text-lg tw-font-bold">
       <li @click="tab='spec'" :class="{'active':tab==='spec'}" class="menuA tw-cursor-pointer tw-mr-8">Product Spec</li>
       <li @click="tab='notice'" :class="{'active':tab==='notice'}" class="menuA tw-cursor-pointer">Notice</li>
@@ -71,8 +71,9 @@
       </template>
     </div>
   </section>
+  <img v-if="noProduct" :src="nodata" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
   <router-link to="/products" class="hover:tw-brightness-90 bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
-    Back to Product List
+    Back To Product List
   </router-link>
 </template>
 <script>
@@ -90,6 +91,8 @@ import 'swiper/css/free-mode'
 import 'swiper/css/thumbs'
 // store
 import { useGlobalStore } from '@/stores/global.js'
+// img
+import nodata from '@/assets/img/nodata.png'
 
 export default {
   components: { TheHeader, Swiper, SwiperSlide, NInputNumber },
@@ -98,19 +101,26 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const product = ref({})
+    const noProduct = ref(false)
     const tab = ref('spec')
     const addNum = ref(1)
     const loadingAdd = ref(false)
     const globalStore = useGlobalStore()
     onMounted(() =>{
+      globalStore.loadingPage = true
       const id = route.path.split('/')[2]
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
       axios.get(api).then((res) => {
         if(res.data.success){
           product.value = res.data.product
+        } else {
+          noProduct.value = true
         }
+        globalStore.loadingPage = false
       }).catch((err) => {
         console.log(err)
+        noProduct.value = true
+        globalStore.loadingPage = false
       })
       // isFav
       // const fav = window.localStorage.getItem('meowforestFav'+id)
@@ -139,7 +149,8 @@ export default {
       thumbsSwiper,
       setThumbsSwiper,
       modules: [Thumbs],
-      product, tab, addNum, loadingAdd,
+      nodata,
+      noProduct, product, tab, addNum, loadingAdd,
       async addCart(id) {
         const res = await addCartApi(id)
         const icon = res.data.success ? 'success' : 'error'
@@ -153,7 +164,7 @@ export default {
         {
           title: '運費說明',
           content: [
-            '超商取貨運費 60 元｜宅配到府運費 80 元，',
+            '喵森據點取貨免運費｜宅配到府運費 80 元，',
             '單筆訂單滿 1,000 元免運費。',
             '若因其商品價值、時效性或體積等特性，僅提供一種出貨方式、運費不同時，將在該商品頁面告知。',
             '宅配除特殊品項，會於商品頁的「注意事項」公告配送說明，其餘品項使用宅配通進行配送。'

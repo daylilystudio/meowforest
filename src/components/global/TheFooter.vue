@@ -5,10 +5,11 @@
         <img class="tw-mr-14 tw-hidden lg:tw-block" :src="logo" alt="Logo">
         <div class="tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Product</p>
-          <router-link to="/products?category=food">貓の食品</router-link>
+          <router-link v-for="list in globalStore.menu" :key="list.link" :to="list.link" :class="{'text-second':list.key==='login'}">{{ list.name }}</router-link>
+          <!-- <router-link to="/products?category=food">貓の食品</router-link>
           <router-link to="/products?category=use">貓の用品</router-link>
           <router-link to="/products?category=toy">貓の玩具</router-link>
-          <router-link to="/login" class="text-second">登入後台</router-link>
+          <router-link to="/login" class="text-second">登入後台</router-link> -->
         </div>
         <div class="tw-mt-14 sm:tw-mt-0 tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Contact</p>
@@ -26,13 +27,16 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
+// store composition API
+import { useGlobalStore } from '@/stores/global.js'
 // image
 import logo from '@/assets/img/logo_light.svg'
 
 export default defineComponent({
   setup() {
+    const globalStore = useGlobalStore()
     return {
-      logo,
+      globalStore, logo,
       thisYear() {
         const now = new Date()
         return now.getFullYear()

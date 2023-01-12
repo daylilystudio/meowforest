@@ -120,7 +120,9 @@ export default {
             if (globalStore.payment==='creditcard') {
               await payOrder(res.data.orderId)
             }
-            // avoid not yet create order, so wait 1s
+            await globalStore.initInfo()
+            await globalStore.getCart()
+            // avoid not create order yet, so wait 1s
             await setTimeout(()=>{
               router.push('/order/' + res.data.orderId)
             }, 1000)

@@ -2,14 +2,15 @@
   <nav class="nav-container tw-h-14 xl:tw-h-16 tw-fixed tw-top-3 sm:tw-top-6 tw-left-1/2 -tw-translate-x-1/2
   tw-rounded-full tw-shadow-xl tw-bg-white tw-flex tw-items-center tw-p-1.5 tw-z-20">
     <img @click="router.push('/')" src="@/assets/logo.svg" class="tw-h-8 tw-ml-6 tw-cursor-pointer" alt="Logo">
-    <div class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-8 tw-items-center tw-justify-center
+    <div :class="{'active':openMobileNav}" class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-8 tw-items-center tw-justify-center
     tw-bg-white text-second tw-font-bold tw-text-lg md:tw-ml-auto tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none">
-      <router-link to="/products?category=food" class="menuA">貓の食品</router-link>
+      <!-- <router-link @click="openMobileNav=false" to="/products?category=food" class="menuA">貓の食品</router-link>
       <router-link to="/products?category=use" class="menuA">貓の用品</router-link>
-      <router-link to="/products?category=toy" class="menuA">貓の玩具</router-link>
-      <router-link to="/login" class="menuA text-primary">登入後台</router-link>
+      <router-link to="/products?category=toy" class="menuA">貓の玩具</router-link> -->
+      <router-link v-for="list in globalStore.menu" :key="list.link" @click="openMobileNav=false" :to="list.link" :class="{'text-primary':list.key==='login'}" class="menuA">{{ list.name }}</router-link>
+      <!-- <router-link @click="openMobileNav=false" to="/login" class="menuA text-primary">登入後台</router-link> -->
     </div>
-    <a @click="toggleMenu($event)" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
+    <a @click="openMobileNav=!openMobileNav" :class="{'active':openMobileNav}" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
       <span></span>
       <span></span>
       <span></span>
@@ -21,14 +22,15 @@
       </strong>
     </router-link>
   </nav>
-  <div v-if="globalStore.loadingPage" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center">
+  <div @click="openMobileNav=false" :class="{'tw-pointer-events-none tw-opacity-0':!openMobileNav}" class="bg-theme tw-opacity-50 tw-block md:tw-hidden tw-fixed tw-w-full tw-h-full tw-top-0 tw-z-10" />
+  <div v-if="globalStore.loadingPage" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-30">
     <font-awesome-icon :icon="['fas', 'spinner']" class="fa-2xl fa-spin -tw-mb-3 tw-ml-8" />
     <img :src="loadingImg" alt="loading cat" class="tw-w-40 tw-h-auto">
   </div>
 </template>
 <script>
 
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
@@ -40,16 +42,13 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const globalStore = useGlobalStore()
+    const openMobileNav = ref(false)
     onMounted(() =>  {
       globalStore.getProducts()
       globalStore.getCart()
     })
     return {
-      loadingImg, route, router, globalStore,
-      toggleMenu(e) {
-        e.target.classList.toggle('active')
-        document.querySelector('.menuList').classList.toggle('active')
-      }
+      loadingImg, route, router, globalStore, openMobileNav
     }
   }
 })

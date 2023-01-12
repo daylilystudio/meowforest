@@ -153,12 +153,12 @@ export default {
             {
               id: 'delivery',
               txt: 'Home Delivery',
-              info: 'Shipping Fee is $80.'
+              info: '宅配運費 NT$80'
             },
             {
               id: 'pickup',
               txt: 'Store pickup',
-              info: 'Shipping Fee is $60. Pick up at Meow Store: No. 111, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan'
+              info: '喵森據點自取免運，據點地址：台北市中山區幸運路666號' // No. 666, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan
             }
           ]
         }

@@ -18,8 +18,10 @@
     >
       <template v-for="item in globalStore.products" :key="item.id">
         <div v-if="globalStore.isfav['meowforestFav' + item.id]" class="tw-flex tw-justify-between tw-items-center tw-py-2">
-          <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
-          <p class="text-theme md:tw-text-base tw-flex-1 tw-pl-4">{{ item.title }} / ${{ item.price }}</p>
+          <a @click="showModal=false;router.push('/products/'+item.id)" :class="{'tw-cursor-pointer':route.path.split('/')[2]!==item.id}" class="tw-flex-1 tw-flex tw-items-center">
+            <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
+            <span class="text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
+          </a>
           <a @click="globalStore.toggleFav(item.id)" class="tw-p-2 -tw-mr-2 tw-cursor-pointer">
             <font-awesome-icon :icon="['far', 'circle-xmark']" class="text-primary fa-xl" />
           </a>
@@ -33,7 +35,7 @@
 </template>
 <script>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { NModal, NCard } from 'naive-ui'
 // store
 import { useGlobalStore } from '@/stores/global.js'
@@ -43,13 +45,14 @@ import nodata from '@/assets/img/nodata.png'
 export default {
   components: { NModal, NCard },
   setup() {
+    const route = useRoute()
     const router = useRouter()
     const showModal = ref(false)
     const globalStore = useGlobalStore()
     return {
       nodata,
       globalStore,
-      router,
+      route, router,
       showModal,
       clickBtn(e) {
         switch(e) {

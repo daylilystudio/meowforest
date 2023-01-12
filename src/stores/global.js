@@ -7,19 +7,29 @@ export const useGlobalStore = defineStore('global', () => {
   const loading = ref(false)
   const menu = ref([
     {
+      name: '全部商品',
+      link: '/products',
+      key: 'all'
+    },
+    {
       name: '貓の食品',
       link: '/products?category=food',
-      category: 'food'
+      key: 'food'
     },
     {
       name: '貓の用品',
       link: '/products?category=use',
-      category: 'use'
+      key: 'use'
     },
     {
       name: '貓の玩具',
       link: '/products?category=toy',
-      category: 'toy'
+      key: 'toy'
+    },
+    {
+      name: '登入後台',
+      link: '/login',
+      key: 'login'
     }
   ])
   // favorite
@@ -69,7 +79,7 @@ export const useGlobalStore = defineStore('global', () => {
   const shipping = ref('')
   const shippingMoney = ref(0)
   watch(shipping, (newVal)=>{
-    shippingMoney.value = newVal==='delivery' ? 80 : 60
+    shippingMoney.value = newVal==='delivery' ? 80 : 0
   })
   // checkout info
   const userInfo = reactive({
@@ -84,6 +94,20 @@ export const useGlobalStore = defineStore('global', () => {
     valid: '',
     cvv: ''
   })
+  // init method, checkout info
+  const initInfo = () => {
+    payment.value = ''
+    shipping.value = ''
+    shippingMoney.value = 0
+    userInfo.name = ''
+    userInfo.tel = ''
+    userInfo.email = ''
+    userInfo.add = ''
+    msg.value = ''
+    cardInfo.number = ''
+    cardInfo.valid = ''
+    cardInfo.cvv = ''
+  }
 
   return {
     loadingPage, loading, menu,
@@ -91,6 +115,6 @@ export const useGlobalStore = defineStore('global', () => {
     getProducts, products,
     getCart, cart,
     payment, shipping, shippingMoney,
-    userInfo, msg, cardInfo
+    userInfo, msg, cardInfo, initInfo
   }
 })

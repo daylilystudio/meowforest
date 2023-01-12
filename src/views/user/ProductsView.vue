@@ -8,7 +8,7 @@
         <font-awesome-icon class="tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" :icon="['fas', 'magnifying-glass']" />
       </label>
       <div class="tw-mt-4 lg:tw-ml-2 tw-flex lg:tw-flex-col tw-justify-around">
-        <router-link :to="item.link" v-for="item in menu" :key="item.name" class="tw-leading-8 tw-font-bold tw-cursor-pointer">
+        <router-link :to="item.link" v-for="item in productMenu" :key="item.name" class="tw-leading-8 tw-font-bold tw-cursor-pointer">
           <font-awesome-icon class="tw-hidden sm:tw-inline sm:tw-mr-2" :icon="['fas', 'paw']" />
           {{ item.name }}
         </router-link>
@@ -48,19 +48,20 @@ export default {
     const route = useRoute()
     const globalStore = useGlobalStore();
     const { menu, products } = storeToRefs(globalStore);
-    const searchText = ref()
+    const searchText = ref('')
     const bread = computed(() => route.query?.category ? route.query.category : '')
-    if (menu.value.every(el=>!el.name.includes('All'))) {
-      menu.value.unshift({name:'All', link:'/products', category:''})
-    }
+    const productMenu = ref([])
+    productMenu.value.push(...menu.value)
+    productMenu.value.forEach((el, i) => {
+      if (el.key.includes('login')) productMenu.value.splice(i, 1)
+    })
     watch(bread, ()=>{
       searchText.value = ''
     })
     const productsList = computed({
       get: () => {
-        console.log(route.query?.category)
         if (route.query?.category && searchText.value==='') {
-          const category = menu.value.filter(el=>el.category===route.query?.category)
+          const category = menu.value.filter(el=>el.key===route.query?.category)
           return products.value.filter(el=>el.category===category[0].name)
         } else if (searchText.value) {
           return products.value.filter(el=>el.title.includes(searchText.value))
@@ -75,7 +76,7 @@ export default {
       globalStore,
       searchText,
       bread,
-      menu,
+      productMenu,
       productsList
     }
   }

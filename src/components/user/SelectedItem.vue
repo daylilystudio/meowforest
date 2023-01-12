@@ -1,5 +1,8 @@
 <template>
   <div class="tw-relative tw-text-white">
+    <p v-if="products.length===0" class="tw-text-center tw-py-20">
+      <font-awesome-icon class="fa-spin fa-xl" :icon="['fas', 'spinner']" />
+    </p>
     <swiper
       v-if="products.length>0"
       class="container !tw-py-10"
