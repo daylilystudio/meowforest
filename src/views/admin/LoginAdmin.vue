@@ -1,5 +1,5 @@
 <template>
-  <n-space justify="center" align="center" class="tw-h-screen">
+  <n-space justify="center" align="center" class="bg tw-h-screen">
     <n-spin :show="loading" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-px-10 tw-py-6">
       <n-form ref="formRef" :model="model">
         <n-form-item path="username" label="Account">
@@ -78,3 +78,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.bg {
+  background-color: #fff;
+}
+</style>

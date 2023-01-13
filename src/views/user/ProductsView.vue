@@ -1,6 +1,6 @@
 <template>
   <the-header />
-  <div class="container lg:tw-grid lg:tw-grid-cols-4 tw-gap-8 tw-pt-10">
+  <div class="container lg:tw-grid lg:tw-grid-cols-4 tw-gap-8 tw-pt-10 -tw-mt-24 sm:tw-mt-auto">
     <aside class="shadow tw-col-span-1 tw-self-start tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <label for="search" class="tw-relative">
         <input class="border-primary tw-w-full tw-rounded-full tw-border-solid tw-py-2 tw-pl-8 tw-pr-4"

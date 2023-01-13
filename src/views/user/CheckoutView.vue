@@ -34,13 +34,13 @@
       <div v-if="globalStore.payment==='creditcard'" class="tw-grid tw-grid-cols-6 tw-gap-4 sm:tw-gap-x-8 tw-gap-y-5 tw-px-4 tw-mt-5">
         <label for="creditcard" class="tw-col-span-6 sm:tw-col-span-3">
           Credit Card Number <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="16"
-            v-model="globalStore.cardInfo.number" type="tel" id="creditcard" placeholder="1111 2222 3333 4444">
+          <input @input="validCard($event)" class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="19"
+            :value="globalStore.cardInfo.number" type="tel" id="creditcard" placeholder="1111 2222 3333 4444">
         </label>
         <label for="valid" class="tw-col-span-4 sm:tw-col-span-2">
           Valid Thru <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="4"
-            v-model="globalStore.cardInfo.valid" type="tel" id="valid" placeholder="MM YY">
+          <input @input="validThru($event)" class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="5"
+            :value="globalStore.cardInfo.valid" type="tel" id="valid" placeholder="MMYY">
         </label>
         <label for="cvv" class="tw-col-span-2 sm:tw-col-span-1">
           CVV <span class="text-second">*</span><br>
@@ -98,7 +98,7 @@ export default {
             payment_method: globalStore.payment,
             shipping_method: globalStore.shipping,
             shipping_money: globalStore.shippingMoney,
-            card: globalStore.cardInfo.number,
+            card: globalStore.cardInfo.number.split(' ').join(''),
             date: {
               y: now.getFullYear(),
               m: now.getMonth()+1,
@@ -138,6 +138,31 @@ export default {
     }
     return {
       globalStore,
+      validCard(e) {
+        const arr = e.target.value.match(/[0-9]/gi)
+        const newArr = []
+        if (e.target.value !== '') {
+          const arr1 = arr.slice(0, 4)
+          const arr2 = arr.slice(4, 8)
+          const arr3 = arr.slice(8, 12)
+          const arr4 = arr.slice(12)
+          if (arr1.length > 0 && arr2.length > 0 && arr3.length === 0) {
+            newArr.push(arr1.join(''), ' ', arr2.join(''))
+          } else if (arr3.length > 0 && arr4.length === 0) {
+            newArr.push(arr1.join(''), ' ', arr2.join(''), ' ', arr3.join(''))
+          } else if (arr4.length > 0) {
+            newArr.push(arr1.join(''), ' ', arr2.join(''), ' ', arr3.join(''), ' ', arr4.join(''))
+          }
+        }
+        globalStore.cardInfo.number = newArr.join('')
+      },
+      validThru(e) {
+        const arr = e.target.value.match(/[0-9]/gi)
+        if (e.target.value !== '' && arr.length > 2) {
+          arr.splice(2, 0, '/')
+        }
+        globalStore.cardInfo.valid = arr.join('')
+      },
       goNext() {
         if (globalStore.cardInfo.number.length !==16 || globalStore.cardInfo.valid.length !==4 || globalStore.cardInfo.cvv.length !==3) {
           window.$notification.warning({

@@ -122,9 +122,6 @@ export default {
         noProduct.value = true
         globalStore.loadingPage = false
       })
-      // isFav
-      // const fav = window.localStorage.getItem('meowforestFav'+id)
-      // if(fav==='y') isFav.value=true
     })
     // swiper
     let thumbsSwiper = ref(null)

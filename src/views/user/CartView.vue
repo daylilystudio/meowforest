@@ -31,11 +31,6 @@
           <div class="tw-text-xl tw-text-right tw-font-bold tw-mt-8">
             Subtotal<span class="tw-ml-4 text-primary">NT$ {{globalStore.cart.total}}</span>
           </div>
-          <!-- <n-data-table
-            :columns="columns"
-            :data="cart.data?.carts"
-            :bordered="false"
-          /> -->
         </n-spin>
       </template>
       <div v-else class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-16 tw-mb-6">
@@ -76,22 +71,8 @@ export default {
   setup() {
     const router = useRouter()
     const axios = inject('axios')
-    // const cart = ref({})
-    // const loading = ref(false)
-    // const methodValue = reactive({payment:'', shipping:''})
     const deliveryFee = ref(0)
     const globalStore = useGlobalStore()
-    // const getCart = () => {
-    //   loading.value = true
-    //   const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
-    //   axios.get(api).then((res) => {
-    //     cart.value = res.data.data
-    //     loading.value = false
-    //   }).catch((err) => {
-    //     console.log(err)
-    //     loading.value = false
-    //   })
-    // }
     const delCart = (id) => {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${id}`
@@ -112,11 +93,6 @@ export default {
     onMounted(() =>{
       globalStore.getCart()
     })
-    // watch(methodValue, (newVal) => {
-    //   deliveryFee.value = newVal.shipping==='delivery' ? 80 : 60
-    //   globalStore.shipping = newVal.shipping
-    //   globalStore.payment = newVal.payment
-    // })
     return {
       router, nodata, globalStore, deliveryFee, delCart,
       goNext() {
@@ -163,49 +139,6 @@ export default {
           ]
         }
       ]
-      // columns: [
-      //   {
-      //     title: "Product",
-      //     key: "product.imagesUrl[0]",
-      //     render(row) {
-      //       return h('div',
-      //         { class: 'tw-cursor-pointer tw-flex tw-items-center', onClick: () => router.push('/products/'+row.product.id) },
-      //         [
-      //           h('img', { src: row.product.imagesUrl[0], class: 'tw-w-28 tw-mr-2'} ),
-      //           h('span', {}, { default: () => row.product.title } )
-      //         ]
-      //       );
-      //     }
-      //   },
-      //   {
-      //     title: "Price",
-      //     key: "product.price"
-      //   },
-      //   {
-      //     title: "Number",
-      //     key: "qty"
-      //   },
-      //   {
-      //     title: "Total",
-      //     key: "total"
-      //   },
-      //   {
-      //     title: "Delete",
-      //     key: "actions",
-      //     render(row) {
-      //       return h(
-      //         NButton,
-      //         {
-      //           strong: true,
-      //           tertiary: true,
-      //           size: "small",
-      //           onClick: () => alert(row.id)
-      //         },
-      //         { default: () => "Play" }
-      //       );
-      //     }
-      //   }
-      // ],
     }
   }
 }
@@ -231,8 +164,4 @@ export default {
       background-color: var(--primaryColor);
     }
   }
-  // :deep(.n-data-table .n-data-table-td) {
-  //   vertical-align: middle;
-  //   line-height: 1;
-  // }
 </style>
