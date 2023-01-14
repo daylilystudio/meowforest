@@ -2,11 +2,14 @@
   <div class="tw-h-screen tw-relative">
     <n-layout position="absolute">
       <n-layout-header class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
-        <span>Meow Forest</span>
-        <n-menu mode="horizontal" :options="menuOptions" />
+        <img :src="logo" alt="Meow Forest" height="28">
+        <n-menu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px;">
-        <n-layout content-style="padding: 24px;" class="tw-bg-teal-50">
+        <n-layout content-style="padding: 24px;" class="bg-primary bg-paw">
+          <div v-if="route.path==='/admin/'" class="tips shadow tw-relative tw-max-w-full tw-w-60 tw-ml-auto tw-bg-white tw-rounded-xl tw-text-center tw-p-2">
+            Please Click Menu !
+          </div>
           <RouterView/>
         </n-layout>
       </n-layout>
@@ -16,11 +19,15 @@
 <script>
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
 import { defineComponent, inject, h } from 'vue'
-import { useRouter, RouterLink } from 'vue-router';
+import { useRoute, useRouter, RouterLink } from 'vue-router';
+// img
+import logo from '@/assets/logo.svg'
+
 export default defineComponent({
   components: { NLayout, NLayoutHeader, NMenu },
   setup() {
     const axios = inject('axios')
+    const route = useRoute()
     const router = useRouter()
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)meowforestToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
     const api = `${import.meta.env.VITE_API}api/user/check`
@@ -67,7 +74,20 @@ export default defineComponent({
         key: "parent2",
       },
     ]
-    return { menuOptions }
+    return { route, menuOptions, logo }
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.tips::before{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 36%;
+  top: -20px;
+  border: 10px solid transparent;
+  border-bottom-color: #fff;
+}
+</style>

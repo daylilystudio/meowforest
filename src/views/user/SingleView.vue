@@ -34,10 +34,11 @@
           {{ product.title }}
           <font-awesome-icon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="text-second tw-p-2 -tw-mr-2 tw-cursor-pointer" />
         </h2>
-        <p v-html="product.description" />
+        <n-tag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</n-tag>
+        <p class="tw-mt-6" v-html="product.description" />
         <p class="tw-my-4">
-          <span class="text-second tw-text-2xl tw-font-bold tw-mr-3">NT$ {{ product.price }}</span>
-          <del>NT$ {{ product.origin_price }}</del>
+          <span class="text-second tw-text-2xl tw-font-bold tw-mr-3">NTD. {{ product.price }}</span>
+          <del>NTD. {{ product.origin_price }}</del>
         </p>
         <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
           <n-input-number class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
@@ -80,7 +81,7 @@
 import TheHeader from '@/components/global/TheHeader.vue'
 import { onMounted, inject, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { NInputNumber } from 'naive-ui'
+import { NInputNumber, NTag } from 'naive-ui'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Thumbs } from 'swiper'
@@ -95,7 +96,7 @@ import { useGlobalStore } from '@/stores/global.js'
 import nodata from '@/assets/img/nodata.png'
 
 export default {
-  components: { TheHeader, Swiper, SwiperSlide, NInputNumber },
+  components: { TheHeader, Swiper, SwiperSlide, NInputNumber, NTag },
   setup() {
     const axios = inject('axios')
     const route = useRoute()
@@ -135,6 +136,10 @@ export default {
       try {
         const res = await axios.post(api,{'data': {'product_id':id,'qty':addNum.value}})
         loadingAdd.value = false
+        globalStore.addingCart = true
+        setTimeout(() => {
+          globalStore.addingCart = false
+        }, 1100)
         return res
       } catch (err) {
         loadingAdd.value = false
@@ -152,6 +157,7 @@ export default {
         const res = await addCartApi(id)
         const icon = res.data.success ? 'success' : 'error'
         window.$message[icon](res.data.message)
+        await globalStore.getCart()
       },
       async buy(id) {
         await addCartApi(id)

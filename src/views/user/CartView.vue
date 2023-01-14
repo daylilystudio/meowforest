@@ -1,41 +1,42 @@
 <template>
   <shop-layout breadcrumb="Shopping Cart" :nextBtn="globalStore.cart.carts?.length>0?'Checkout':'Back To Home'" @onGoNext="globalStore.cart.carts?.length>0?goNext():router.push('/')">
     <template v-slot:content>
-      <template v-if="globalStore.cart.carts?.length>0">
-        <div class="tw-hidden md:tw-grid tw-bg-gray-200 tw-rounded-lg tw-py-2.5 tw-px-3 tw-grid-cols-12">
-          <span class="tw-col-span-6">Product</span>
-          <span class="tw-col-span-2">Unit Price</span>
-          <span class="tw-col-span-2">Qty</span>
-          <span class="tw-col-span-2">Total</span>
+      <n-spin :show="globalStore.loading" class="tw-px-2">
+        <template v-if="globalStore.cart.carts?.length>0">
+          <div class="tw-hidden md:tw-grid tw-bg-gray-200 tw-rounded-lg tw-py-2.5 tw-px-3 tw-grid-cols-12">
+            <span class="tw-col-span-6">Product</span>
+            <span class="tw-col-span-2">Unit Price</span>
+            <span class="tw-col-span-2">Qty</span>
+            <span class="tw-col-span-2">Total</span>
+          </div>
+          <div class="tw-block md:tw-hidden tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Shop List</div>
+          <!-- <n-spin :show="globalStore.loading" class="tw-px-2"> -->
+            <div v-for="(item, i) in globalStore.cart?.carts" :key="i" class="tw-relative tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-5 tw-border-b tw-border-solid tw-border-gray-200">
+              <a @click="router.push('/products/'+item.product.id)" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-items-center tw-cursor-pointer">
+                <img :src="item.product.imagesUrl[0]" :alt="item.product.title" class="tw-w-28 tw-mr-2">
+                {{item.product.title}}
+              </a>
+              <span class="tw-col-span-3 md:tw-col-span-2 tw-flex tw-justify-between">
+                <span class="text-primary tw-font-bold">${{item.product.price}}</span>
+                <span class="tw-mr-4 tw-block md:tw-hidden">X</span>
+              </span>
+              <n-input-number @update:value="updateCart($event, item.id, item.product.id)" class="tw-w-4/5 tw-col-span-5 md:tw-col-span-2 tw-mt-1 tw-text-center" v-model:value="item.qty" :min="1" size="small" button-placement="both" />
+              <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
+                <span class="tw-block md:tw-hidden">=</span>
+                <span class="text-primary tw-font-bold">${{item.total}}</span>
+              </span>
+              <p @click="delCart(item.id)" class="tw-absolute tw-right-0 tw-top-8 md:tw-top-1/2 -tw-translate-y-1/2 tw-p-2 tw-cursor-pointer">
+                <font-awesome-icon :icon="['far', 'trash-can']" />
+              </p>
+            </div>
+            <div class="tw-text-xl tw-text-right tw-font-bold tw-mt-8">
+              Subtotal<span class="tw-ml-4 text-primary">NTD. {{globalStore.cart.total}}</span>
+            </div>
+        </template>
+        <div v-else class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-16 tw-mb-6">
+          <img :src="nodata" class="tw-w-full tw-h-auto" alt="no data">
         </div>
-        <div class="tw-block md:tw-hidden tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Shop List</div>
-        <n-spin :show="globalStore.loading" class="tw-px-2">
-          <div v-for="(item, i) in globalStore.cart?.carts" :key="i" class="tw-relative tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-5 tw-border-b tw-border-solid tw-border-gray-200">
-            <span class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-items-center">
-              <img :src="item.product.imagesUrl[0]" :alt="item.product.title" class="tw-w-28 tw-mr-2">
-              {{item.product.title}}
-            </span>
-            <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
-              <span class="text-primary tw-font-bold">${{item.product.price}}</span>
-              <span class="tw-mr-4 tw-block md:tw-hidden">X</span>
-            </span>
-            <span class="tw-col-span-4 md:tw-col-span-2">{{item.qty}}</span>
-            <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
-              <span class="tw-block md:tw-hidden">=</span>
-              <span class="text-primary tw-font-bold">${{item.total}}</span>
-            </span>
-            <p @click="delCart(item.id)" class="tw-absolute tw-right-0 tw-top-8 md:tw-top-1/2 -tw-translate-y-1/2 tw-p-2 tw-cursor-pointer">
-              <font-awesome-icon :icon="['far', 'trash-can']" />
-            </p>
-          </div>
-          <div class="tw-text-xl tw-text-right tw-font-bold tw-mt-8">
-            Subtotal<span class="tw-ml-4 text-primary">NT$ {{globalStore.cart.total}}</span>
-          </div>
-        </n-spin>
-      </template>
-      <div v-else class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-16 tw-mb-6">
-        <img :src="nodata" class="tw-w-full tw-h-auto" alt="no data">
-      </div>
+      </n-spin>
     </template>
     <template v-slot:order>
       <section v-if="globalStore.cart.carts?.length>0" class="bg-third tw-rounded-2xl tw-flex tw-flex-col md:tw-flex-row tw-gap-6 md:tw-gap-14 tw-p-6">
@@ -58,7 +59,7 @@
 </template>
 <script>
 import ShopLayout from '../../components/user/ShopLayout.vue'
-import { NSpin } from 'naive-ui'
+import { NSpin, NInputNumber } from 'naive-ui'
 import { onMounted, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 // store
@@ -67,12 +68,29 @@ import { useGlobalStore } from '@/stores/global.js'
 import nodata from '@/assets/img/nodata.png'
 
 export default {
-  components: { ShopLayout, NSpin },
+  components: { ShopLayout, NSpin, NInputNumber },
   setup() {
     const router = useRouter()
     const axios = inject('axios')
     const deliveryFee = ref(0)
     const globalStore = useGlobalStore()
+    const updateCart = (qty, cartId, productId) => {
+      globalStore.loading = true
+      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${cartId}`
+      axios.put(api, { 'data': {'product_id':productId,'qty':qty} }).then((res) => {
+        if(res) {
+          globalStore.getCart()
+          window.$notification.warning({
+            content: res.data.message,
+            duration: 2000,
+          })
+        }
+        globalStore.loading = false
+      }).catch((err) => {
+        console.log(err)
+        globalStore.loading = false
+      })
+    }
     const delCart = (id) => {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${id}`
@@ -94,7 +112,7 @@ export default {
       globalStore.getCart()
     })
     return {
-      router, nodata, globalStore, deliveryFee, delCart,
+      router, nodata, globalStore, deliveryFee, updateCart, delCart,
       goNext() {
         if (globalStore.shipping !=='' && globalStore.payment !=='') {
           router.push('/checkout')
@@ -129,7 +147,7 @@ export default {
             {
               id: 'delivery',
               txt: 'Home Delivery',
-              info: '宅配運費 NT$80'
+              info: '宅配運費 NTD.80'
             },
             {
               id: 'pickup',

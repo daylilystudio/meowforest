@@ -5,29 +5,35 @@ export const useGlobalStore = defineStore('global', () => {
   const axios = inject('axios')
   const loadingPage = ref(false)
   const loading = ref(false)
+  const addingCart = ref(false)
   const menu = ref([
     {
       name: '全部商品',
+      en: 'All',
       link: '/products',
       key: 'all'
     },
     {
       name: '貓の食品',
+      en: 'Cat´s Food',
       link: '/products?category=food',
       key: 'food'
     },
     {
       name: '貓の用品',
+      en: 'Cat´s Use',
       link: '/products?category=use',
       key: 'use'
     },
     {
       name: '貓の玩具',
+      en: 'Cat´s Toy',
       link: '/products?category=toy',
       key: 'toy'
     },
     {
       name: '登入後台',
+      en: 'Admin',
       link: '/login',
       key: 'login'
     }
@@ -110,7 +116,7 @@ export const useGlobalStore = defineStore('global', () => {
   }
 
   return {
-    loadingPage, loading, menu,
+    loadingPage, loading, addingCart, menu,
     isfav, toggleFav,
     getProducts, products,
     getCart, cart,

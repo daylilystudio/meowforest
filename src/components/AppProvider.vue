@@ -2,8 +2,8 @@
     <n-config-provider>
       <n-loading-bar-provider>
         <n-dialog-provider>
-          <n-notification-provider>
-            <n-message-provider>
+          <n-notification-provider placement="bottom-left">
+            <n-message-provider placement="bottom-left">
               <slot></slot>
               <NaiveProviderContent />
             </n-message-provider>

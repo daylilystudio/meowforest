@@ -1,5 +1,6 @@
 <template>
-  <n-space justify="center" align="center" class="bg tw-h-screen">
+  <div class="tw-relative tw-h-screen tw-overflow-hidden tw-flex tw-justify-center tw-items-center">
+    <div class="bg bg-paw"></div>
     <n-spin :show="loading" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-px-10 tw-py-6">
       <n-form ref="formRef" :model="model">
         <n-form-item path="username" label="Account">
@@ -24,17 +25,17 @@
         </n-row>
       </n-form>
     </n-spin>
-  </n-space>
+  </div>
 </template>
 
 <script>
 import { defineComponent, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
-import { NSpace, NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin } from 'naive-ui'
+import { NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin } from 'naive-ui'
 
 export default defineComponent({
   components: {
-    NSpace, NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin
+    NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin
   },
   setup () {
     const axios = inject('axios')
@@ -81,6 +82,18 @@ export default defineComponent({
 
 <style>
 .bg {
-  background-color: #fff;
+  background-position: 50%;
+  height: 200%;
+  width: 200%;
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  animation: movebg 10s linear infinite;
+}
+@keyframes movebg {
+  to {
+    transform:translateX(-100px) translateY(-100px) scale(1)
+  }
 }
 </style>

@@ -11,7 +11,7 @@
       <span></span>
       <span></span>
     </a>
-    <router-link to="/cart" :class="{'tw-cursor-not-allowed':route.path==='/cart'}" class="bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">
+    <router-link to="/cart" :class="{'tw-cursor-not-allowed':route.path==='/cart', 'shake':globalStore.addingCart}" title="Go Shopping Cart" class="bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">
       <img src="@/assets/img/icon_cart.svg" alt="">
       <strong class="tw-w-5 tw-h-5 bg-notice tw-absolute -tw-top-1 -tw-right-1.5 tw-flex tw-justify-center tw-text-sm tw-text-white tw-rounded-full">
         {{ globalStore.cart.carts?.length }}
@@ -95,5 +95,23 @@ export default defineComponent({
 }
 .loadingBg{
   background-color: rgba(#fff, .75);
+}
+.shake {
+  animation: boom 1s both;
+}
+@keyframes boom {
+  30% {
+    transform: rotate(10deg);
+    transform-origin: center bottom;
+  }
+  50% {
+    transform: rotate(-12deg);
+  }
+  70% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 </style>

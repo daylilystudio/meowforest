@@ -43,6 +43,8 @@ a {
   margin-left: auto;
   margin-right: auto;
 }
+
+// bg
 .bg-primary{
   background-color: var(--primaryColor);
 }
@@ -58,6 +60,11 @@ a {
 .bg-theme{
   background-color: var(--themeColor);
 }
+.bg-paw{
+  background-image: url('@/assets/img/bg_paw.svg');
+}
+
+// text
 .text-primary{
   color: var(--primaryColor);
 }
@@ -67,6 +74,8 @@ a {
 .text-theme{
   color: var(--themeColor);
 }
+
+// border
 .border-primary{
   border-color: var(--primaryColor);
   &:focus-visible{
@@ -79,12 +88,16 @@ a {
 .border-theme{
   border-color: var(--themeColor);
 }
+
+// shadow
 .shadow{
   box-shadow: 0 0 20px rgba(#000, .2);
 }
 .dropShadow{
-  filter: drop-shadow(0 0 10px rgba(#000, 1));
+  filter: drop-shadow(0 0 6px rgba(#000, 1));
 }
+
+// menu
 .menuA {
   position: relative;
   &::after {

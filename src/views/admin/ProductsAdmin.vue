@@ -1,5 +1,5 @@
 <template>
-  <n-button @click="isNew=true;showModal=true;tempProduct={}" type="primary" ghost class="tw-block tw-ml-auto tw-mb-4">
+  <n-button @click="isNew=true;showModal=true;tempProduct={}" strong round color="#FF904F" class="tw-block tw-ml-auto tw-mb-4">
     Add Product +
   </n-button>
   <n-space vertical :size="12">
@@ -12,7 +12,7 @@
     />
   </n-space>
   <n-modal v-model:show="showModal" :mask-closable="false">
-    <ProductModal :tempProduct="tempProduct" :isNew="isNew" @updateProduct="updateProduct" @closeModal="v => showModal=v"/>
+    <ProductModal :tempProduct="tempProduct" :isNew="isNew" :loading="loading" @updateProduct="updateProduct" @closeModal="v => showModal=v"/>
   </n-modal>
 </template>
 <script>
@@ -84,6 +84,10 @@ export default defineComponent({
     }) => {
       return [
         {
+          title: "No.",
+          key: "num"
+        },
+        {
           title: "Category",
           key: "category"
         },
@@ -132,8 +136,8 @@ export default defineComponent({
                 { type: "primary", size: "small", onClick: () => editList(row), class: 'tw-mr-2'},
                 { default: () => "Edit" },),
               h(NButton,
-                { type: "error", size: "small", onClick: () => deleteList(row)},
-                { default: () => "Delete" })
+                { size: "small", onClick: () => deleteList(row)},
+                { default: () => "Del" })
             ]);
           }
         }
@@ -177,3 +181,13 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+:deep(.n-data-table-wrapper) {
+  background-color: #fff;
+}
+:deep(.n-pagination-item) {
+  --n-item-color-active: #fff;
+  --n-item-color-active-hover: #fff
+}
+</style>

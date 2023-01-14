@@ -5,7 +5,7 @@
         <img class="tw-mr-14 tw-hidden lg:tw-block" :src="logo" alt="Logo">
         <div class="tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Product</p>
-          <router-link v-for="list in globalStore.menu" :key="list.link" :to="list.link" :class="{'text-second':list.key==='login'}">{{ list.name }}</router-link>
+          <router-link v-for="list in globalStore.menu" :key="list.link" :to="list.link" :class="{'text-second':list.key==='login'}">{{ list.name }}<span class="tw-ml-2">{{ list.en }}</span></router-link>
         </div>
         <div class="tw-mt-14 sm:tw-mt-0 tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Contact</p>
@@ -26,7 +26,7 @@ import { defineComponent } from 'vue'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
 // image
-import logo from '@/assets/img/logo_light.svg'
+import logo from '@/assets/logo_light.svg'
 
 export default defineComponent({
   setup() {

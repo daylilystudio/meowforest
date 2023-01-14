@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "axios": "^0.27.2",
+    "js-cookie": "^3.0.1",
     "pinia": "^2.0.21",
     "sass": "^1.55.0",
     "swiper": "^8.4.4",

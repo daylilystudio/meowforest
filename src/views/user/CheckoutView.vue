@@ -164,7 +164,7 @@ export default {
         globalStore.cardInfo.valid = arr.join('')
       },
       goNext() {
-        if (globalStore.cardInfo.number.length !==16 || globalStore.cardInfo.valid.length !==4 || globalStore.cardInfo.cvv.length !==3) {
+        if (globalStore.cardInfo.number.match(/[0-9]/gi).length !==16 || globalStore.cardInfo.valid.length !==5 || globalStore.cardInfo.cvv.length !==3) {
           window.$notification.warning({
             content: 'Please Confirm Payment Info',
             duration: 2000,

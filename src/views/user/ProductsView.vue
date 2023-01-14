@@ -28,8 +28,8 @@
             </p>
           </div>
           <p class="tw-font-bold tw-mt-3 tw-mb-1">{{list.title}}</p>
-          <span class="text-second tw-mr-4 tw-font-bold">NT$ {{list.price}}</span>
-          <del>NT$ {{list.origin_price}}</del>
+          <span class="text-second tw-mr-4 tw-font-bold">NTD. {{list.price}}</span>
+          <del>NTD. {{list.origin_price}}</del>
         </router-link>
       </section>
     </main>
