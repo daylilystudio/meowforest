@@ -1,0 +1,1 @@
+.bg{background-position:50%;height:200%;width:200%;position:absolute;top:-50%;left:-50%;z-index:-1;animation:movebg 10s linear infinite}@keyframes movebg{to{transform:translate(-100px) translateY(-100px) scale(1)}}
