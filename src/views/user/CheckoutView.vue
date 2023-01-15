@@ -87,7 +87,6 @@ export default {
       })
     }
     const submitOrder = () => {
-      const now = new Date()
       const data = {
         data: {
           user: {
@@ -99,11 +98,6 @@ export default {
             shipping_method: globalStore.shipping,
             shipping_money: globalStore.shippingMoney,
             card: globalStore.cardInfo.number.split(' ').join(''),
-            date: {
-              y: now.getFullYear(),
-              m: now.getMonth()+1,
-              d: now.getDate()
-            }
           },
           message: globalStore.msg
         }
@@ -164,15 +158,18 @@ export default {
         globalStore.cardInfo.valid = arr.join('')
       },
       goNext() {
-        if (globalStore.cardInfo.number.match(/[0-9]/gi).length !==16 || globalStore.cardInfo.valid.length !==5 || globalStore.cardInfo.cvv.length !==3) {
-          window.$notification.warning({
-            content: 'Please Confirm Payment Info',
-            duration: 2000,
-          })
-          return
-        }
         const checkFill = Object.values(globalStore.userInfo).every(item => item!=='')
-        const checkCardFill = globalStore.payment==='creditcard' ? Object.values(globalStore.cardInfo).every(item => item!=='') : true
+        let checkCardFill = true
+        if (globalStore.payment==='creditcard') {
+          checkCardFill = Object.values(globalStore.cardInfo).every(item => item!=='')
+          if (globalStore.cardInfo.number.match(/[0-9]/gi).length !==16 || globalStore.cardInfo.valid.length !==5 || globalStore.cardInfo.cvv.length !==3) {
+            window.$notification.warning({
+              content: 'Please Confirm Payment Info',
+              duration: 2000,
+            })
+            return
+          }
+        }
         if (checkFill && checkCardFill) {
           window.$dialog.warning({
             title: "Confirm Submit Order ?",

@@ -5,6 +5,7 @@ export const useGlobalStore = defineStore('global', () => {
   const axios = inject('axios')
   const loadingPage = ref(false)
   const loading = ref(false)
+  const loadingAdd = ref(false)
   const addingCart = ref(false)
   const menu = ref([
     {
@@ -80,6 +81,28 @@ export const useGlobalStore = defineStore('global', () => {
       loading.value = false
     })
   }
+  // add to cart
+  async function addCart(id, num) {
+    loadingAdd.value = true
+    const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
+    try {
+      const res = await axios.post(api,{'data': {'product_id':id,'qty':num}})
+      if (res) {
+        const icon = res.data.success ? 'success' : 'error'
+        window.$message[icon](res.data.message)
+        await getCart()
+      }
+      loadingAdd.value = false
+      addingCart.value = true
+      setTimeout(() => {
+        addingCart.value = false
+      }, 1100)
+      return res
+    } catch (err) {
+      loadingAdd.value = false
+      return err
+    }
+  }
   // method
   const payment = ref('')
   const shipping = ref('')
@@ -119,7 +142,7 @@ export const useGlobalStore = defineStore('global', () => {
     loadingPage, loading, addingCart, menu,
     isfav, toggleFav,
     getProducts, products,
-    getCart, cart,
+    getCart, addCart, cart,
     payment, shipping, shippingMoney,
     userInfo, msg, cardInfo, initInfo
   }

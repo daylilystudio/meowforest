@@ -13,7 +13,7 @@
         </p>
         <section class="md:tw-grid tw-grid-cols-2 tw-px-4 tw-leading-7">
           <div><span class="tw-font-bold tw-mr-1">Order Total</span> <span class="text-second">${{ orderInfo.total+orderInfo.user.shipping_money }}</span></div>
-          <div><span class="tw-font-bold tw-mr-1">Order Date</span> {{ `${orderInfo.user.date.y}-${orderInfo.user.date.m}-${orderInfo.user.date.d}` }}</div>
+          <div><span class="tw-font-bold tw-mr-1">Order Date</span> {{ filter.date(orderInfo.create_at) }}</div>
           <div><span class="tw-font-bold tw-mr-1">Shipping Method</span> {{ orderInfo.user.shipping_method }}</div>
           <div><span class="tw-font-bold tw-mr-1">Payment Method</span> {{ orderInfo.user.payment_method==='atm'?'ATM transfer':'Credit ****'+orderInfo.user.card.slice(-4) }}<font-awesome-icon v-if="orderInfo.user?.payment_method==='creditcard'" :icon="['far', 'credit-card']" class="tw-opacity-40 tw-ml-1" /></div>
           <div v-if="orderInfo.user.payment_method==='atm'"
@@ -22,7 +22,7 @@
             <p class="tw-grid tw-gap-1 tw-text-center md:tw-text-left tw-my-4 md:tw-my-0">
               <span>Bank Code : 333 (Meow Bank)</span>
               <span>Account : 00001234567890</span>
-              <span class="text-second">Deadline : {{ `${orderInfo.user.date.y}-${orderInfo.user.date.m}-${orderInfo.user.date.d+3} 23:00` }}</span>
+              <span class="text-second">Deadline : {{ filter.date(orderInfo.create_at, 3, false) + ' 23:00' }}</span>
             </p>
           </div>
         </section>
@@ -73,6 +73,7 @@ export default {
   components: { ShopLayout },
   setup() {
     const axios = inject('axios')
+    const filter = inject('$filter')
     const router = useRouter()
     const route = useRoute()
     const globalStore = useGlobalStore()
@@ -94,6 +95,7 @@ export default {
       await getOrder(route.path.split('/')[2])
     })
     return {
+      filter,
       globalStore, router, orderInfo, openProducts,
       async copy() {
         const inputNode = document.createElement('input')

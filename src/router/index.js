@@ -1,4 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// user
+import NotFound from '../views/user/NotFound.vue'
+import LayoutView from '../layouts/LayoutView.vue'
+import HomeView from '../views/user/HomeView.vue'
+import ProductsView from '../views/user/ProductsView.vue'
+import SingleView from '../views/user/SingleView.vue'
+import CartView from '../views/user/CartView.vue'
+import CheckoutView from '../views/user/CheckoutView.vue'
+import OrderView from '../views/user/OrderView.vue'
+// admin
+import LoginAdmin from '../views/admin/LoginAdmin.vue'
+import HomeAdmin from '../views/admin/HomeAdmin.vue'
+import ProductsAdmin from '../views/admin/ProductsAdmin.vue'
+import OrdersAdmin from '../views/admin/OrdersAdmin.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,7 +20,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'layout',
-      component: () => import('@/views/user/LayoutView.vue'),
+      component: LayoutView,
       redirect: '/',
       children:[
         {
@@ -15,58 +29,62 @@ const router = createRouter({
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('@/views/user/HomeView.vue')
+          component: HomeView
         },
         {
           path: '/products',
           name: 'user-products',
-          component: () => import('@/views/user/ProductsView.vue')
+          component: ProductsView
         },
         {
           path: '/products/:id',
           name: 'user-single-product',
-          component: () => import('@/views/user/SingleView.vue')
+          component: SingleView
         },
         {
           path: '/cart',
           name: 'user-cart',
-          component: () => import('@/views/user/CartView.vue')
+          component: CartView
         },
         {
           path: '/checkout',
           name: 'user-checkout',
-          component: () => import('@/views/user/CheckoutView.vue')
+          component: CheckoutView
         },
         {
           path: '/order/:orderid',
           name: 'user-order',
-          component: () => import('@/views/user/OrderView.vue')
+          component: OrderView
         },
-        {
-          path: '/:pathMatch(.*)',
-          name: 'not-found',
-          component: () => import('@/views/user/NotFound.vue')
-        }
+        { path: '/:pathMatch(.*)', name: 'not-found', component: NotFound }
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/admin/LoginAdmin.vue')
+      component: LoginAdmin
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('@/views/admin/HomeAdmin.vue'),
+      component: HomeAdmin,
       children:[
         {
           path: '/admin/products',
           name: 'admin-products',
-          component: () => import('@/views/admin/ProductsAdmin.vue')
+          component: ProductsAdmin
+        },
+        {
+          path: '/admin/orders',
+          name: 'admin-orders',
+          component: OrdersAdmin
         }
       ]
     }
-  ]
+  ],
+  scrollBehavior() {
+    return { top: 0, behavior: 'smooth' }
+  },
 })
 
 export default router

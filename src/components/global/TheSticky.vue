@@ -18,12 +18,15 @@
     >
       <template v-for="item in globalStore.products" :key="item.id">
         <div v-if="globalStore.isfav['meowforestFav' + item.id]" class="tw-flex tw-justify-between tw-items-center tw-py-2">
-          <a @click="showModal=false;router.push('/products/'+item.id)" :class="{'tw-cursor-pointer':route.path.split('/')[2]!==item.id}" class="tw-flex-1 tw-flex tw-items-center">
+          <a @click="globalStore.toggleFav(item.id)" title="Remove Fav" class="tw-p-2 -tw-ml-5 tw-cursor-pointer">
+            <font-awesome-icon :icon="['far', 'circle-xmark']" class="text-theme fa-xl" />
+          </a>
+          <a @click="showModal=false;router.push('/products/'+item.id)" class="tw-flex-1 tw-flex tw-items-center tw-cursor-pointer">
             <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
             <span class="text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
           </a>
-          <a @click="globalStore.toggleFav(item.id)" class="tw-p-2 -tw-mr-2 tw-cursor-pointer">
-            <font-awesome-icon :icon="['far', 'circle-xmark']" class="text-primary fa-xl" />
+          <a @click="globalStore.addCart(item.id, 1)" title="Add To Cart" class="bg-second tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 -tw-mr-2 tw-cursor-pointer">
+            <img src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
           </a>
         </div>
       </template>

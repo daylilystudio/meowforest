@@ -14,7 +14,7 @@
             :modules="modules"
             :thumbs="{ swiper: thumbsSwiper }"
             :allowTouchMove="product.imagesUrl?.length>1 ? true : false"
-            class="tw-absolute tw-top-0 tw-w-full tw-h-full">
+            class="!tw-absolute tw-top-0 tw-w-full tw-h-full">
             <swiper-slide
               v-for="(img, i) in product.imagesUrl" :key="i"
               :style="{backgroundImage:'url('+img+')'}" />
@@ -42,7 +42,7 @@
         </p>
         <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
           <n-input-number class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
-          <button :disabled="loadingAdd" @click="addCart(product.id)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
+          <button :disabled="loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'plus']" /> 加入購物車
             <font-awesome-icon v-show="loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
@@ -130,22 +130,22 @@ export default {
       thumbsSwiper.value = swiper;
     }
     // api
-    const addCartApi = async (id) => {
-      loadingAdd.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
-      try {
-        const res = await axios.post(api,{'data': {'product_id':id,'qty':addNum.value}})
-        loadingAdd.value = false
-        globalStore.addingCart = true
-        setTimeout(() => {
-          globalStore.addingCart = false
-        }, 1100)
-        return res
-      } catch (err) {
-        loadingAdd.value = false
-        return err
-      }
-    }
+    // const addCartApi = async (id) => {
+    //   loadingAdd.value = true
+    //   const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
+    //   try {
+    //     const res = await axios.post(api,{'data': {'product_id':id,'qty':addNum.value}})
+    //     loadingAdd.value = false
+    //     globalStore.addingCart = true
+    //     setTimeout(() => {
+    //       globalStore.addingCart = false
+    //     }, 1100)
+    //     return res
+    //   } catch (err) {
+    //     loadingAdd.value = false
+    //     return err
+    //   }
+    // }
     return{
       globalStore,
       thumbsSwiper,
@@ -153,14 +153,14 @@ export default {
       modules: [Thumbs],
       nodata,
       noProduct, product, tab, addNum, loadingAdd,
-      async addCart(id) {
-        const res = await addCartApi(id)
-        const icon = res.data.success ? 'success' : 'error'
-        window.$message[icon](res.data.message)
-        await globalStore.getCart()
-      },
+      // async addCart(id) {
+      //   const res = await addCartApi(id)
+      //   const icon = res.data.success ? 'success' : 'error'
+      //   window.$message[icon](res.data.message)
+      //   await globalStore.getCart()
+      // },
       async buy(id) {
-        await addCartApi(id)
+        await globalStore.addCart(id, addNum.value)
         router.push('/cart')
       },
       notice: [

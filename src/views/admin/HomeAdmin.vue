@@ -7,7 +7,7 @@
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px;">
         <n-layout content-style="padding: 24px;" class="bg-primary bg-paw">
-          <div v-if="route.path==='/admin/'" class="tips shadow tw-relative tw-max-w-full tw-w-60 tw-ml-auto tw-bg-white tw-rounded-xl tw-text-center tw-p-2">
+          <div v-if="route.path==='/admin/'||route.path==='/admin'" class="tips shadow tw-relative tw-max-w-full tw-w-60 tw-ml-auto tw-bg-white tw-rounded-xl tw-text-center tw-p-2">
             Please Click Menu !
           </div>
           <RouterView/>
@@ -63,7 +63,15 @@ export default defineComponent({
             { to: '/admin/products' },
             { default: () => 'Products list' }
           ),
-        key: "parent1",
+        key: "product",
+      },
+      {
+        label: () =>
+          h (RouterLink, 
+            { to: '/admin/orders' },
+            { default: () => 'Orders list' }
+          ),
+        key: "order",
       },
       {
         label: () =>
@@ -71,7 +79,7 @@ export default defineComponent({
             { onclick: logout },
             { default: () => 'Logout' }
           ),
-        key: "parent2",
+        key: "logout",
       },
     ]
     return { route, menuOptions, logo }
@@ -86,8 +94,15 @@ export default defineComponent({
   width: 0;
   height: 0;
   left: 36%;
-  top: -20px;
-  border: 10px solid transparent;
+  top: -23px;
+  border: 12px solid transparent;
   border-bottom-color: #fff;
+}
+:deep(.n-data-table-wrapper) {
+  background-color: #fff;
+}
+:deep(.n-pagination-item) {
+  --n-item-color-active: #fff;
+  --n-item-color-active-hover: #fff
 }
 </style>

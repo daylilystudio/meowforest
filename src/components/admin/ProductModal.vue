@@ -151,49 +151,45 @@ export default defineComponent({
       //   {
       //     status: "finished",
       //     url: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-      //   },
-      //   {
-      //     status: "finished",
-      //     url: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
       //   }
       // ]),
       rules: {
         title: {
           required: true,
           trigger: ["blur", "input"],
-          message: "Please input url"
+          message: "Plz input product name"
         },
         category: {
-          required: true,
-          trigger: ["blur", "input"],
-          message: "Please input url"
+          required: false,
+          trigger: ["blur", "change"],
+          message: "Plz choose category"
         },
         origin_price: {
           type: "number",
           required: true,
           trigger: ["blur", "change"],
-          message: "Please input url"
+          message: "Plz input origin price"
         },
         price: {
           type: "number",
           required: true,
           trigger: ["blur", "change"],
-          message: "Please input url"
+          message: "Plz input price"
         },
         unit: {
           required: true,
           trigger: ["blur", "input"],
-          message: "Please input url"
+          message: "Plz input unit"
         },
         description: {
-          required: false,
+          required: true,
           trigger: ["blur", "input"],
-          message: "Please input url"
+          message: "Plz input description"
         },
         content: {
-          required: false,
+          required: true,
           trigger: ["blur", "input"],
-          message: "Please input url"
+          message: "Plz input content"
         }
       }
     }
