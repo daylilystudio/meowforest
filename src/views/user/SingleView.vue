@@ -80,7 +80,7 @@
 <script>
 import TheHeader from '@/components/global/TheHeader.vue'
 import { onMounted, inject, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { NInputNumber, NTag } from 'naive-ui'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -107,9 +107,9 @@ export default {
     const addNum = ref(1)
     const loadingAdd = ref(false)
     const globalStore = useGlobalStore()
-    onMounted(() =>{
+    const productId = route.path.split('/')[2]
+    const getProduct = (id) => {
       globalStore.loadingPage = true
-      const id = route.path.split('/')[2]
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
       axios.get(api).then((res) => {
         if(res.data.success){
@@ -123,29 +123,18 @@ export default {
         noProduct.value = true
         globalStore.loadingPage = false
       })
+    }
+    onMounted(() =>{
+      getProduct(productId)
+    })
+    onBeforeRouteUpdate((to) => {
+      getProduct(to.path.split('/')[2])
     })
     // swiper
     let thumbsSwiper = ref(null)
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     }
-    // api
-    // const addCartApi = async (id) => {
-    //   loadingAdd.value = true
-    //   const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
-    //   try {
-    //     const res = await axios.post(api,{'data': {'product_id':id,'qty':addNum.value}})
-    //     loadingAdd.value = false
-    //     globalStore.addingCart = true
-    //     setTimeout(() => {
-    //       globalStore.addingCart = false
-    //     }, 1100)
-    //     return res
-    //   } catch (err) {
-    //     loadingAdd.value = false
-    //     return err
-    //   }
-    // }
     return{
       globalStore,
       thumbsSwiper,
@@ -153,12 +142,6 @@ export default {
       modules: [Thumbs],
       nodata,
       noProduct, product, tab, addNum, loadingAdd,
-      // async addCart(id) {
-      //   const res = await addCartApi(id)
-      //   const icon = res.data.success ? 'success' : 'error'
-      //   window.$message[icon](res.data.message)
-      //   await globalStore.getCart()
-      // },
       async buy(id) {
         await globalStore.addCart(id, addNum.value)
         router.push('/cart')

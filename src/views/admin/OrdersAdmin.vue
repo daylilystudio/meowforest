@@ -120,7 +120,7 @@ export default defineComponent({
           render(row) {
             return h(
               'span',
-              filter.currency(row.total)
+              filter.currency(row.total+row.user.shipping_money)
             );
           }
         },

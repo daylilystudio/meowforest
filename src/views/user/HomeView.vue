@@ -10,7 +10,7 @@
   <section class="circleBlock tw-relative tw-mx-auto tw-text-center tw-flex tw-justify-between tw-gap-4 md:tw-gap-24">
     <router-link v-for="(list ,i) in circle" :key="i" :to="list.link" class="tw-flex-1 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
       <span class="circle tw-block tw-w-full tw-rounded-full" :style="{backgroundImage: 'url('+ list.img +')'}" />
-      <img :src="list.imgFont" class="tw-w-3/5 tw-pt-4" :alt="list.alt">
+      <img :src="list.imgFont" class="tw-w-5/6 sm:tw-w-3/5 tw-pt-4" :alt="list.alt">
     </router-link>
   </section>
   <section class="container tw-mt-20 tw-mb-28">

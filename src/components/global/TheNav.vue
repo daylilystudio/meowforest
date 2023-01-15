@@ -13,7 +13,7 @@
     </a>
     <router-link to="/cart" :class="{'tw-cursor-not-allowed':route.path==='/cart', 'shake':globalStore.addingCart}" title="Go Shopping Cart" class="bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">
       <img src="@/assets/img/icon_cart.svg" alt="">
-      <strong class="tw-w-5 tw-h-5 bg-notice tw-absolute -tw-top-1 -tw-right-1.5 tw-flex tw-justify-center tw-text-sm tw-text-white tw-rounded-full">
+      <strong v-show="globalStore.cart.carts?.length>0" class="tw-w-5 tw-h-5 bg-notice tw-absolute -tw-top-1 -tw-right-1.5 tw-flex tw-justify-center tw-text-sm tw-text-white tw-rounded-full">
         {{ globalStore.cart.carts?.length }}
       </strong>
     </router-link>

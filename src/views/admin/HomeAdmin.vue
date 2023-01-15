@@ -2,7 +2,7 @@
   <div class="tw-h-screen tw-relative">
     <n-layout position="absolute">
       <n-layout-header class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
-        <img :src="logo" alt="Meow Forest" height="28">
+        <router-link to="/"><img :src="logo" alt="Meow Forest" height="28"></router-link>
         <n-menu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px;">
