@@ -7,7 +7,7 @@
           <n-input type="email" v-model:value="model.username" @keydown.enter.prevent />
         </n-form-item>
         <n-form-item path="password" label="Password">
-          <n-input type="password" v-model:value="model.password" @keydown.enter.prevent/>
+          <n-input type="password" v-model:value="model.password" @keydown.enter.prevent="login"/>
         </n-form-item>
         <n-row :gutter="[0, 24]">
           <n-col :span="24">

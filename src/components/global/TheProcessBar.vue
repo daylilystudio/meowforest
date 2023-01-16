@@ -16,6 +16,7 @@
         <font-awesome-icon :icon="['fas', 'circle-check']" v-if="process>i" />
       </span>
       {{item.txt}}
+      <span>{{item.en}}</span>
     </div>
   </section>
 </template>
@@ -38,14 +39,17 @@ export default {
       list: [
         {
           txt: '購物車',
+          en: 'Cart',
           img: bar1
         },
         {
           txt: '資料填寫',
+          en: 'Checkout',
           img: bar2
         },
         {
           txt: '訂購完成',
+          en: 'Finish',
           img: bar3
         }
       ]

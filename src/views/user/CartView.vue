@@ -34,7 +34,7 @@
             </div>
         </template>
         <div v-else class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-16 tw-mb-6">
-          <img :src="nodata" class="tw-w-full tw-h-auto" alt="no data">
+          <img src="@/assets/img/nodata.png" class="tw-w-full tw-h-auto" alt="no data">
         </div>
       </n-spin>
     </template>
@@ -64,8 +64,6 @@ import { onMounted, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
-// img
-import nodata from '@/assets/img/nodata.png'
 
 export default {
   components: { ShopLayout, NSpin, NInputNumber },
@@ -112,7 +110,7 @@ export default {
       globalStore.getCart()
     })
     return {
-      router, nodata, globalStore, deliveryFee, updateCart, delCart,
+      router, globalStore, deliveryFee, updateCart, delCart,
       goNext() {
         if (globalStore.shipping !=='' && globalStore.payment !=='') {
           router.push('/checkout')
@@ -147,7 +145,7 @@ export default {
             {
               id: 'delivery',
               txt: 'Home Delivery',
-              info: '宅配運費 NTD.80'
+              info: '宅配運費 NTD.80，滿3,000免運'
             },
             {
               id: 'pickup',

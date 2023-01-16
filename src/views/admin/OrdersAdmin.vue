@@ -4,21 +4,22 @@
       :bordered="false"
       :columns="columns"
       :data="tableData.data"
-      :pagination="pagination"
+      :pagination="false"
       :loading="loading"
     />
+    <n-pagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
   </n-space>
   <n-modal v-model:show="showModal" :mask-closable="true">
     <OrderModal :data="temp" @closeModal="v => showModal=v"/>
   </n-modal>
 </template>
 <script>
-import { NSpace, NDataTable, NTag, NButton, NModal } from 'naive-ui'
+import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
 import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
 import OrderModal from "../../components/admin/OrderModal.vue"
 
 export default defineComponent({
-  components: { OrderModal, NSpace, NDataTable, NModal },
+  components: { OrderModal, NSpace, NDataTable, NModal, NPagination },
   setup() {
     const axios = inject('axios')
     const filter = inject('$filter')
@@ -27,16 +28,21 @@ export default defineComponent({
     const showModal = ref(false)
     const isNew = ref(false)
     const temp = ref({})
+    const pagination = reactive({
+      current: 1,
+      total: 2,
+    })
     // get product
     const tableData = reactive({data:[]})
     const getData = () => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/orders`
+      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/orders?page=${pagination.current}`
       axios.get(api).then((res) => {
         console.log(res)
         loading.value = false
         if(res.data.success){
           tableData.data = res.data.orders
+          pagination.total = res.data.pagination.total_pages
         }
       }).catch((err) => {
         loading.value = false
@@ -157,6 +163,7 @@ export default defineComponent({
       isNew,
       temp,
       tableData,
+      pagination,
       update,
       columns: createColumns({
         editList(rowData) {
@@ -176,9 +183,9 @@ export default defineComponent({
           })
         }
       }),
-      pagination: {
-        pageSize: 10,
-        class: 'tw-mx-auto'
+      pageChange(v) {
+        pagination.current = v
+        getData()
       }
     };
   }

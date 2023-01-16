@@ -2,7 +2,7 @@
   <div class="tw-h-screen tw-relative">
     <n-layout position="absolute">
       <n-layout-header class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
-        <router-link to="/"><img :src="logo" alt="Meow Forest" height="28"></router-link>
+        <!-- <router-link to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></router-link> -->
         <n-menu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px;">
@@ -20,8 +20,6 @@
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
 import { defineComponent, inject, h } from 'vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router';
-// img
-import logo from '@/assets/logo.svg'
 
 export default defineComponent({
   components: { NLayout, NLayoutHeader, NMenu },
@@ -82,7 +80,7 @@ export default defineComponent({
         key: "logout",
       },
     ]
-    return { route, menuOptions, logo }
+    return { route, menuOptions }
   }
 })
 </script>
@@ -98,11 +96,7 @@ export default defineComponent({
   border: 12px solid transparent;
   border-bottom-color: #fff;
 }
-:deep(.n-data-table-wrapper) {
-  background-color: #fff;
-}
-:deep(.n-pagination-item) {
-  --n-item-color-active: #fff;
-  --n-item-color-active-hover: #fff
+:deep(.n-data-table-wrapper), :deep(.n-pagination-item) {
+  background-color: #fff !important;
 }
 </style>

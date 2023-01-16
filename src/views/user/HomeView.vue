@@ -14,11 +14,11 @@
     </router-link>
   </section>
   <section class="container tw-mt-20 tw-mb-28">
-    <img class="tw-w-full tw-hidden md:tw-block tw-opacity-60" :src="divider" alt="cat divider line">
-    <img class="tw-w-full md:tw-hidden" :src="dividerM" alt="cat divider line">
+    <img class="tw-w-full tw-hidden md:tw-block tw-opacity-60" src="@/assets/img/line.svg" alt="cat divider line">
+    <img class="tw-w-full md:tw-hidden" src="@/assets/img/line_m.svg" alt="cat divider line">
     <TheTitle titletxt="關於喵森" subtxt="About Meow Forest" />
     <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-gap-x-20">
-      <img class="tw-max-w-md tw-w-3/5 tw-pl-4" :src="threeCats" alt="three cats">
+      <img class="tw-max-w-md tw-w-3/5 tw-pl-4" src="@/assets/img/cats.png" alt="three cats">
       <p class="intro tw-font-medium tw-leading-8 tw-mt-4 tw-pb-1">
         建立喵森之前，我是一個有三隻貓的貓奴，因為很熱衷尋找貓咪的食物跟用品，認識了很多貓相關產品，也很重視貓咪們的食物，想給他們天然無害的用品。<br/><br/>
         漸漸開始熱衷研究貓用產品，有國外的品牌與台灣本土的產品，想把最好的貓咪各種用品，推薦給家裡有寶貝貓咪的主人們。<br/><br/>
@@ -64,9 +64,6 @@
   import listFont1 from '@/assets/img/listFont1.svg'
   import listFont2 from '@/assets/img/listFont2.svg'
   import listFont3 from '@/assets/img/listFont3.svg'
-  import divider from '@/assets/img/line.svg'
-  import dividerM from '@/assets/img/line_m.svg'
-  import threeCats from '@/assets/img/cats.png'
   import cat1 from '@/assets/img/process1.png'
   import cat2 from '@/assets/img/process2.png'
   import cat3 from '@/assets/img/process3.png'
@@ -111,18 +108,18 @@
             img: cat1
           },
           {
-            title: '2.確認與資料填寫',
-            txt: '選擇送貨及付款方式，填寫訂購與收件人資訊',
+            title: '2.確認購物車商品',
+            txt: '確認購買商品，選擇送貨及付款方式',
             img: cat2
           },
           {
-            title: '3.完成結帳',
-            txt: '使用信用卡結帳，或用 ATM 完成付款',
+            title: '3.資料填寫與結帳',
+            txt: '填寫訂購與收件人資訊，輸入信用卡資訊，如選擇 ATM 付款將在訂單完成頁顯示匯款帳戶',
             img: cat3
           },
           {
-            title: '4.訂單出貨',
-            txt: '訂單完成後立即為您出貨，等幾天就可收到貨囉！',
+            title: '4.訂單完成並出貨',
+            txt: '訂單完成付款後立即為您出貨，等幾天就可收到貨囉！喵森據點取件為結帳後隔日。',
             img: cat4
           }
         ],
@@ -140,15 +137,14 @@
           {
             title: '寄送須知',
             content: [
-              '宅配運費(常溫)120元，全家取件70元，一張訂單只能配送同一地址，如需寄送不同地址，麻煩請分開下單',
-              '單筆訂單消費金額滿999元，即可享有免運費優惠（寄送範圍僅限台灣本島，團購除外）',
+              '宅配運費(常溫)80元，喵森據點取件免運費，一張訂單只能配送同一地址，如需寄送不同地址，麻煩請分開下單',
+              '單筆訂單消費金額滿3,000元，即可享有免運費優惠（寄送範圍僅限台灣本島，團購除外）',
               '一般將於下單後約3-5個工作天可送達若遇節日（如春節、中秋、端午）運送量較大，及遇有颱風過境時配送上較無法符合您所指定的時間，建議提早幾天下單，以免耽誤您的時間',
               '颱風天或例假日物流公司無法送貨，謝謝大家的體諒',
               '天候氣象狀況則依中央氣象台與各地縣市政府之公告為準'
             ]
           }
-        ],
-        divider, dividerM, threeCats
+        ]
       }
     }
   })

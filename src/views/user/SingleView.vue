@@ -72,7 +72,7 @@
       </template>
     </div>
   </section>
-  <img v-if="noProduct" :src="nodata" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
+  <img v-if="noProduct" src="@/assets/img/nodata.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
   <router-link to="/products" class="hover:tw-brightness-90 bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
     Back To Product List
   </router-link>
@@ -92,8 +92,6 @@ import 'swiper/css/free-mode'
 import 'swiper/css/thumbs'
 // store
 import { useGlobalStore } from '@/stores/global.js'
-// img
-import nodata from '@/assets/img/nodata.png'
 
 export default {
   components: { TheHeader, Swiper, SwiperSlide, NInputNumber, NTag },
@@ -140,7 +138,6 @@ export default {
       thumbsSwiper,
       setThumbsSwiper,
       modules: [Thumbs],
-      nodata,
       noProduct, product, tab, addNum, loadingAdd,
       async buy(id) {
         await globalStore.addCart(id, addNum.value)

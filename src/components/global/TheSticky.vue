@@ -26,12 +26,13 @@
             <span class="text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
           </a>
           <a @click="globalStore.addCart(item.id, 1)" title="Add To Cart" class="bg-second tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 -tw-mr-2 tw-cursor-pointer">
-            <img src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
+            <img v-show="!globalStore.loadingAdd" src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
+            <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
           </a>
         </div>
       </template>
       <div v-if="Object.values(globalStore.isfav).every(el => el === false)" class="tw-text-center">
-        <img :src="nodata" class="tw-w-4/5 sm:tw-w-48 tw-h-auto" alt="no data">
+        <img src="@/assets/img/nodata.png" class="tw-w-4/5 sm:tw-w-48 tw-h-auto" alt="no data">
       </div>
     </n-card>
   </n-modal>
@@ -42,8 +43,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { NModal, NCard } from 'naive-ui'
 // store
 import { useGlobalStore } from '@/stores/global.js'
-// img
-import nodata from '@/assets/img/nodata.png'
 
 export default {
   components: { NModal, NCard },
@@ -53,7 +52,6 @@ export default {
     const showModal = ref(false)
     const globalStore = useGlobalStore()
     return {
-      nodata,
       globalStore,
       route, router,
       showModal,

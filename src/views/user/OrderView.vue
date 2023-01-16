@@ -2,6 +2,7 @@
   <shop-layout :process="2" breadcrumb="Order Finish" nextBtn="Back To Home" @onGoNext="router.push('/')">
     <template v-slot:content>
       <div v-if="orderInfo!==null">
+        <img src="@/assets/img/thx.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto" alt="thank you!">
         <h4 class="tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Order Details
           <span class="text-second border-second tw-border tw-border-solid tw-text-sm tw-rounded-full tw-px-2 tw-ml-1">{{ orderInfo.is_paid ? 'Paid' : 'Unpaid' }}</span>
         </h4>

@@ -35,6 +35,7 @@
     </main>
   </div>
 </template>
+
 <script>
 import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'

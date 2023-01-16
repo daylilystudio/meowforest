@@ -109,6 +109,11 @@ export const useGlobalStore = defineStore('global', () => {
   const shippingMoney = ref(0)
   watch(shipping, (newVal)=>{
     shippingMoney.value = newVal==='delivery' ? 80 : 0
+    shippingMoney.value = cart.value.final_total>3000 ? 0 : shippingMoney.value
+  })
+  watch(cart, (newVal)=>{
+    shippingMoney.value = shipping.value==='delivery' ? 80 : 0
+    shippingMoney.value = newVal.final_total>3000 ? 0 : shippingMoney.value
   })
   // checkout info
   const userInfo = reactive({
@@ -139,7 +144,8 @@ export const useGlobalStore = defineStore('global', () => {
   }
 
   return {
-    loadingPage, loading, addingCart, menu,
+    loadingPage, loading, loadingAdd, addingCart,
+    menu,
     isfav, toggleFav,
     getProducts, products,
     getCart, addCart, cart,

@@ -4,7 +4,7 @@
     <img @click="router.push('/')" src="@/assets/logo.svg" class="tw-h-8 tw-ml-6 tw-cursor-pointer" alt="Logo">
     <div :class="{'active':openMobileNav}" class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-8 tw-items-center tw-justify-center
     tw-bg-white text-second tw-font-bold tw-text-lg md:tw-ml-auto tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none">
-      <router-link v-for="list in globalStore.menu" :key="list.link" @click="openMobileNav=false" :to="list.link" :class="{'text-primary':list.key==='login'}" class="menuA">{{ list.name }}</router-link>
+      <router-link v-for="list in globalStore.menu" :key="list.link" @click="openMobileNav=false" :to="list.link" :class="{'text-theme':list.key==='login'}" class="menuA">{{ list.name }}</router-link>
     </div>
     <a @click="openMobileNav=!openMobileNav" :class="{'active':openMobileNav}" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
       <span></span>
@@ -21,7 +21,7 @@
   <div @click="openMobileNav=false" :class="(!openMobileNav?'tw-pointer-events-none tw-opacity-0':'tw-opacity-50')" class="bg-theme tw-block md:tw-hidden tw-fixed tw-w-full tw-h-full tw-top-0 tw-z-10" />
   <div v-if="globalStore.loadingPage" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-30">
     <font-awesome-icon :icon="['fas', 'spinner']" class="fa-2xl fa-spin -tw-mb-3 tw-ml-8" />
-    <img :src="loadingImg" alt="loading cat" class="tw-w-40 tw-h-auto">
+    <img src="@/assets/img/loading.png" alt="loading cat" class="tw-w-40 tw-h-auto">
   </div>
 </template>
 <script>
@@ -30,8 +30,6 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
-// img
-import loadingImg from '@/assets/img/loading.png'
 
 export default defineComponent({
   setup() {
@@ -44,7 +42,7 @@ export default defineComponent({
       globalStore.getCart()
     })
     return {
-      loadingImg, route, router, globalStore, openMobileNav
+      route, router, globalStore, openMobileNav
     }
   }
 })
