@@ -2,7 +2,7 @@
   <div class="tw-h-screen tw-relative">
     <n-layout position="absolute">
       <n-layout-header class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
-        <!-- <router-link to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></router-link> -->
+        <router-link to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></router-link>
         <n-menu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </n-layout-header>
       <n-layout has-sider position="absolute" style="top: 64px;">
@@ -18,7 +18,7 @@
 </template>
 <script>
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
-import { defineComponent, inject, h } from 'vue'
+import { defineComponent, inject, h, onMounted } from 'vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router';
 
 export default defineComponent({
@@ -28,23 +28,25 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)meowforestToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-    const api = `${import.meta.env.VITE_API}api/user/check`
     axios.defaults.headers.common['Authorization'] = token
-    axios.post(api).then((res) => {
-      console.log(res)
-      if (!res.data.success) {
-        window.$notification.warning({
-          content: 'Plz Login!',
-          duration: 2000,
-        })
-        router.push('/login')
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
-    const logout = ()=> {
-      const api = `${import.meta.env.VITE_API}logout`
+    const check = () => {
+      const api = `${import.meta.env.VITE_API}api/user/check`
       axios.post(api).then((res) => {
+        console.log(res)
+        if (!res.data.success) {
+          window.$notification.warning({
+            content: 'Plz Login!',
+            duration: 2000,
+          })
+          router.push('/login')
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    const logout = async ()=> {
+      const api = `${import.meta.env.VITE_API}logout`
+      await axios.post(api).then((res) => {
         if(res.data.success){
           window.$notification.success({
             content: 'Logout Success!',
@@ -54,6 +56,9 @@ export default defineComponent({
           }
       })
     }
+    onMounted(() => {
+      check()
+    })
     const menuOptions = [
       {
         label: () =>

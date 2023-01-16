@@ -15,10 +15,11 @@
     <ProductModal :tempProduct="tempProduct" :isNew="isNew" :loading="loading" @updateProduct="updateProduct" @closeModal="v => showModal=v"/>
   </n-modal>
 </template>
+
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal } from 'naive-ui'
 import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
-import ProductModal from "../../components/admin/ProductModal.vue"
+import ProductModal from "@/components/admin/ProductModal.vue"
 
 export default defineComponent({
   components: { ProductModal, NSpace, NDataTable, NButton, NModal },
