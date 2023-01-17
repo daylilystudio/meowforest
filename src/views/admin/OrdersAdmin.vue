@@ -16,7 +16,7 @@
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
 import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
-import OrderModal from "../../components/admin/OrderModal.vue"
+import OrderModal from "@/components/admin/OrderModal.vue"
 
 export default defineComponent({
   components: { OrderModal, NSpace, NDataTable, NModal, NPagination },

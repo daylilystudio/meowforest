@@ -106,10 +106,10 @@ export default {
     return {
       router, globalStore, deliveryFee, updateCart, delCart,
       goNext() {
-        if (globalStore.shipping ==='') {
+        if (globalStore.payment ==='') {
+          window.$message.warning('Plz choose payment method')
+        } else if (globalStore.shipping ==='') {
           window.$message.warning('Plz choose shipping method')
-        } else if (globalStore.payment ==='') {
-          window.$message.warning('Plz choose payment')
         } else {
           router.push('/checkout')
         }
