@@ -78,10 +78,7 @@ export default {
       axios.put(api, { 'data': {'product_id':productId,'qty':qty} }).then((res) => {
         if(res) {
           globalStore.getCart()
-          window.$notification.warning({
-            content: res.data.message,
-            duration: 2000,
-          })
+          window.$message.warning(res.data.message)
         }
         globalStore.loading = false
       }).catch((err) => {
@@ -95,10 +92,7 @@ export default {
       axios.delete(api).then((res) => {
         if(res) {
           globalStore.getCart()
-          window.$notification.warning({
-            content: res.data.message,
-            duration: 2000,
-          })
+          window.$message.warning(res.data.message)
         }
         globalStore.loading = false
       }).catch((err) => {
@@ -112,14 +106,13 @@ export default {
     return {
       router, globalStore, deliveryFee, updateCart, delCart,
       goNext() {
-        if (globalStore.shipping !=='' && globalStore.payment !=='') {
+        if (globalStore.shipping ==='') {
+          window.$message.warning('Plz choose shipping method')
+        } else if (globalStore.payment ==='') {
+          window.$message.warning('Plz choose payment')
+        } else {
           router.push('/checkout')
-          return
         }
-        window.$notification.warning({
-          content: 'Plz choose payment or shipping method',
-          duration: 3000,
-        })
       },
       method: [
         {
@@ -129,7 +122,7 @@ export default {
             {
               id: 'creditcard',
               txt: 'Credit Card',
-              info: '交易安全無虞請放心使用。如超過三日未收到您的款項，您的訂購單將會自動取消。'
+              info: 'Visa、MasterCard、JCB皆可使用。'
             },
             {
               id: 'atm',

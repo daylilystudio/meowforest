@@ -53,6 +53,7 @@ export const useGlobalStore = defineStore('global', () => {
     } else {
       window.localStorage.setItem('meowforestFav' + id, 'y')
       isfav['meowforestFav' + id] = true
+      window.$message.success('Added Fav !')
     }
   }
   // get all products

@@ -118,3 +118,22 @@ a {
   }
   }
 }
+
+// ani
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.99);
+  }
+  60% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

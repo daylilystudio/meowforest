@@ -105,10 +105,7 @@ export default {
         document.body.appendChild(inputNode)
         try {
           await navigator.clipboard.writeText(inputNode.value)
-          window.$notification.success({
-            content: 'Copy URL Success !',
-            duration: 3000,
-          })
+          window.$message.success('Copy URL Success !')
         } catch (error) {
           console.error(error)
         }

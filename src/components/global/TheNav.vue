@@ -20,8 +20,8 @@
   </nav>
   <div @click="openMobileNav=false" :class="(!openMobileNav?'tw-pointer-events-none tw-opacity-0':'tw-opacity-50')" class="bg-theme tw-block md:tw-hidden tw-fixed tw-w-full tw-h-full tw-top-0 tw-z-10" />
   <div v-if="globalStore.loadingPage" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-30">
-    <font-awesome-icon :icon="['fas', 'spinner']" class="fa-2xl fa-spin -tw-mb-3 tw-ml-8" />
-    <img src="@/assets/img/loading.png" alt="loading cat" class="tw-w-40 tw-h-auto">
+    <font-awesome-icon :icon="['fas', 'spinner']" class="fa-2xl fa-spin tw-ml-8 tw-mt-2" />
+    <img src="@/assets/img/loading.png" alt="loading cat" class="cat tw-w-32 tw-h-auto">
   </div>
 </template>
 <script>
@@ -111,5 +111,8 @@ export default defineComponent({
   100% {
     transform: rotate(0deg);
   }
+}
+.cat {
+  animation: heartbeat 1.2s 1.5s ease-in infinite;
 }
 </style>

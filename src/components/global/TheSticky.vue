@@ -1,7 +1,7 @@
 <template>
   <div class="tw-fixed tw-bottom-3 sm:tw-bottom-6 tw-right-3 md:tw-right-5 tw-z-20">
     <a v-for="item in list" :key="item.icon"
-      @click="clickBtn(item.icon)" :class="item.class"
+      @click="clickBtn(item.icon)" :class="(route.path.match(/checkout/)&&item.icon==='heart'?'tw-hidden':item.class)"
       class="shadow tw-block tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center
       tw-bg-white tw-rounded-full tw-mb-2 tw-cursor-pointer">
       <font-awesome-icon :icon="['fas', item.icon]" class="fa-lg" />
@@ -25,9 +25,9 @@
             <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
             <span class="text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
           </a>
-          <a @click="globalStore.addCart(item.id, 1)" title="Add To Cart" class="bg-second tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 -tw-mr-2 tw-cursor-pointer">
-            <img v-show="!globalStore.loadingAdd" src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
-            <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
+          <a @click="globalStore.addCart(item.id, 1);clickItem=item.id" title="Add To Cart" class="bg-second tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 -tw-mr-2 tw-cursor-pointer">
+            <font-awesome-icon v-if="globalStore.loadingAdd&&clickItem===item.id" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
+            <img v-else src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
           </a>
         </div>
       </template>
@@ -51,10 +51,12 @@ export default {
     const router = useRouter()
     const showModal = ref(false)
     const globalStore = useGlobalStore()
+    const clickItem = ref('')
     return {
       globalStore,
       route, router,
       showModal,
+      clickItem,
       clickBtn(e) {
         switch(e) {
           case 'heart':

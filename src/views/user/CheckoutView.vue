@@ -2,7 +2,7 @@
   <shop-layout :process="1" breadcrumb="Checkout" nextBtn="Submit Order" @onGoNext="goNext">
     <template v-slot:content>
       <h5 class="tw-text-lg tw-mb-5">Shipping Information</h5>
-      <div class="tw-grid sm:tw-grid-cols-2 tw-gap-x-8 tw-gap-y-5 tw-px-4">
+      <div class="tw-grid sm:tw-grid-cols-2 tw-gap-x-4 sm:tw-gap-x-8 tw-gap-y-5 sm:tw-px-4">
         <label for="infoName">
           Full Name <span class="text-second">*</span><br>
           <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
@@ -31,7 +31,7 @@
       </div>
       <hr class="tw-opacity-40 tw-mt-10 tw-mb-8">
       <h5 class="tw-text-lg">Payment Details</h5>
-      <div v-if="globalStore.payment==='creditcard'" class="tw-grid tw-grid-cols-6 tw-gap-4 sm:tw-gap-x-8 tw-gap-y-5 tw-px-4 tw-mt-5">
+      <div v-if="globalStore.payment==='creditcard'" class="tw-grid tw-grid-cols-6 tw-gap-4 sm:tw-gap-x-8 tw-gap-y-5 sm:tw-px-4 tw-mt-5">
         <label for="creditcard" class="tw-col-span-6 sm:tw-col-span-3">
           Credit Card Number <span class="text-second">*</span><br>
           <input @input="validCard($event)" class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="19"
@@ -106,10 +106,7 @@ export default {
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`
       axios.post(api, data).then(async (res) => {
         if(res) {
-          window.$notification.warning({
-            content: res.data.message,
-            duration: 2000,
-          })
+          window.$message.warning(res.data.message)
           if (res.data.success) {
             if (globalStore.payment==='creditcard') {
               await payOrder(res.data.orderId)
@@ -158,15 +155,19 @@ export default {
         globalStore.cardInfo.valid = arr.join('')
       },
       goNext() {
+        // check email
+        const regexEmail = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
+        if (!globalStore.userInfo.email.match(regexEmail)) {
+          window.$message.warning('Wrong Email')
+        }
+        // check all fill
         const checkFill = Object.values(globalStore.userInfo).every(item => item!=='')
         let checkCardFill = true
-        if (globalStore.payment==='creditcard') {
+        if (!checkFill) window.$message.warning('Plz Finish Your Info :)')
+        else if (globalStore.payment==='creditcard') {
           checkCardFill = Object.values(globalStore.cardInfo).every(item => item!=='')
-          if (globalStore.cardInfo.number.match(/[0-9]/gi).length !==16 || globalStore.cardInfo.valid.length !==5 || globalStore.cardInfo.cvv.length !==3) {
-            window.$notification.warning({
-              content: 'Please Confirm Payment Info',
-              duration: 2000,
-            })
+          if (checkCardFill && globalStore.cardInfo.number.match(/[0-9]/gi).length !==16 || globalStore.cardInfo.valid.length !==5 || globalStore.cardInfo.cvv.length !==3) {
+            window.$message.warning('Plz Confirm Payment Info')
             return
           }
         }
@@ -180,12 +181,7 @@ export default {
               submitOrder()
             }
           })
-          return
         }
-        window.$notification.warning({
-          content: 'Plz finish your info :)',
-          duration: 3000,
-        })
       }
     }
   }

@@ -42,13 +42,13 @@
         </p>
         <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
           <n-input-number class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
-          <button :disabled="loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
+          <button :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'plus']" /> 加入購物車
-            <font-awesome-icon v-show="loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
+            <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
-          <button :disabled="loadingAdd" @click="buy(product.id)" class="hover:tw-brightness-75 tw-bg-transparent tw-rounded-full tw-font-bold tw-text-base tw-p-2 tw-text-gray-400 tw-border tw-border-gray-300 tw-border-solid tw-cursor-pointer">
+          <button :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="hover:tw-brightness-75 tw-bg-transparent tw-rounded-full tw-font-bold tw-text-base tw-p-2 tw-text-gray-400 tw-border tw-border-gray-300 tw-border-solid tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'dollar-sign']" /> 直接購買
-            <font-awesome-icon v-show="loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
+            <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
         </p>
       </div>
@@ -103,7 +103,6 @@ export default {
     const noProduct = ref(false)
     const tab = ref('spec')
     const addNum = ref(1)
-    const loadingAdd = ref(false)
     const globalStore = useGlobalStore()
     const productId = route.path.split('/')[2]
     const getProduct = (id) => {
@@ -138,7 +137,7 @@ export default {
       thumbsSwiper,
       setThumbsSwiper,
       modules: [Thumbs],
-      noProduct, product, tab, addNum, loadingAdd,
+      noProduct, product, tab, addNum,
       async buy(id) {
         await globalStore.addCart(id, addNum.value)
         router.push('/cart')

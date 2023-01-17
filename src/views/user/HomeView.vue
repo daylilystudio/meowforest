@@ -1,8 +1,8 @@
 <template>
   <header class="tw-relative tw-overflow-hidden tw-w-full tw-h-screen tw-flex md:tw-items-center tw-justify-center">
     <div class="hero tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-right-0" />
-    <img class="tw-relative tw-hidden sm:tw-block tw-w-5/6" src="@/assets/img/meowforestTxt.svg" alt="Meow Forest">
-    <img class="tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowforestTxt_m.svg" alt="Meow Forest">
+    <img class="heroTxt tw-relative tw-hidden sm:tw-block tw-w-5/6 tw-opacity-75" src="@/assets/img/meowforestTxt.svg" alt="Meow Forest">
+    <img class="heroTxt tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowforestTxt_m.svg" alt="Meow Forest">
     <span @click="scrollNext" class="fa-rotate-180 tw-absolute tw-text-white tw-bottom-10 tw-p-10 md:tw-hidden">
       <font-awesome-icon :icon="['fas', 'paw']" class="fa-bounce fa-2x" />
     </span>
@@ -18,7 +18,12 @@
     <img class="tw-w-full md:tw-hidden" src="@/assets/img/line_m.svg" alt="cat divider line">
     <TheTitle titletxt="關於喵森" subtxt="About Meow Forest" />
     <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-gap-x-20">
-      <img class="tw-max-w-md tw-w-3/5 tw-pl-4" src="@/assets/img/cats.png" alt="three cats">
+      <div class="tw-max-w-md tw-w-3/5 tw-relative">
+        <img class="tw-w-full tw-h-auto tw-opacity-0" src="@/assets/img/cats1.png" alt="three cats(left)">
+        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats1" src="@/assets/img/cats1.png" alt="three cats(left)">
+        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats2" src="@/assets/img/cats2.png" alt="three cats(right)">
+        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats3" src="@/assets/img/cats3.png" alt="three cats(center)">
+      </div>
       <p class="intro tw-font-medium tw-leading-8 tw-mt-4 tw-pb-1">
         建立喵森之前，我是一個有三隻貓的貓奴，因為很熱衷尋找貓咪的食物跟用品，認識了很多貓相關產品，也很重視貓咪們的食物，想給他們天然無害的用品。<br/><br/>
         漸漸開始熱衷研究貓用產品，有國外的品牌與台灣本土的產品，想把最好的貓咪各種用品，推薦給家裡有寶貝貓咪的主人們。<br/><br/>
@@ -41,7 +46,7 @@
           <span class="text-primary tw-block tw-text-xl tw-font-bold tw-mb-2">{{item.title}}</span>
           <span>{{item.txt}}</span>
         </p>
-        <img class="tw-block tw-mx-auto sm:tw-w-3/4 lg:tw-w-full tw-mt-6" :src="item.img" alt="cat display">
+        <img class="tw-block tw-mx-auto tw-w-3/5 lg:tw-w-full tw-mt-6" :src="item.img" alt="cat display">
       </div>
       <div v-for="(card ,i) in notice" :key="i+card.title" class="notice lg:tw-col-span-2 tw-bg-white">
         <span class="tw-block tw-text-xl tw-font-bold tw-mb-2">{{card.title}}</span>
@@ -159,6 +164,9 @@
   @media (min-width: 640px) {
     background-image: url(@/assets/img/hero.jpg);
   }
+  &Txt{
+    animation: heartbeat 1.2s 1.5s ease-in infinite;
+  }
 }
 .circleBlock{
   margin-top: 1.5rem;
@@ -197,10 +205,61 @@
     transform: scale3d(1, 1, 1);
   }
   50% {
-    transform: scale3d(1.16, 1.16, 1.16);
+    transform: scale3d(1.2, 1.2, 1.2);
   }
   100% {
     transform: scale3d(1, 1, 1);
+  }
+}
+.cats1{
+  animation: cats1 8s ease-in-out infinite;
+}
+.cats2{
+  animation: cats2 8s .5s ease-in-out infinite;
+}
+.cats3{
+  animation: cats3 8s 1s ease-in-out infinite;
+}
+@keyframes cats1 {
+  0%, 100%{
+    opacity: 0;
+    transform: translateX(-40%) translateY(70%);
+  }
+  10%, 85%{
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  99.6%{
+    opacity: 0;
+    transform: translateX(5%) translateY(-25%);
+  }
+}
+@keyframes cats2 {
+  0%, 100%{
+    opacity: 0;
+    transform: translateX(40%) translateY(70%);
+  }
+  10%, 85%{
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  99.6%{
+    opacity: 0;
+    transform: translateX(-5%) translateY(-25%);
+  }
+}
+@keyframes cats3 {
+  0%, 100%{
+    opacity: 0;
+    transform: translateX(0) translateY(70%);
+  }
+  5%, 85%{
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  99.6%{
+    opacity: 0;
+    transform: translateX(0) translateY(-25%);
   }
 }
 </style>
