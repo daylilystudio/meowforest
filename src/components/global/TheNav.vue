@@ -19,14 +19,14 @@
     </router-link>
   </nav>
   <div @click="openMobileNav=false" :class="(!openMobileNav?'tw-pointer-events-none tw-opacity-0':'tw-opacity-50')" class="bg-theme tw-block md:tw-hidden tw-fixed tw-w-full tw-h-full tw-top-0 tw-z-10" />
-  <div v-if="globalStore.loadingPage" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-30">
+  <div v-if="globalStore.loadingPage || openLoading" class="loadingBg tw-fixed tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-30">
     <font-awesome-icon :icon="['fas', 'spinner']" class="fa-2xl fa-spin tw-ml-8 tw-mt-2" />
     <img src="@/assets/img/loading.png" alt="loading cat" class="cat tw-w-32 tw-h-auto">
   </div>
 </template>
 <script>
 
-import { defineComponent, onBeforeMount, ref } from 'vue'
+import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
@@ -36,13 +36,19 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const globalStore = useGlobalStore()
+    const openLoading = ref(true)
     const openMobileNav = ref(false)
     onBeforeMount(() =>  {
       globalStore.getProducts()
       globalStore.getCart()
     })
+    onMounted(() =>  {
+      setTimeout(()=>{
+        openLoading.value = false
+      }, 300)
+    })
     return {
-      route, router, globalStore, openMobileNav
+      route, router, globalStore, openMobileNav, openLoading
     }
   }
 })
