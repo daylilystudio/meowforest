@@ -98,6 +98,7 @@ export default {
             payment_method: globalStore.payment,
             shipping_method: globalStore.shipping,
             shipping_money: globalStore.shippingMoney,
+            discount: globalStore.cart.total - Math.ceil(globalStore.cart.final_total),
             card: globalStore.cardInfo.number.split(' ').join(''),
           },
           message: globalStore.msg

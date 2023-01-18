@@ -10,7 +10,6 @@
             <span class="tw-col-span-2">Total</span>
           </div>
           <div class="tw-block md:tw-hidden tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Shop List</div>
-          <!-- <n-spin :show="globalStore.loading" class="tw-px-2"> -->
             <div v-for="(item, i) in globalStore.cart?.carts" :key="i" class="tw-relative tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-5 tw-border-b tw-border-solid tw-border-gray-200">
               <a @click="router.push('/products/'+item.product.id)" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-items-center tw-cursor-pointer">
                 <img :src="item.product.imagesUrl[0]" :alt="item.product.title" class="tw-w-28 tw-mr-2">
@@ -29,8 +28,14 @@
                 <font-awesome-icon :icon="['far', 'trash-can']" />
               </p>
             </div>
-            <div class="tw-text-xl tw-text-right tw-font-bold tw-mt-8">
-              Subtotal<span class="tw-ml-4 text-primary">NTD. {{globalStore.cart.total}}</span>
+            <a class="text-second tw-font-bold tw-block tw-pt-6 tw-pb-2 tw-cursor-pointer" @click="showModal=true">
+              Enter Coupon Code <font-awesome-icon :icon="['fas', 'caret-right']" />
+            </a>
+            <div class="tw-text-xl tw-text-right tw-font-bold">
+              Subtotal
+              <span class="tw-ml-4 text-primary">NTD. {{globalStore.cart.total}}
+                <small v-if="globalStore.cart.carts[0]?.coupon">(-{{ globalStore.cart.total - Math.ceil(globalStore.cart.final_total) }})</small>
+              </span>
             </div>
         </template>
         <div v-else class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-16 tw-mb-6">
@@ -56,21 +61,32 @@
       </section>
     </template>
   </shop-layout>
+  <n-modal v-model:show="showModal" :block-scroll="false" title="Enter Coupon" preset="card" style="max-width:95%; width: 360px">
+    <div @click="enterCoupon(card.code)" v-for="card in coupons" :key="card.code" class="tw-relative tw-flex tw-justify-between tw-items-center tw-border-b tw-border-dashed tw-border-gray-400 tw-mb-4 tw-px-3 tw-pb-4 tw-cursor-pointer">
+      <div>
+        <p class="text-second tw-text-lg tw-font-bold">{{ card.title }}</p>
+        <p class="text-primary tw-font-bold">CODE : {{ card.code }}</p>
+        <span>{{ card.discount }}</span>
+      </div>
+      <p class="tw-p-2"><font-awesome-icon :icon="['far', 'hand-pointer']" class="text-theme fa-xl fa-beat" /></p>
+      <font-awesome-icon :icon="['fas', 'scissors']" class="tw-absolute tw-text-gray-300 tw-left-20 -tw-bottom-2 fa-lg" />
+    </div>
+  </n-modal>
 </template>
 <script>
 import ShopLayout from '../../components/user/ShopLayout.vue'
-import { NSpin, NInputNumber } from 'naive-ui'
+import { NSpin, NInputNumber, NModal } from 'naive-ui'
 import { onBeforeMount, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
 export default {
-  components: { ShopLayout, NSpin, NInputNumber },
+  components: { ShopLayout, NSpin, NInputNumber, NModal },
   setup() {
     const router = useRouter()
     const axios = inject('axios')
-    const deliveryFee = ref(0)
+    const showModal = ref(false)
     const globalStore = useGlobalStore()
     const updateCart = (qty, cartId, productId) => {
       globalStore.loading = true
@@ -104,7 +120,8 @@ export default {
       globalStore.getCart()
     })
     return {
-      router, globalStore, deliveryFee, updateCart, delCart,
+      showModal,
+      router, globalStore, updateCart, delCart,
       goNext() {
         if (globalStore.payment ==='') {
           window.$message.warning('Plz choose payment method')
@@ -114,6 +131,32 @@ export default {
           router.push('/checkout')
         }
       },
+      enterCoupon(code) {
+        showModal.value = false
+        const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/coupon`
+        axios.post(api, {'data':{'code':code}}).then((res) => {
+          if(res) {
+            console.log(globalStore.cart)
+            console.log(res)
+            globalStore.getCart()
+            window.$message.warning(res.data.message)
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      },
+      coupons: [
+        {
+          title: '94愛貓咪',
+          code: '94lovecat',
+          discount: 'All Product 10% OFF'
+        },
+        {
+          title: '過年特惠',
+          code: 'CNY',
+          discount: 'All Product 50% OFF'
+        }
+      ],
       method: [
         {
           title: 'Payment Method',

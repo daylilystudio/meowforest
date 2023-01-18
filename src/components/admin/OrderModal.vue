@@ -40,7 +40,7 @@
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Message</span>{{ data.message?data.message:'-' }}
         </n-list-item>
         <n-list-item class="text-second tw-text-base tw-font-bold">
-          <span class="tw-w-1/4 tw-inline-block">Total</span>$ {{ filter.currency(data.total+data.user.shipping_money) }}
+          <span class="tw-w-1/4 tw-inline-block">Total</span>$ {{ filter.currency(Math.ceil(data.total)+data.user.shipping_money) }}
         </n-list-item>
       </n-list>
     </section>
@@ -100,7 +100,11 @@ export default defineComponent({
               filter.currency(row.total)
             );
           }
-        }
+        },
+        {
+          title: "Coupon",
+          key: "coupon[code]"
+        },
       ]
     }
   }

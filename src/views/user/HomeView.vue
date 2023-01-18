@@ -212,13 +212,13 @@
   }
 }
 .cats1{
-  animation: cats1 8s ease-in-out infinite;
+  animation: cats1 6s ease-in-out infinite;
 }
 .cats2{
-  animation: cats2 8s .5s ease-in-out infinite;
+  animation: cats2 6s .5s ease-in-out infinite;
 }
 .cats3{
-  animation: cats3 8s 1s ease-in-out infinite;
+  animation: cats3 6s 1s ease-in-out infinite;
 }
 @keyframes cats1 {
   0%, 100%{

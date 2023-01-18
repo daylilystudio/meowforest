@@ -13,7 +13,7 @@
           </a>
         </p>
         <section class="md:tw-grid tw-grid-cols-2 tw-px-4 tw-leading-7">
-          <div><span class="tw-font-bold tw-mr-1">Order Total</span> <span class="text-second">${{ orderInfo.total+orderInfo.user.shipping_money }}</span></div>
+          <div><span class="tw-font-bold tw-mr-1">Order Total</span> <span class="text-second">${{ Math.ceil(orderInfo.total)+orderInfo.user.shipping_money }}</span></div>
           <div><span class="tw-font-bold tw-mr-1">Order Date</span> {{ filter.date(orderInfo.create_at*1000) }}</div>
           <div><span class="tw-font-bold tw-mr-1">Shipping Method</span> {{ orderInfo.user.shipping_method }}</div>
           <div><span class="tw-font-bold tw-mr-1">Payment Method</span> {{ orderInfo.user.payment_method==='atm'?'ATM transfer':'Credit ****'+orderInfo.user.card.slice(-4) }}<font-awesome-icon v-if="orderInfo.user?.payment_method==='creditcard'" :icon="['far', 'credit-card']" class="tw-opacity-40 tw-ml-1" /></div>
@@ -54,7 +54,9 @@
             </span>
           </div>
           <p class="tw-mt-5 tw-text-right">
-            Total / {{ `${orderInfo.total} + ${orderInfo.user.shipping_money} (shipping) = ` }} <span class="tw-font-bold text-primary tw-ml-1">{{ '$'+(orderInfo.total+orderInfo.user.shipping_money) }}</span>
+            <span v-if="orderInfo.user.discount>0" class="tw-text-sm">Discount / -{{ orderInfo.user.discount }}<br/></span>
+            <span class="tw-text-sm">Shipping / {{ orderInfo.user.shipping_money }}</span><br/>
+            <span>Total / </span><span class="tw-font-bold text-primary tw-ml-1">{{ '$'+(Math.ceil(orderInfo.total)+orderInfo.user.shipping_money) }}</span>
           </p>
         </section>
       </div>
