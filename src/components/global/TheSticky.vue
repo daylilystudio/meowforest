@@ -7,45 +7,36 @@
       <font-awesome-icon :icon="['fas', item.icon]" class="fa-lg" />
     </a>
   </div>
-  <n-modal v-model:show="showModal" :block-scroll="false">
-    <n-card
-      style="max-width:95%; width: 800px"
-      title="My Fav Product"
-      :bordered="false"
-      size="huge"
-      role="dialog"
-      aria-modal="true"
-    >
-      <template v-for="item in globalStore.products" :key="item.id">
-        <div v-if="globalStore.isfav['meowforestFav' + item.id]" class="tw-flex tw-justify-between tw-items-center tw-py-2">
-          <a @click="globalStore.toggleFav(item.id)" title="Remove Fav" class="tw-p-2 -tw-ml-5 tw-cursor-pointer">
-            <font-awesome-icon :icon="['far', 'circle-xmark']" class="text-theme fa-xl" />
-          </a>
-          <a @click="showModal=false;router.push('/products/'+item.id)" class="tw-flex-1 tw-flex tw-items-center tw-cursor-pointer">
-            <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
-            <span class="text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
-          </a>
-          <a @click="globalStore.addCart(item.id, 1);clickItem=item.id" title="Add To Cart" class="bg-second tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 -tw-mr-2 tw-cursor-pointer">
-            <font-awesome-icon v-if="globalStore.loadingAdd&&clickItem===item.id" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
-            <img v-else src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
-          </a>
-        </div>
-      </template>
-      <div v-if="Object.values(globalStore.isfav).every(el => el === false)" class="tw-text-center">
-        <img src="@/assets/img/nodata.png" class="tw-w-4/5 sm:tw-w-48 tw-h-auto" alt="no data">
+  <n-modal v-model:show="showModal" :block-scroll="false" title="My Fav Product" preset="card" style="max-width:95%; width: 650px">
+    <template v-for="item in globalStore.products" :key="item.id">
+      <div v-if="globalStore.isfav['meowforestFav' + item.id]" class="tw-flex tw-justify-between tw-items-center tw-py-2">
+        <a @click="globalStore.toggleFav(item.id)" title="Remove Fav" class="tw-p-2 -tw-ml-2 tw-cursor-pointer">
+          <font-awesome-icon :icon="['far', 'circle-xmark']" class="text-theme fa-xl" />
+        </a>
+        <a @click="showModal=false;router.push('/products/'+item.id)" class="tw-flex-1 tw-flex tw-items-center tw-cursor-pointer">
+          <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
+          <span class="text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
+        </a>
+        <a @click="globalStore.addCart(item.id, 1);clickItem=item.id" title="Add To Cart" class="bg-second tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 tw-cursor-pointer">
+          <font-awesome-icon v-if="globalStore.loadingAdd&&clickItem===item.id" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
+          <img v-else src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
+        </a>
       </div>
-    </n-card>
+    </template>
+    <div v-if="Object.values(globalStore.isfav).every(el => el === false)" class="tw-text-center">
+      <img src="@/assets/img/nodata.png" class="tw-w-4/5 sm:tw-w-48 tw-h-auto" alt="no data">
+    </div>
   </n-modal>
 </template>
 <script>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { NModal, NCard } from 'naive-ui'
+import { NModal } from 'naive-ui'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
 export default {
-  components: { NModal, NCard },
+  components: { NModal },
   setup() {
     const route = useRoute()
     const router = useRouter()

@@ -26,7 +26,7 @@
       <n-list class="tw-flex-1 tw-mt-6 md:tw-mt-auto">
         <p class="text-primary tw-text-xl tw-font-bold md:tw-mb-2">Order Info</p>
         <n-list-item>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Order at</span>{{ filter.date(data.create_at) }}
+          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Order at</span>{{ filter.date(data.create_at*1000) }}
         </n-list-item>
         <n-list-item>
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Shipping</span>{{ data.user.shipping_method }}
@@ -34,7 +34,7 @@
         <n-list-item>
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Paid</span>
           <n-tag :bordered="false" :type="data.is_paid?'success':''" size="small" style="--n-height:21.5px" class="tw-mr-1">{{ data.is_paid ? 'Yes' : 'No' }}</n-tag>
-          {{ data.user.payment_method==='atm'?'ATM':'Credit' }} {{ data.paid_date ? '/ '+filter.date(data.paid_date) : '' }}
+          {{ data.user.payment_method==='atm'?'ATM':'Credit' }} {{ data.paid_date ? '/ '+filter.date(data.paid_date*1000) : '' }}
         </n-list-item>
         <n-list-item>
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Message</span>{{ data.message?data.message:'-' }}

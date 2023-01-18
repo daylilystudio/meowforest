@@ -13,6 +13,7 @@ import LoginAdmin from '../views/admin/LoginAdmin.vue'
 import HomeAdmin from '../views/admin/HomeAdmin.vue'
 import ProductsAdmin from '../views/admin/ProductsAdmin.vue'
 import OrdersAdmin from '../views/admin/OrdersAdmin.vue'
+import CouponsAdmin from '../views/admin/CouponsAdmin.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +79,11 @@ const router = createRouter({
           path: '/admin/orders',
           name: 'admin-orders',
           component: OrdersAdmin
+        },
+        {
+          path: '/admin/coupons',
+          name: 'admin-coupons',
+          component: CouponsAdmin
         }
       ]
     }

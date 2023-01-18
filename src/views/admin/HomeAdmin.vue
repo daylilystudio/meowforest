@@ -72,9 +72,17 @@ export default defineComponent({
         label: () =>
           h (RouterLink, 
             { to: '/admin/orders' },
-            { default: () => 'Orders list' }
+            { default: () => 'Orders' }
           ),
         key: "order",
+      },
+      {
+        label: () =>
+          h (RouterLink, 
+            { to: '/admin/coupons' },
+            { default: () => 'Coupons' }
+          ),
+        key: "coupon",
       },
       {
         label: () =>
@@ -83,7 +91,7 @@ export default defineComponent({
             { default: () => 'Logout' }
           ),
         key: "logout",
-      },
+      }
     ]
     return { route, menuOptions }
   }

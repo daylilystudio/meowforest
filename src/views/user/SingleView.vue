@@ -79,7 +79,7 @@
 </template>
 <script>
 import TheHeader from '@/components/global/TheHeader.vue'
-import { onMounted, inject, ref } from 'vue'
+import { onBeforeMount, inject, ref } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { NInputNumber, NTag } from 'naive-ui'
 // swiper
@@ -121,7 +121,7 @@ export default {
         globalStore.loadingPage = false
       })
     }
-    onMounted(() =>{
+    onBeforeMount(() =>{
       getProduct(productId)
     })
     onBeforeRouteUpdate((to) => {

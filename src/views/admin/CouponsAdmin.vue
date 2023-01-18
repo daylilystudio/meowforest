@@ -1,4 +1,7 @@
 <template>
+  <n-button @click="isNew=true;showModal=true;temp={}" strong round color="#FF904F" class="tw-block tw-ml-auto tw-mb-4">
+    Add Coupon +
+  </n-button>
   <n-space vertical :size="12">
     <n-data-table
       :bordered="false"
@@ -9,17 +12,17 @@
     />
     <n-pagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
   </n-space>
-  <n-modal v-model:show="showModal" :mask-closable="true">
-    <OrderModal :data="temp" @closeModal="v => showModal=v"/>
+  <n-modal v-model:show="showModal" :mask-closable="false">
+    <CouponModal :temp="temp" :isNew="isNew" :loading="loading" @update="update" @closeModal="v => showModal=v"/>
   </n-modal>
 </template>
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
 import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
-import OrderModal from "@/components/admin/OrderModal.vue"
+import CouponModal from "@/components/admin/CouponModal.vue"
 
 export default defineComponent({
-  components: { OrderModal, NSpace, NDataTable, NModal, NPagination },
+  components: { CouponModal, NSpace, NDataTable, NButton, NModal, NPagination },
   setup() {
     const axios = inject('axios')
     const filter = inject('$filter')
@@ -32,16 +35,16 @@ export default defineComponent({
       current: 1,
       total: 2,
     })
-    // get product
+    // get data
     const tableData = reactive({data:[]})
     const getData = () => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/orders?page=${pagination.current}`
+      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupons?page=${pagination.current}`
       axios.get(api).then((res) => {
         console.log(res)
         loading.value = false
         if(res.data.success){
-          tableData.data = res.data.orders
+          tableData.data = res.data.coupons
           pagination.total = res.data.pagination.total_pages
         }
       }).catch((err) => {
@@ -56,10 +59,10 @@ export default defineComponent({
     const update = (data) => {
       console.log(data)
       loading.value = true
-      let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product`
+      let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupon`
       let httpMethod = 'post'
       if(!isNew.value) {
-        api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product/${data.id}`
+        api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupon/${data.id}`
         httpMethod = 'put'
       }
       axios[httpMethod](api, {'data': data}).then((res) => {
@@ -84,7 +87,7 @@ export default defineComponent({
     }
     const delList = async (rowData) => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/order/${rowData.id}`
+      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupon/${rowData.id}`
       await axios.delete(api).then((res) => {
         loading.value = false
         window.$notification.success({
@@ -103,41 +106,35 @@ export default defineComponent({
     }) => {
       return [
         {
-          title: "Create Date",
-          key: "create_at",
+          title: "title",
+          key: "title"
+        },
+        {
+          title: "Code",
+          key: "code"
+        },
+        {
+          title: "Discount",
+          key: "percent"
+        },
+        {
+          title: "Due Date",
+          key: "due_date",
           render(row) {
             return h(
               'span',
-              filter.date(row.create_at*1000)
+              filter.date(row.due_date)
             );
           }
         },
         {
-          title: "Name",
-          key: "user[name]"
-        },
-        {
-          title: "Email",
-          key: "user[email]"
-        },
-        {
-          title: "Total",
-          key: "total",
-          render(row) {
-            return h(
-              'span',
-              filter.currency(row.total+row.user.shipping_money)
-            );
-          }
-        },
-        {
-          title: "Paid",
-          key: "is_paid",
+          title: "Enabled",
+          key: "is_enabled",
           render(row) {
             return h(
               NTag,
-              { type: row.is_paid===true ? 'success' : '', bordered: false },
-              { default: () => row.is_paid===true ? 'Yes' : 'No' }
+              { type: row.is_enabled===1 ? 'success' : '', bordered: false },
+              { default: () => row.is_enabled===1 ? 'Yes' : 'No' }
             );
           }
         },
@@ -148,7 +145,7 @@ export default defineComponent({
             return h('div', null, [
               h(NButton,
                 { type: "primary", size: "small", onClick: () => editList(row), class: 'tw-mr-2'},
-                { default: () => "View" },),
+                { default: () => "Edit" },),
               h(NButton,
                 { size: "small", onClick: () => clickDel(row)},
                 { default: () => "Del" })

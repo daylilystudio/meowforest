@@ -1,7 +1,7 @@
 <template>
   <n-card
     style="max-width:95%; width: 800px"
-    title="Add Product"
+    :title="(isNew?'Add':'Edit')+' Product'"
     :bordered="false"
     size="huge"
     role="dialog"

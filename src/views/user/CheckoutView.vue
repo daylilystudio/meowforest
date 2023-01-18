@@ -60,7 +60,7 @@
 
 <script>
 import ShopLayout from '../../components/user/ShopLayout.vue'
-import { inject, onMounted } from 'vue'
+import { inject, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
@@ -71,9 +71,10 @@ export default {
     const router = useRouter()
     const axios = inject('axios')
     const globalStore = useGlobalStore()
-    onMounted(() => {
+    onBeforeMount(() => {
       if (globalStore.cart.carts?.length===0 || globalStore.payment==='' || globalStore.shipping==='' ) {
         router.push('/')
+        window.$message.warning('Plz Add item first')
       }
     })
     const payOrder = (id) => {

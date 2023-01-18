@@ -60,7 +60,7 @@
 <script>
 import ShopLayout from '../../components/user/ShopLayout.vue'
 import { NSpin, NInputNumber } from 'naive-ui'
-import { onMounted, ref, inject } from 'vue'
+import { onBeforeMount, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
@@ -100,7 +100,7 @@ export default {
         globalStore.loading = false
       })
     }
-    onMounted(() =>{
+    onBeforeMount(() =>{
       globalStore.getCart()
     })
     return {

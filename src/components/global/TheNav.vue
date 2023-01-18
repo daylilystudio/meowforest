@@ -26,7 +26,7 @@
 </template>
 <script>
 
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
@@ -37,7 +37,7 @@ export default defineComponent({
     const router = useRouter()
     const globalStore = useGlobalStore()
     const openMobileNav = ref(false)
-    onMounted(() =>  {
+    onBeforeMount(() =>  {
       globalStore.getProducts()
       globalStore.getCart()
     })
