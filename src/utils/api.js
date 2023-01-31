@@ -1,7 +1,7 @@
-// 未完成
+// API Document https://github.com/hexschool/vue3-course-api-wiki/wiki
+// 統一管理 API 教學 https://ithelp.ithome.com.tw/articles/10230336
 import axios from "axios"
 import Cookies from 'js-cookie'
-// API Document https://github.com/hexschool/vue3-course-api-wiki/wiki
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API,
@@ -12,12 +12,11 @@ const instance = axios.create({
 // 此處的instance為我們create的實體
 instance.interceptors.response.use(
   function (config) {
-    // Do something with response data
-    const token = Cookies.get('einsure_token') || null
-    // 如果state有存token，則在headers上自動加上token
+    console.log('config', config)
+    const token = Cookies.get('meowforestToken') || null
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-      instance.defaults.headers.common.Authorization = `Bearer ${token}`
+      config.headers.Authorization = token
+      instance.defaults.headers.common.Authorization = token
     }
     return config
   },
@@ -25,23 +24,42 @@ instance.interceptors.response.use(
     if (error.response){
       switch (error.response.status) {
         case 404:
-          alert("你要找的頁面不存在")
-          // go to 404 page
+          alert('Page Not Found')
           break
         case 500:
-          alert("程式發生問題")
-          // go to 500 page
+          alert('Programming Error')
           break
         default:
           alert(error.message)
       }
     } 
     if (!window.navigator.onLine) {
-      alert("網路出了點問題，請重新連線後重整網頁");
-      return;
+      alert("Something wrong with the network, plz reconnect.")
+      return
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-// 管理API https://ithelp.ithome.com.tw/articles/10230336
+/////////
+// API //
+/////////
+
+// Login
+function login(data) {
+  return instance.post('admin/signin', data)
+}
+
+// Check
+function check() {
+  return instance.post('api/user/check')
+}
+
+// Logout
+function logout() {
+  return instance.post('logout')
+}
+
+export default {
+  login, check, logout
+}

@@ -18,21 +18,18 @@
 </template>
 <script>
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
-import { defineComponent, inject, h, onMounted } from 'vue'
-import { useRoute, useRouter, RouterLink } from 'vue-router';
+import { defineComponent, h, onBeforeMount } from 'vue'
+import { useRoute, useRouter, RouterLink } from 'vue-router'
+import api from '@/utils/api.js'
 
 export default defineComponent({
   components: { NLayout, NLayoutHeader, NMenu },
   setup() {
-    const axios = inject('axios')
     const route = useRoute()
     const router = useRouter()
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)meowforestToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-    axios.defaults.headers.common['Authorization'] = token
     const check = async () => {
-      const api = `${import.meta.env.VITE_API}api/user/check`
-      await axios.post(api).then((res) => {
-        console.log(res)
+      try {
+        const res = await api.check()
         if (!res.data.success) {
           window.$notification.warning({
             content: 'Plz Login!',
@@ -40,23 +37,25 @@ export default defineComponent({
           })
           router.push('/login')
         }
-      }).catch((err) => {
-        console.log(err)
-      })
+      } catch (err) {
+        window.$message.error(err)
+      }
     }
     const logout = async ()=> {
-      const api = `${import.meta.env.VITE_API}logout`
-      await axios.post(api).then((res) => {
+      try {
+        const res = await api.logout()
         if(res.data.success){
           window.$notification.success({
             content: 'Logout Success!',
             duration: 2000,
           })
           router.push('/login')
-          }
-      })
+        }
+      } catch (err) {
+        window.$message.error(err)
+      }
     }
-    onMounted(() => {
+    onBeforeMount(() => {
       check()
     })
     const menuOptions = [
