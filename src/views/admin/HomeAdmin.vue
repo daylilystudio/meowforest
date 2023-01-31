@@ -29,9 +29,9 @@ export default defineComponent({
     const router = useRouter()
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)meowforestToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
     axios.defaults.headers.common['Authorization'] = token
-    const check = () => {
+    const check = async () => {
       const api = `${import.meta.env.VITE_API}api/user/check`
-      axios.post(api).then((res) => {
+      await axios.post(api).then((res) => {
         console.log(res)
         if (!res.data.success) {
           window.$notification.warning({

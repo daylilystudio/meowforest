@@ -121,7 +121,7 @@ export default defineComponent({
           if(data.value.imagesUrl===undefined) data.value.imagesUrl = []
           data.value.imagesUrl.push(res.data.imageUrl)
           onFinish()
-          alert(res.data.imageUrl)
+          window.$message.success('Image Upload Success !')
         }
       }).catch((err) => {
         console.log(err)
