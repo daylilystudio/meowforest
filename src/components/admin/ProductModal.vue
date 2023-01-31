@@ -75,7 +75,8 @@
     </div>
   </n-card>
 </template>
-<script>
+
+<script lang="js">
 import { defineComponent, ref, inject, onMounted } from 'vue'
 import { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch } from "naive-ui";
 export default defineComponent({

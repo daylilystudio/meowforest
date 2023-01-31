@@ -20,11 +20,11 @@
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
 import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
 import CouponModal from "@/components/admin/CouponModal.vue"
+import api from '@/utils/api.js'
 
 export default defineComponent({
   components: { CouponModal, NSpace, NDataTable, NButton, NModal, NPagination },
   setup() {
-    const axios = inject('axios')
     const filter = inject('$filter')
     // data
     const loading = ref(false)
@@ -37,35 +37,34 @@ export default defineComponent({
     })
     // get data
     const tableData = reactive({data:[]})
-    const getData = () => {
+    const getData = async () => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupons?page=${pagination.current}`
-      axios.get(api).then((res) => {
-        console.log(res)
+      try {
+        const res = await api.getAdminData('coupons', pagination.current)
         loading.value = false
         if(res.data.success){
           tableData.data = res.data.coupons
           pagination.total = res.data.pagination.total_pages
         }
-      }).catch((err) => {
+      } catch (err) {
         loading.value = false
-        console.log(err)
-      })
+        window.$message.error(err.toString())
+      }
     }
     onMounted(() => {
       getData()
     })
     // update item
-    const update = (data) => {
-      console.log(data)
+    const update = async (data) => {
       loading.value = true
-      let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupon`
+      let slug = 'coupon'
       let httpMethod = 'post'
       if(!isNew.value) {
-        api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupon/${data.id}`
+        slug = `coupon/${data.id}`
         httpMethod = 'put'
       }
-      axios[httpMethod](api, {'data': data}).then((res) => {
+      try {
+        const res = await api.updateAdminData(httpMethod, slug, data)
         showModal.value = false
         loading.value = false
         if(res.data.success){
@@ -80,25 +79,26 @@ export default defineComponent({
             duration: 2500,
           })
         }
-      }).catch((err) => {
+      } catch (err) {
         loading.value = false
-        console.log(err)
-      })
+        window.$message.error(err.toString())
+      }
     }
+    // del item
     const delList = async (rowData) => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/coupon/${rowData.id}`
-      await axios.delete(api).then((res) => {
+      try {
+        const res = await api.delAdminData('coupon', rowData.id)
         loading.value = false
         window.$notification.success({
           content: res.data.message,
           duration: 1500,
         })
-      }).catch((err) => {
+        getData()
+      } catch (err) {
         loading.value = false
-        console.log(err)
-      })
-      getData()
+        console.log(err.toString())
+      }
     }
     // table key
     const createColumns = ({

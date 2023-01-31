@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script>
+<script lang="js">
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin } from 'naive-ui'
@@ -39,7 +39,6 @@ export default defineComponent({
     NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin
   },
   setup () {
-    // const axios = inject('axios')
     let loading = ref(false)
     const router = useRouter()
     const modelRef = ref({

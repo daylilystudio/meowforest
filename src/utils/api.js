@@ -60,6 +60,24 @@ function logout() {
   return instance.post('logout')
 }
 
+// Get Admin Data List
+function getAdminData(slug, page) {
+  return instance.get(`api/${import.meta.env.VITE_PATH}/admin/${slug}?page=${page}`)
+}
+
+// Update Admin Data List
+function updateAdminData(http, slug, data) {
+  return instance[http](`api/${import.meta.env.VITE_PATH}/admin/${slug}`, {'data': data})
+}
+
+// Delete Admin Data List
+function delAdminData(slug, id) {
+  return instance.delete(`api/${import.meta.env.VITE_PATH}/admin/${slug}/${id}`)
+}
+
 export default {
-  login, check, logout
+  login, check, logout,
+  getAdminData,
+  updateAdminData,
+  delAdminData
 }

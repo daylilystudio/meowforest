@@ -17,11 +17,11 @@
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
 import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
 import OrderModal from "@/components/admin/OrderModal.vue"
+import api from '@/utils/api.js'
 
 export default defineComponent({
   components: { OrderModal, NSpace, NDataTable, NModal, NPagination },
   setup() {
-    const axios = inject('axios')
     const filter = inject('$filter')
     // data
     const loading = ref(false)
@@ -32,70 +32,40 @@ export default defineComponent({
       current: 1,
       total: 2,
     })
-    // get product
+    // get data
     const tableData = reactive({data:[]})
-    const getData = () => {
+    const getData = async () => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/orders?page=${pagination.current}`
-      axios.get(api).then((res) => {
-        console.log(res)
+      try {
+        const res = await api.getAdminData('orders', pagination.current)
         loading.value = false
         if(res.data.success){
           tableData.data = res.data.orders
           pagination.total = res.data.pagination.total_pages
         }
-      }).catch((err) => {
+      } catch (err) {
         loading.value = false
-        console.log(err)
-      })
+        window.$message.error(err.toString())
+      }
     }
     onMounted(() => {
       getData()
     })
-    // update item
-    const update = (data) => {
-      console.log(data)
-      loading.value = true
-      let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product`
-      let httpMethod = 'post'
-      if(!isNew.value) {
-        api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product/${data.id}`
-        httpMethod = 'put'
-      }
-      axios[httpMethod](api, {'data': data}).then((res) => {
-        showModal.value = false
-        loading.value = false
-        if(res.data.success){
-          window.$notification.success({
-            content: 'Update Success',
-            duration: 1500,
-          })
-          getData()
-        } else {
-          window.$notification.success({
-            content: res.data.message.toString(),
-            duration: 2500,
-          })
-        }
-      }).catch((err) => {
-        loading.value = false
-        console.log(err)
-      })
-    }
+    // del item
     const delList = async (rowData) => {
       loading.value = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/order/${rowData.id}`
-      await axios.delete(api).then((res) => {
+      try {
+        const res = await api.delAdminData('order', rowData.id)
         loading.value = false
         window.$notification.success({
           content: res.data.message,
           duration: 1500,
         })
-      }).catch((err) => {
+        getData()
+      } catch (err) {
         loading.value = false
-        console.log(err)
-      })
-      getData()
+        console.log(err.toString())
+      }
     }
     // table key
     const createColumns = ({
@@ -164,7 +134,6 @@ export default defineComponent({
       temp,
       tableData,
       pagination,
-      update,
       columns: createColumns({
         editList(rowData) {
           temp.value = rowData
