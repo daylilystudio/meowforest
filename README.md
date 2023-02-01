@@ -1,12 +1,19 @@
 # meowforest
 
-[demo](daylilystudio.github.io/meowforest)
+## DEMO
+[Link](http://daylilystudio.github.io/meowforest)
+
+## Introduction
+the website is a E-commerce type portfolio.
+Design and develope by [Daylily](https://daylily.tw).
+Use Vue3, tailwind, naive-ui, pinia
 
 ## Project Setup
-##### creat .env file
+- #### creat .env file
 VITE_API =(API URL from HexSchool)
 VITE_PATH =(API account)
-##### start
+
+- #### start
 ```sh
 npm install
 ```
