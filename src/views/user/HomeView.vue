@@ -165,15 +165,16 @@
     background-image: url(@/assets/img/hero.jpg);
   }
   &Txt{
+    max-width: 1200px;
     animation: heartbeat 1.2s 1.5s ease-in infinite;
   }
 }
 .circleBlock{
   margin-top: 1.5rem;
   max-width: 88%;
-  width: 975px;
-  @media (min-width: 640px) {
-    margin-top: -8%;
+  width: 880px;
+  @media (min-width: 768px) {
+    margin-top: -5rem;
   }
 }
 .circle{
