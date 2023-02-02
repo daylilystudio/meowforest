@@ -10,7 +10,7 @@ export const useGlobalStore = defineStore('global', () => {
   const menu = ref([
     {
       name: '全部商品',
-      en: 'All',
+      en: 'Products',
       link: '/products',
       key: 'all'
     },
