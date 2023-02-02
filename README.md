@@ -1,7 +1,5 @@
 # meowforest
   
-## Guildline
-![image](https://i.imgur.com/6ZxBWHZ.png)  
   
 ## DEMO
 [Link](http://daylilystudio.github.io/meowforest)  
