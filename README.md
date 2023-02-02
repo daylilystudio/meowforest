@@ -1,10 +1,10 @@
 # meowforest
   
 ## Guildline
-![image](https://i.imgur.com/5Jy6V1u.png)
+![image](https://i.imgur.com/6ZxBWHZ.png)  
   
 ## DEMO
-[Link](http://daylilystudio.github.io/meowforest)
+[Link](http://daylilystudio.github.io/meowforest)  
   
 ## Introduction
 the website is a E-commerce type portfolio.  
