@@ -97,7 +97,7 @@ export default defineComponent({
         getData()
       } catch (err) {
         loading.value = false
-        console.log(err.toString())
+        window.$message.error(err.toString())
       }
     }
     // table key

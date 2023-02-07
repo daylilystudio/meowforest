@@ -84,7 +84,7 @@ export default {
           return res
         }
       }).catch((err) => {
-        console.log(err)
+        window.$message.error(err.toString())
       })
     }
     const submitOrder = () => {
@@ -125,7 +125,7 @@ export default {
         }
         globalStore.loadingPage = false
       }).catch((err) => {
-        console.log(err)
+        window.$message.error(err.toString())
         globalStore.loadingPage = false
       })
     }

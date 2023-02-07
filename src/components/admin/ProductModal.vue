@@ -98,7 +98,6 @@ export default defineComponent({
   setup(props) {
     const axios = inject('axios')
     const data = ref(props.tempProduct)
-    console.log(data.value)
     const fileList = ref([])
     onMounted(() => {
       if(data.value.imagesUrl?.length>0) {
@@ -118,14 +117,13 @@ export default defineComponent({
       }).then((res) => {
         if(res.data.success){
           fileList.value.push({status: "finished",url:res.data.imageUrl})
-          console.log(data.value.imagesUrl, data.value);
           if(data.value.imagesUrl===undefined) data.value.imagesUrl = []
           data.value.imagesUrl.push(res.data.imageUrl)
           onFinish()
           window.$message.success('Image Upload Success !')
         }
       }).catch((err) => {
-        console.log(err)
+        window.$message.error(err.toString())
         onError()
       })
     }

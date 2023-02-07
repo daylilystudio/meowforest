@@ -99,7 +99,6 @@ export default defineComponent({
       //     }
       //   }).catch((err) => {
       //     loading.value = false
-      //     console.log(err)
       //   })
       // }
     }

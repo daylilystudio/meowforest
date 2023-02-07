@@ -62,7 +62,6 @@ export default defineComponent({
     //     }
     //   }).catch((err) => {
     //     loading.value = false
-    //     console.log(err)
     //   })
     // }
     onMounted(() => {
@@ -99,7 +98,6 @@ export default defineComponent({
       }
     }
     // const updateProduct = (data) => {
-    //   console.log(data)
     //   loading.value = true
     //   let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product`
     //   let httpMethod = 'post'
@@ -124,7 +122,6 @@ export default defineComponent({
     //     }
     //   }).catch((err) => {
     //     loading.value = false
-    //     console.log(err)
     //   })
     // }
     // delete item
@@ -140,7 +137,7 @@ export default defineComponent({
         getData()
       } catch (err) {
         loading.value = false
-        console.log(err.toString())
+        window.$message.error(err.toString())
       }
     }
     // const delList = async (rowData) => {
@@ -154,7 +151,6 @@ export default defineComponent({
     //     })
     //   }).catch((err) => {
     //     loading.value = false
-    //     console.log(err)
     //   })
     //   getData()
     // }

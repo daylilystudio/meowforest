@@ -98,7 +98,7 @@ export default {
         }
         globalStore.loading = false
       }).catch((err) => {
-        console.log(err)
+        window.$message.error(err.toString())
         globalStore.loading = false
       })
     }
@@ -112,7 +112,7 @@ export default {
         }
         globalStore.loading = false
       }).catch((err) => {
-        console.log(err)
+        window.$message.error(err.toString())
         globalStore.loading = false
       })
     }
@@ -136,13 +136,11 @@ export default {
         const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/coupon`
         axios.post(api, {'data':{'code':code}}).then((res) => {
           if(res) {
-            console.log(globalStore.cart)
-            console.log(res)
             globalStore.getCart()
             window.$message.warning(res.data.message)
           }
         }).catch((err) => {
-          console.log(err)
+          window.$message.error(err.toString())
         })
       },
       coupons: [

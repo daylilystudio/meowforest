@@ -65,7 +65,6 @@ export default defineComponent({
   },
   setup(props) {
     const data = ref(props.temp)
-    console.log(data.value)
     return { 
       data,
       rules: {

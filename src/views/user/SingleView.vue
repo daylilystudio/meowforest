@@ -116,7 +116,7 @@ export default {
         }
         globalStore.loadingPage = false
       }).catch((err) => {
-        console.log(err)
+        window.$message.error(err.toString())
         noProduct.value = true
         globalStore.loadingPage = false
       })

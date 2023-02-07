@@ -12,7 +12,6 @@ const instance = axios.create({
 // 此處的instance為我們create的實體
 instance.interceptors.response.use(
   function (config) {
-    console.log('config', config)
     const token = Cookies.get('meowforestToken') || null
     if (token) {
       config.headers.Authorization = token

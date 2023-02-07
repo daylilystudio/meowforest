@@ -68,10 +68,7 @@ export default {
           return products.value.filter(el=>el.title.includes(searchText.value))
         }
         return products.value
-      },
-      set: (newVal) => {
-        console.log(newVal)
-      },
+      }
     });
     return {
       globalStore,

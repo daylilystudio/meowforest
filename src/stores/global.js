@@ -66,7 +66,7 @@ export const useGlobalStore = defineStore('global', () => {
         products.value = res.data.products
       }
     }).catch((err) => {
-      console.log(err)
+      window.$message.error(err.toString())
     })
   }
   // get carts
@@ -78,7 +78,7 @@ export const useGlobalStore = defineStore('global', () => {
       cart.value = res.data.data
       loading.value = false
     }).catch((err) => {
-      console.log(err)
+      window.$message.error(err.toString())
       loading.value = false
     })
   }
