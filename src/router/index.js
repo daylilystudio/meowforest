@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 // user
 import NotFound from '../views/user/NotFound.vue'
 import LayoutView from '../layouts/LayoutView.vue'
@@ -16,7 +16,7 @@ import OrdersAdmin from '../views/admin/OrdersAdmin.vue'
 import CouponsAdmin from '../views/admin/CouponsAdmin.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
