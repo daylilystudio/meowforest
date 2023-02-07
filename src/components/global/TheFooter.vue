@@ -17,7 +17,8 @@
     </section>
     <section class="bg-primary tw-py-8 tw-px-4 tw-text-center">
       {{thisYear()}} © 貓森 Meow Forest All Reserved.<br class="tw-block sm:tw-hidden">
-      Design & Web Develope by <a href="https://daylily.tw" target="_blank">Daylily</a>.
+      Design & Web Develope by <a href="https://daylily.tw" target="_blank">Daylily</a>.<br>
+      Personal works, non-commercial purposes.
       <p class="tw-w-full tw-h-16 tw-block sm:tw-hidden" />
     </section>
   </footer>
