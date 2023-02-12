@@ -9,8 +9,8 @@ const instance = axios.create({
   timeout: 20000
 });
 
-// 此處的instance為我們create的實體
-instance.interceptors.response.use(
+// request 的攔截器
+instance.interceptors.request.use(
   function (config) {
     const token = Cookies.get('meowforestToken') || null
     if (token) {
@@ -18,6 +18,15 @@ instance.interceptors.response.use(
       instance.defaults.headers.common.Authorization = token
     }
     return config
+  },
+  function (error) {
+    return Promise.reject(error)
+  }
+);
+// response 攔截器
+instance.interceptors.response.use(
+  function (response) {
+    return response
   },
   function (error) {
     if (error.response){
