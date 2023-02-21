@@ -28,7 +28,7 @@ coverage
 *.sw?
 
 # environment
-.env
+# .env
 
 # npm
 package-lock.json
