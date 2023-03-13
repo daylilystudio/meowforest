@@ -1,5 +1,5 @@
 <template>
-  <the-header />
+  <TheHeader />
   <div class="container lg:tw-grid lg:tw-grid-cols-4 tw-gap-8 tw-pt-10 -tw-mt-24 sm:tw-mt-auto">
     <aside class="shadow tw-col-span-1 tw-self-start tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <label for="search" class="tw-relative">
@@ -27,9 +27,9 @@
               <font-awesome-icon :icon="[globalStore.isfav['meowforestFav' + list.id] ? 'fas' : 'far', 'heart']" />
             </p>
           </div>
-          <p class="tw-font-bold tw-mt-3 tw-mb-1">{{list.title}}</p>
-          <span class="text-second tw-mr-4 tw-font-bold">NTD. {{list.price}}</span>
-          <del>NTD. {{list.origin_price}}</del>
+          <p class="tw-font-bold tw-mt-3 tw-mb-1">{{ list.title }}</p>
+          <span class="text-second tw-mr-4 tw-font-bold">NTD. {{ list.price }}</span>
+          <del>NTD. {{ list.origin_price }}</del>
         </router-link>
       </section>
     </main>

@@ -1,25 +1,25 @@
 <template>
-  <n-space vertical :size="12">
-    <n-data-table
+  <NSpace vertical :size="12">
+    <NDataTable
       :bordered="false"
       :columns="columns"
       :data="tableData.data"
       :pagination="false"
       :loading="loading"
     />
-    <n-pagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
-  </n-space>
-  <n-modal v-model:show="showModal" :mask-closable="true">
+    <NPagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
+  </NSpace>
+  <NModal v-model:show="showModal" :mask-closable="true">
     <OrderModal :data="temp" @closeModal="v => showModal=v"/>
-  </n-modal>
+  </NModal>
 </template>
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
-import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
+import { h, ref, reactive, inject, onMounted} from 'vue'
 import OrderModal from "@/components/admin/OrderModal.vue"
 import api from '@/utils/api.js'
 
-export default defineComponent({
+export default {
   components: { OrderModal, NSpace, NDataTable, NModal, NPagination },
   setup() {
     const filter = inject('$filter')
@@ -158,5 +158,5 @@ export default defineComponent({
       }
     };
   }
-});
+}
 </script>

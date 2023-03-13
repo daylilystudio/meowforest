@@ -1,28 +1,28 @@
 <template>
   <div class="tw-h-screen tw-relative">
-    <n-layout position="absolute">
-      <n-layout-header class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
+    <NLayout position="absolute">
+      <NLayoutHeader class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
         <router-link to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></router-link>
-        <n-menu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
-      </n-layout-header>
-      <n-layout has-sider position="absolute" style="top: 64px;">
-        <n-layout content-style="padding: 24px;" class="bg-primary bg-paw">
+        <NMenu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
+      </NLayoutHeader>
+      <NLayout has-sider position="absolute" style="top: 64px;">
+        <NLayout content-style="padding: 24px;" class="bg-primary bg-paw">
           <div v-if="route.path==='/admin/'||route.path==='/admin'" class="tips shadow tw-relative tw-max-w-full tw-w-60 tw-ml-auto tw-bg-white tw-rounded-xl tw-text-center tw-p-2">
             Please Click Menu !
           </div>
           <RouterView/>
-        </n-layout>
-      </n-layout>
-    </n-layout>
+        </NLayout>
+      </NLayout>
+    </NLayout>
   </div>
 </template>
 <script>
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
-import { defineComponent, h, onBeforeMount } from 'vue'
+import { h, onBeforeMount } from 'vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
 import api from '@/utils/api.js'
 
-export default defineComponent({
+export default {
   components: { NLayout, NLayoutHeader, NMenu },
   setup() {
     const route = useRoute()
@@ -94,7 +94,7 @@ export default defineComponent({
     ]
     return { route, menuOptions }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>

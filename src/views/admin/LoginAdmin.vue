@@ -1,40 +1,40 @@
 <template>
   <div class="tw-relative tw-h-screen tw-overflow-hidden tw-flex tw-justify-center tw-items-center">
     <div class="bg bg-paw"></div>
-    <n-spin :show="loading" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-px-10 tw-py-6">
-      <n-form ref="formRef" :model="model">
-        <n-form-item path="username" label="Account">
-          <n-input type="email" v-model:value="model.username" @keydown.enter.prevent />
-        </n-form-item>
-        <n-form-item path="password" label="Password">
-          <n-input type="password" v-model:value="model.password" @keydown.enter.prevent="login"/>
-        </n-form-item>
-        <n-row :gutter="[0, 24]">
-          <n-col :span="24">
+    <NSpin :show="loading" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-px-10 tw-py-6">
+      <NForm ref="formRef" :model="model">
+        <NFormItem path="username" label="Account">
+          <NInput type="email" v-model:value="model.username" @keydown.enter.prevent />
+        </NFormItem>
+        <NFormItem path="password" label="Password">
+          <NInput type="password" v-model:value="model.password" @keydown.enter.prevent="login"/>
+        </NFormItem>
+        <NRow :gutter="[0, 24]">
+          <NCol :span="24">
             <div class="tw-flex tw-justify-end">
-              <n-button
+              <NButton
                 :disabled="model.username === ''||model.password === ''"
                 round
                 type="primary"
                 @click="login"
               >
                 Submit
-              </n-button>
+              </NButton>
             </div>
-          </n-col>
-        </n-row>
-      </n-form>
-    </n-spin>
+          </NCol>
+        </NRow>
+      </NForm>
+    </NSpin>
   </div>
 </template>
 
 <script lang="js">
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin } from 'naive-ui'
 import api from '@/utils/api.js'
 
-export default defineComponent({
+export default {
   components: {
     NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin
   },
@@ -103,7 +103,7 @@ export default defineComponent({
       // }
     }
   }
-})
+}
 </script>
 
 <style>

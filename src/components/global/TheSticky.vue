@@ -7,7 +7,7 @@
       <font-awesome-icon :icon="['fas', item.icon]" class="fa-lg" />
     </a>
   </div>
-  <n-modal v-model:show="showModal" :block-scroll="false" title="My Fav Product" preset="card" style="max-width:95%; width: 650px">
+  <NModal v-model:show="showModal" :block-scroll="false" title="My Fav Product" preset="card" style="max-width:95%; width: 650px">
     <template v-for="item in globalStore.products" :key="item.id">
       <div v-if="globalStore.isfav['meowforestFav' + item.id]" class="tw-flex tw-justify-between tw-items-center tw-py-2">
         <a @click="globalStore.toggleFav(item.id)" title="Remove Fav" class="tw-p-2 -tw-ml-2 tw-cursor-pointer">
@@ -26,7 +26,7 @@
     <div v-if="Object.values(globalStore.isfav).every(el => el === false)" class="tw-text-center">
       <img src="@/assets/img/nodata.png" class="tw-w-4/5 sm:tw-w-48 tw-h-auto" alt="no data">
     </div>
-  </n-modal>
+  </NModal>
 </template>
 <script>
 import { ref } from 'vue'
@@ -55,7 +55,7 @@ export default {
             break
           case 'arrow-up':
             window.scrollTo({
-              top: document.querySelector('body'),
+              top: document.body,
               behavior: 'smooth'
             })
             break

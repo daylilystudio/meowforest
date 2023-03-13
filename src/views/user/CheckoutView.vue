@@ -1,5 +1,5 @@
 <template>
-  <shop-layout :process="1" breadcrumb="Checkout" nextBtn="Submit Order" @onGoNext="goNext">
+  <ShopLayout :process="1" breadcrumb="Checkout" nextBtn="Submit Order" @onGoNext="goNext">
     <template v-slot:content>
       <h5 class="tw-text-lg tw-mb-5">Shipping Information</h5>
       <div class="tw-grid sm:tw-grid-cols-2 tw-gap-x-4 sm:tw-gap-x-8 tw-gap-y-5 sm:tw-px-4">
@@ -55,11 +55,11 @@
         *If you Submit Order, you also agree with our Shop Terms & Conditions
       </p>
     </template>
-  </shop-layout>
+  </ShopLayout>
 </template>
 
 <script>
-import ShopLayout from '../../components/user/ShopLayout.vue'
+import ShopLayout from '@/components/user/ShopLayout.vue'
 import { inject, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 // store

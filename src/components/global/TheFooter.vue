@@ -16,7 +16,7 @@
       </div>
     </section>
     <section class="bg-primary tw-py-8 tw-px-4 tw-text-center">
-      {{thisYear()}} © 貓森 Meow Forest All Reserved.<br class="tw-block sm:tw-hidden">
+      {{ thisYear() }} © 貓森 Meow Forest All Reserved.<br class="tw-block sm:tw-hidden">
       Design & Web Develope by <a href="https://daylily.tw" target="_blank">Daylily</a>.<br>
       Personal works, non-commercial purposes.
       <p class="tw-w-full tw-h-16 tw-block sm:tw-hidden" />
@@ -24,11 +24,10 @@
   </footer>
 </template>
 <script>
-import { defineComponent } from 'vue'
 // store composition API
 import { useGlobalStore } from '@/stores/global.js'
 
-export default defineComponent({
+export default {
   setup() {
     const globalStore = useGlobalStore()
     return {
@@ -39,5 +38,5 @@ export default defineComponent({
       }
     }
   }
-})
+}
 </script>

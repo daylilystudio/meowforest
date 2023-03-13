@@ -1,3 +1,4 @@
+/* global process */
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -19,5 +20,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/meowforest/'
+  base: process.env.NODE_ENV === 'production' ? '/meowforest/' : ''
 })

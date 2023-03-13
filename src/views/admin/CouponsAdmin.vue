@@ -1,28 +1,28 @@
 <template>
-  <n-button @click="isNew=true;showModal=true;temp={}" strong round color="#FF904F" class="tw-block tw-ml-auto tw-mb-4">
+  <NButton @click="isNew=true;showModal=true;temp={}" strong round color="#FF904F" class="tw-block tw-ml-auto tw-mb-4">
     Add Coupon +
-  </n-button>
-  <n-space vertical :size="12">
-    <n-data-table
+  </NButton>
+  <NSpace vertical :size="12">
+    <NDataTable
       :bordered="false"
       :columns="columns"
       :data="tableData.data"
       :pagination="false"
       :loading="loading"
     />
-    <n-pagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
-  </n-space>
-  <n-modal v-model:show="showModal" :mask-closable="false">
+    <NPagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
+  </NSpace>
+  <NModal v-model:show="showModal" :mask-closable="false">
     <CouponModal :temp="temp" :isNew="isNew" :loading="loading" @update="update" @closeModal="v => showModal=v"/>
-  </n-modal>
+  </NModal>
 </template>
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
-import { defineComponent ,h, ref, reactive, inject, onMounted} from 'vue'
+import { h, ref, reactive, inject, onMounted} from 'vue'
 import CouponModal from "@/components/admin/CouponModal.vue"
 import api from '@/utils/api.js'
 
-export default defineComponent({
+export default {
   components: { CouponModal, NSpace, NDataTable, NButton, NModal, NPagination },
   setup() {
     const filter = inject('$filter')
@@ -186,5 +186,5 @@ export default defineComponent({
       }
     };
   }
-});
+}
 </script>

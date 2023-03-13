@@ -1,5 +1,5 @@
 <template>
-  <the-header />
+  <TheHeader />
   <main class="container">
     <div class="dropShadow -tw-mt-24 tw-mb-4 tw-text-white">
       <router-link to="/" class="tw-font-bold">Home</router-link> /
@@ -9,44 +9,44 @@
     <div v-if="!noProduct" class="shadow md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <div>
         <div class="tw-relative tw-w-full tw-h-0" style="padding-bottom:75%">
-          <swiper
+          <Swiper
             v-if="product.imagesUrl?.length>0"
             :modules="modules"
             :thumbs="{ swiper: thumbsSwiper }"
             :allowTouchMove="product.imagesUrl?.length>1 ? true : false"
             class="!tw-absolute tw-top-0 tw-w-full tw-h-full">
-            <swiper-slide
+            <SwiperSlide
               v-for="(img, i) in product.imagesUrl" :key="i"
-              :style="{backgroundImage:'url('+img+')'}" />
-          </swiper>
+              :style="{backgroundImage:`url(${img})`}" />
+          </Swiper>
         </div>
-        <swiper 
+        <Swiper 
           :allowTouchMove="false" :spaceBetween="8" :slidesPerView="5"
           watch-slides-progress :modules="modules" @swiper="setThumbsSwiper"
           id="thumbs" class="tw-mt-2 tw-leading-none">
-          <swiper-slide v-for="(img, i) in product.imagesUrl" :key="i">
+          <SwiperSlide v-for="(img, i) in product.imagesUrl" :key="i">
             <img class="tw-w-full tw-cursor-pointer" :src="img" :alt="i">
-          </swiper-slide>
-        </swiper>
+          </SwiperSlide>
+        </Swiper>
       </div>
       <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
         <h2 class="tw-flex tw-justify-between tw-items-center">
           {{ product.title }}
           <font-awesome-icon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="text-second tw-p-2 -tw-mr-2 tw-cursor-pointer" />
         </h2>
-        <n-tag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</n-tag>
+        <NTag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</NTag>
         <p class="tw-mt-6" v-html="product.description" />
         <p class="tw-my-4">
           <span class="text-second tw-text-2xl tw-font-bold tw-mr-3">NTD. {{ product.price }}</span>
           <del>NTD. {{ product.origin_price }}</del>
         </p>
         <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
-          <n-input-number class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
-          <button :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
+          <NInputNumber class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
+          <button type="button" :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'plus']" /> Add to Card
             <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
-          <button :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="hover:tw-brightness-75 tw-bg-transparent tw-rounded-full tw-font-bold tw-text-base tw-p-2 tw-text-gray-400 tw-border tw-border-gray-300 tw-border-solid tw-cursor-pointer">
+          <button type="button" :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="bg-third hover:tw-brightness-90 tw-rounded-full text-theme tw-font-bold tw-text-base tw-p-2 tw-border-0 tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'dollar-sign']" /> Buy Now
             <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
@@ -57,17 +57,17 @@
   <!-- tab -->
   <section v-if="!noProduct" class="container tw-mt-10 md:tw-pl-1">
     <ul class="tw-flex tw-list-none tw-text-lg tw-font-bold">
-      <li @click="tab='spec'" :class="{'active':tab==='spec'}" class="menuA tw-cursor-pointer tw-mr-8">Product Spec</li>
-      <li @click="tab='notice'" :class="{'active':tab==='notice'}" class="menuA tw-cursor-pointer">Notice</li>
+      <li @click="tab='spec'" :class="{'active':tab === 'spec'}" class="menuA tw-cursor-pointer tw-mr-8">Product Spec</li>
+      <li @click="tab='notice'" :class="{'active':tab === 'notice'}" class="menuA tw-cursor-pointer">Notice</li>
     </ul>
     <div v-if="tab==='spec'" class="tw-mt-8" v-html="product.content" />
     <div v-if="tab==='notice'" class="tw-mt-8">
       <template v-for="list in notice" :key="list.title">
         <p class="tw-font-bold tw-mt-4">
-          <font-awesome-icon :icon="['fas', 'paw']" class="tw-mr-2" />{{list.title}}
+          <font-awesome-icon :icon="['fas', 'paw']" class="tw-mr-2" />{{ list.title }}
         </p>
         <p v-for="item in list.content" :key="item" class="tw-ml-6">
-          {{item}}
+          {{ item }}
         </p>
       </template>
     </div>

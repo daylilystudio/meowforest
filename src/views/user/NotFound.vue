@@ -1,5 +1,5 @@
 <template>
-  <the-header />
+  <TheHeader />
   <div class="tw-my-4 container">
     <router-link to="/" class="tw-font-bold">Home</router-link> /
     <span>404 Not Found</span>

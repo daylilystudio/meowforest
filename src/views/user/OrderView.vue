@@ -1,5 +1,5 @@
 <template>
-  <shop-layout :process="2" breadcrumb="Order Finish" nextBtn="Back To Home" @onGoNext="router.push('/')">
+  <ShopLayout :process="2" breadcrumb="Order Finish" nextBtn="Back To Home" @onGoNext="router.push('/')">
     <template v-slot:content>
       <div v-if="orderInfo!==null">
         <img src="@/assets/img/thx.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto" alt="thank you!">
@@ -42,15 +42,15 @@
         <section :class="(openProducts?'tw-h-auto ':'tw-h-0')" class="tw-overflow-hidden tw-px-4">
           <div v-for="(item, i) in orderInfo.products" :key="i" class="tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-4 tw-border-b tw-border-solid tw-border-gray-200">
             <span class="tw-col-span-12 md:tw-col-span-6">
-              {{item.product.title}}
+              {{ item.product.title }}
             </span>
             <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
-              <span class="text-primary tw-font-bold">${{item.product.price}}</span>
+              <span class="text-primary tw-font-bold">${{ item.product.price }}</span>
               <span class="tw-mr-4">X</span>
             </span>
-            <span class="tw-col-span-4 md:tw-col-span-2">{{item.qty}}</span>
+            <span class="tw-col-span-4 md:tw-col-span-2">{{ item.qty }}</span>
             <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
-              =<span class="text-primary tw-font-bold">${{item.total}}</span>
+              =<span class="text-primary tw-font-bold">${{ item.total }}</span>
             </span>
           </div>
           <p class="tw-mt-5 tw-text-right">
@@ -62,11 +62,11 @@
       </div>
       <div v-else class="tw-text-xl tw-font-bold tw-text-center tw-mb-6">No order found</div>
     </template>
-  </shop-layout>
+  </ShopLayout>
 </template>
 
 <script>
-import ShopLayout from '../../components/user/ShopLayout.vue'
+import ShopLayout from '@/components/user/ShopLayout.vue'
 import { inject, ref, onBeforeMount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 // store
@@ -108,7 +108,7 @@ export default {
           await navigator.clipboard.writeText(inputNode.value)
           window.$message.success('Copy URL Success !')
         } catch (error) {
-          console.error(error)
+          window.$message.error('Copy URL Error !')
         }
       }
     }

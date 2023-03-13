@@ -1,7 +1,7 @@
 <template>
-  <app-provider>
+  <AppProvider>
     <RouterView />
-  </app-provider>
+  </AppProvider>
 </template>
 
 <script setup>

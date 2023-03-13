@@ -15,8 +15,8 @@
         <font-awesome-icon :icon="['far', 'circle-dot']" v-if="process===i" />
         <font-awesome-icon :icon="['fas', 'circle-check']" v-if="process>i" />
       </span>
-      {{item.txt}}
-      <span>{{item.en}}</span>
+      {{ item.txt }}
+      <span>{{ item.en }}</span>
     </div>
   </section>
 </template>

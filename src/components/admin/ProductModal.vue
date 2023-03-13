@@ -1,5 +1,5 @@
 <template>
-  <n-card
+  <NCard
     style="max-width:95%; width: 800px"
     :title="(isNew?'Add':'Edit')+' Product'"
     :bordered="false"
@@ -7,15 +7,15 @@
     role="dialog"
     aria-modal="true"
   >
-    <n-form
+    <NForm
     ref="formRef"
     :model="data"
     :rules="rules"
     size="medium"
     label-placement="top">
-      <n-grid :x-gap="24" cols="1 s:2" responsive="screen">
-        <n-gi>
-          <n-upload
+      <NGrid :x-gap="24" cols="1 s:2" responsive="screen">
+        <NGi>
+          <NUpload
             :action="fileAction"
             :max=5
             list-type="image-card"
@@ -25,61 +25,61 @@
             @remove="removeFile"
             class="tw-mb-4"
           />
-          <n-form-item-gi label="Product Name" path="title">
+          <NFormItemGi label="Product Name" path="title">
             <n-input v-model:value="data.title" placeholder="Product Name" />
-          </n-form-item-gi>
-          <n-form-item-gi label="Product Category" path="category">
-            <n-radio-group v-model:value="data.category" name="category">
-              <n-radio-button value="貓の食品">
+          </NFormItemGi>
+          <NFormItemGi label="Product Category" path="category">
+            <NRadioGroup v-model:value="data.category" name="category">
+              <NRadioButton value="貓の食品">
                 貓の食品
-              </n-radio-button >
-              <n-radio-button value="貓の用品">
+              </NRadioButton >
+              <NRadioButton value="貓の用品">
                 貓の用品
-              </n-radio-button>
-              <n-radio-button value="貓の玩具">
+              </NRadioButton>
+              <NRadioButton value="貓の玩具">
                 貓の玩具
-              </n-radio-button>
-            </n-radio-group>
-          </n-form-item-gi>
-          <n-form-item-gi label="Enabled" path="is_enabled">
-            <n-switch v-model:value="data.is_enabled" />
-          </n-form-item-gi>
-        </n-gi>
-        <n-gi>
-          <n-grid :x-gap="12" cols="3">
-            <n-form-item-gi label="Origin Price" path="origin_price">
-              <n-input-number v-model:value="data.origin_price" placeholder="Origin" />
-            </n-form-item-gi>
-            <n-form-item-gi label="Price" path="price">
-              <n-input-number v-model:value="data.price" placeholder="Price" />
-            </n-form-item-gi>
-            <n-form-item-gi label="Unit" path="unit">
-              <n-input v-model:value="data.unit" placeholder="Unit" />
-            </n-form-item-gi>
-          </n-grid>
-          <n-form-item-gi label="Description" path="description">
-            <n-input v-model:value="data.description" placeholder="Description" />
-          </n-form-item-gi>
-          <n-form-item-gi label="Content" path="content">
-            <n-input type="textarea" :autosize="{minRows:6, maxRows:10}" v-model:value="data.content" placeholder="Content" />
-          </n-form-item-gi>
-        </n-gi>
-      </n-grid>
-    </n-form>
+              </NRadioButton>
+            </NRadioGroup>
+          </NFormItemGi>
+          <NFormItemGi label="Enabled" path="is_enabled">
+            <NSwitch v-model:value="data.is_enabled" />
+          </NFormItemGi>
+        </NGi>
+        <NGi>
+          <NGrid :x-gap="12" cols="3">
+            <NFormItemGi label="Origin Price" path="origin_price">
+              <NInputNumber v-model:value="data.origin_price" placeholder="Origin" />
+            </NFormItemGi>
+            <NFormItemGi label="Price" path="price">
+              <NInputNumber v-model:value="data.price" placeholder="Price" />
+            </NFormItemGi>
+            <NFormItemGi label="Unit" path="unit">
+              <NInput v-model:value="data.unit" placeholder="Unit" />
+            </NFormItemGi>
+          </NGrid>
+          <NFormItemGi label="Description" path="description">
+            <NInput v-model:value="data.description" placeholder="Description" />
+          </NFormItemGi>
+          <NFormItemGi label="Content" path="content">
+            <NInput type="textarea" :autosize="{minRows:6, maxRows:10}" v-model:value="data.content" placeholder="Content" />
+          </NFormItemGi>
+        </NGi>
+      </NGrid>
+    </NForm>
     <div class="tw-text-right">
-      <n-button @click="$emit('closeModal', false)" class="tw-mr-3">Cancel</n-button>
-      <n-button @click="$emit('updateProduct', data)" type="primary">
-        {{isNew ? 'Add' : 'Update'}}
+      <NButton @click="$emit('closeModal', false)" class="tw-mr-3">Cancel</NButton>
+      <NButton @click="$emit('updateProduct', data)" type="primary">
+        {{ isNew ? 'Add' : 'Update' }}
         <font-awesome-icon v-if="loading" class="fa-spin fa-lg tw-ml-2" :icon="['fas', 'spinner']" />
-      </n-button>
+      </NButton>
     </div>
-  </n-card>
+  </NCard>
 </template>
 
-<script lang="js">
-import { defineComponent, ref, inject, onMounted } from 'vue'
+<script>
+import { ref, inject, onMounted } from 'vue'
 import { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch } from "naive-ui";
-export default defineComponent({
+export default {
   components: { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch },
   props: {
     tempProduct:{
@@ -121,6 +121,8 @@ export default defineComponent({
           data.value.imagesUrl.push(res.data.imageUrl)
           onFinish()
           window.$message.success('Image Upload Success !')
+        } else {
+          window.$message.error(res.data.message)
         }
       }).catch((err) => {
         window.$message.error(err.toString())
@@ -128,7 +130,7 @@ export default defineComponent({
       })
     }
     const removeFile = (img) => {
-      data.value.imagesUrl = data.value.imagesUrl.filter(el => {
+      data.value.imagesUrl = data.value.imagesUrl?.filter(el => {
         return el !== img.file.url
       })
     }
@@ -193,5 +195,5 @@ export default defineComponent({
       }
     }
   }
-})
+}
 </script>

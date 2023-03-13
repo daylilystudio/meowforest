@@ -1,20 +1,20 @@
 <template>
-    <n-config-provider>
-      <n-loading-bar-provider>
-        <n-dialog-provider>
-          <n-notification-provider placement="bottom-left">
-            <n-message-provider placement="bottom-left">
+    <NConfigProvider>
+      <NLoadingBarProvider>
+        <NDialogProvider>
+          <NNotificationProvider placement="bottom-left">
+            <NMessageProvider placement="bottom-left">
               <slot></slot>
               <NaiveProviderContent />
-            </n-message-provider>
-          </n-notification-provider>
-        </n-dialog-provider>
-      </n-loading-bar-provider>
-    </n-config-provider>
+            </NMessageProvider>
+          </NNotificationProvider>
+        </NDialogProvider>
+      </NLoadingBarProvider>
+    </NConfigProvider>
   </template>
     
   <script setup>
-  import { defineComponent, h } from 'vue'
+  import { h } from 'vue'
   import { useLoadingBar, useDialog, useMessage, useNotification, NConfigProvider, NLoadingBarProvider, NDialogProvider, NNotificationProvider, NMessageProvider } from 'naive-ui'
   
   // globle naive tool
@@ -25,12 +25,12 @@
     window.$notification = useNotification()
   }
   
-  const NaiveProviderContent = defineComponent({
+  const NaiveProviderContent = {
     setup() {
       setupNaiveTools()
     },
     render() {
       return h('div')
     },
-  })
+  }
   </script>
