@@ -28,10 +28,10 @@
         @click="router.push('/products/'+item.id)">
         <div style="border-radius:40px" :style="{backgroundImage: 'url('+ item.imagesUrl[0] +')'}"
           class="tw-absolute tw-top-0 tw-bg-cover tw-bg-center tw-w-full tw-h-full" />
-        <p class="bg-second tw-relative tw-text-lg tw-rounded-full tw-py-1 tw-px-5">
+        <p class="tw-bg-second tw-text-theme tw-relative tw-text-lg tw-rounded-full tw-py-1 tw-px-5">
           {{ item.category }}
         </p>
-        <span class="tw-relative tw-text-xl tw-mt-1">{{ item.title }}</span>
+        <span class="tw-relative tw-text-xl tw-mt-1 tw-drop-shadow-lg">{{ item.title }}</span>
       </SwiperSlide>
     </Swiper>
     <div class="swiper-navigation-prev tw-hidden md:tw-block tw-z-10 tw-absolute tw-left-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">

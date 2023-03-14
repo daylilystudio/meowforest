@@ -3,7 +3,7 @@
   <div class="container lg:tw-grid lg:tw-grid-cols-4 tw-gap-8 tw-pt-10 -tw-mt-24 sm:tw-mt-auto">
     <aside class="shadow tw-col-span-1 tw-self-start tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <label for="search" class="tw-relative">
-        <input class="border-primary tw-w-full tw-rounded-full tw-border-solid tw-py-2 tw-pl-8 tw-pr-4"
+        <input class="tw-border-primary focus:tw-border-second tw-w-full tw-rounded-full tw-border-solid tw-py-2 tw-pl-8 tw-pr-4"
           v-model="searchText" id="search" type="text" placeholder="Search">
         <font-awesome-icon class="tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" :icon="['fas', 'magnifying-glass']" />
       </label>
@@ -23,12 +23,12 @@
         <router-link :to="'/products/'+list.id" class="tw-group" v-for="list in productsList" :key="list.id">
           <div class="tw-relative tw-overflow-hidden">
             <img class="tw-w-full group-hover:tw-scale-110" :src="list.imagesUrl[0]" alt="product image">
-            <p @click.prevent="globalStore.toggleFav(list.id)" class="text-second fa-xl tw-absolute tw-right-3 tw-top-3" title="Add Favorite">
+            <p @click.prevent="globalStore.toggleFav(list.id)" class="tw-text-second fa-xl tw-absolute tw-right-3 tw-top-3" title="Add Favorite">
               <font-awesome-icon :icon="[globalStore.isfav['meowforestFav' + list.id] ? 'fas' : 'far', 'heart']" />
             </p>
           </div>
           <p class="tw-font-bold tw-mt-3 tw-mb-1">{{ list.title }}</p>
-          <span class="text-second tw-mr-4 tw-font-bold">NTD. {{ list.price }}</span>
+          <span class="tw-text-second tw-mr-4 tw-font-bold">NTD. {{ list.price }}</span>
           <del>NTD. {{ list.origin_price }}</del>
         </router-link>
       </section>

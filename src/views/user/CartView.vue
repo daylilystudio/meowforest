@@ -16,24 +16,24 @@
                 {{ item.product.title }}
               </a>
               <span class="tw-col-span-3 md:tw-col-span-2 tw-flex tw-justify-between">
-                <span class="text-primary tw-font-bold">${{ item.product.price }}</span>
+                <span class="tw-text-primary tw-font-bold">${{ item.product.price }}</span>
                 <span class="tw-mr-4 tw-block md:tw-hidden">X</span>
               </span>
               <NInputNumber @update:value="updateCart($event, item.id, item.product.id)" class="tw-w-4/5 tw-col-span-5 md:tw-col-span-2 tw-mt-1 tw-text-center" v-model:value="item.qty" :min="1" size="small" button-placement="both" />
               <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
                 <span class="tw-block md:tw-hidden">=</span>
-                <span class="text-primary tw-font-bold">${{ item.total }}</span>
+                <span class="tw-text-primary tw-font-bold">${{ item.total }}</span>
               </span>
               <p @click="delCart(item.id)" class="tw-absolute tw-right-0 tw-top-8 md:tw-top-1/2 -tw-translate-y-1/2 tw-p-2 tw-cursor-pointer">
                 <font-awesome-icon :icon="['far', 'trash-can']" />
               </p>
             </div>
-            <a class="text-second tw-font-bold tw-block tw-pt-6 tw-pb-2 tw-cursor-pointer" @click="showModal=true">
+            <a class="tw-text-primary tw-font-bold tw-block tw-pt-6 tw-pb-2 tw-cursor-pointer" @click="showModal=true">
               Enter Coupon Code <font-awesome-icon :icon="['fas', 'caret-right']" />
             </a>
             <div class="tw-text-xl tw-text-right tw-font-bold">
               Subtotal
-              <span class="tw-ml-4 text-primary">NTD. {{ globalStore.cart.total }}
+              <span class="tw-ml-4 tw-text-primary">NTD. {{ globalStore.cart.total }}
                 <small v-if="globalStore.cart.carts[0]?.coupon">(-{{ globalStore.cart.total - Math.ceil(globalStore.cart.final_total) }})</small>
               </span>
             </div>
@@ -44,9 +44,9 @@
       </NSpin>
     </template>
     <template v-slot:order>
-      <section v-if="globalStore.cart.carts?.length>0" class="bg-third tw-rounded-2xl tw-flex tw-flex-col md:tw-flex-row tw-gap-6 md:tw-gap-14 tw-p-6">
+      <section v-if="globalStore.cart.carts?.length>0" class="tw-bg-third tw-rounded-2xl tw-flex tw-flex-col md:tw-flex-row tw-gap-6 md:tw-gap-14 tw-p-6">
         <div v-for="items in method" :key="items.title" class="tw-flex-1">
-          <p class="tw-text-xl tw-font-bold tw-pb-4 tw-mb-4 tw-border-b tw-border-solid tw-border-white">{{ items.title }} <span class="text-second">*</span></p>
+          <p class="tw-text-xl tw-font-bold tw-pb-4 tw-mb-4 tw-border-b tw-border-solid tw-border-white">{{ items.title }} <span class="tw-text-notice">*</span></p>
           <template v-for="item in items.option" :key="item.id">
             <label :for="item.id" class="tw-cursor-pointer">
               <div class="tw-flex tw-flex-wrap tw-items-center">
@@ -54,7 +54,7 @@
                 <i class="tw-w-4 tw-h-4 tw-rounded-full tw-mr-2" />
                 <span class="tw-font-semibold">{{ item.txt }}</span>
               </div>
-              <p class="tw-ml-6 tw-mt-2 tw-mb-4 text-primary tw-flex-1">{{ item.info }}</p>
+              <p class="tw-ml-6 tw-mt-2 tw-mb-4 tw-text-primary tw-flex-1">{{ item.info }}</p>
             </label>
           </template>
         </div>
@@ -64,11 +64,11 @@
   <NModal v-model:show="showModal" :block-scroll="false" title="Enter Coupon" preset="card" style="max-width:95%; width: 360px">
     <div @click="enterCoupon(card.code)" v-for="card in coupons" :key="card.code" class="tw-relative tw-flex tw-justify-between tw-items-center tw-border-b tw-border-dashed tw-border-gray-400 tw-mb-4 tw-px-3 tw-pb-4 tw-cursor-pointer">
       <div>
-        <p class="text-second tw-text-lg tw-font-bold">{{ card.title }}</p>
-        <p class="text-primary tw-font-bold">CODE : {{ card.code }}</p>
+        <p class="tw-text-second tw-text-lg tw-font-bold">{{ card.title }}</p>
+        <p class="tw-text-primary tw-font-bold">CODE : {{ card.code }}</p>
         <span>{{ card.discount }}</span>
       </div>
-      <p class="tw-p-2"><font-awesome-icon :icon="['far', 'hand-pointer']" class="text-theme fa-xl fa-beat" /></p>
+      <p class="tw-p-2"><font-awesome-icon :icon="['far', 'hand-pointer']" class="tw-text-theme fa-xl fa-beat" /></p>
       <font-awesome-icon :icon="['fas', 'scissors']" class="tw-absolute tw-text-gray-300 tw-left-20 -tw-bottom-2 fa-lg" />
     </div>
   </NModal>

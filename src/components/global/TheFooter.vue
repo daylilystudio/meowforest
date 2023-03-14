@@ -1,11 +1,11 @@
 <template>
   <footer class="tw-text-white tw-mt-24">
-    <section class="bg-theme tw-py-14">
+    <section class="tw-bg-theme tw-py-14">
       <div class="container tw-flex tw-flex-col sm:tw-flex-row">
         <img class="tw-mr-14 tw-hidden lg:tw-block" src="@/assets/logo_light.svg" alt="Logo">
         <div class="tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Product</p>
-          <router-link v-for="list in globalStore.menu" :key="list.link" :to="list.link" :class="{'text-second':list.key==='login'}">{{ list.name }}<span class="tw-ml-2">{{ list.en }}</span></router-link>
+          <router-link v-for="list in globalStore.menu" :key="list.link" :to="list.link" :class="{'tw-text-second':list.key==='login'}">{{ list.name }}<span class="tw-ml-2">{{ list.en }}</span></router-link>
         </div>
         <div class="tw-mt-14 sm:tw-mt-0 tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Contact</p>
@@ -15,7 +15,7 @@
         </div>
       </div>
     </section>
-    <section class="bg-primary tw-py-8 tw-px-4 tw-text-center">
+    <section class="tw-bg-primary tw-py-8 tw-px-4 tw-text-center">
       {{ thisYear() }} © 貓森 Meow Forest All Reserved.<br class="tw-block sm:tw-hidden">
       Design & Web Develope by <a href="https://daylily.tw" target="_blank">Daylily</a>.<br>
       Personal works, non-commercial purposes.

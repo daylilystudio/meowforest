@@ -4,26 +4,26 @@
       <div v-if="orderInfo!==null">
         <img src="@/assets/img/thx.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto" alt="thank you!">
         <h4 class="tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Order Details
-          <span class="text-second border-second tw-border tw-border-solid tw-text-sm tw-rounded-full tw-px-2 tw-ml-1">{{ orderInfo.is_paid ? 'Paid' : 'Unpaid' }}</span>
+          <span class="tw-text-notice tw-border-notice tw-border tw-border-solid tw-text-sm tw-rounded-full tw-px-2 tw-ml-1">{{ orderInfo.is_paid ? 'Paid' : 'Unpaid' }}</span>
         </h4>
-        <p class="tw-text-right tw-font-bold text-primary tw-my-2 tw-mr-4">Order No. {{ orderInfo.create_at }}
+        <p class="tw-text-right tw-font-bold tw-text-primary tw-my-2 tw-mr-4">Order No. {{ orderInfo.create_at }}
           <br class="tw-block md:tw-hidden">
-          <a @click="copy" class="bg-primary tw-rounded-full tw-text-sm tw-text-white tw-py-1 tw-px-3 tw-cursor-pointer">
+          <a @click="copy" class="tw-bg-primary tw-rounded-full tw-text-sm tw-text-white tw-py-1 tw-px-3 tw-cursor-pointer">
             <font-awesome-icon :icon="['far', 'copy']" class="tw-mr-2" />COPY URL
           </a>
         </p>
         <section class="md:tw-grid tw-grid-cols-2 tw-px-4 tw-leading-7">
-          <div><span class="tw-font-bold tw-mr-1">Order Total</span> <span class="text-second">${{ Math.ceil(orderInfo.total)+orderInfo.user.shipping_money }}</span></div>
+          <div><span class="tw-font-bold tw-mr-1">Order Total</span> <span class="tw-text-notice">${{ Math.ceil(orderInfo.total)+orderInfo.user.shipping_money }}</span></div>
           <div><span class="tw-font-bold tw-mr-1">Order Date</span> {{ filter.date(orderInfo.create_at*1000) }}</div>
           <div><span class="tw-font-bold tw-mr-1">Shipping Method</span> {{ orderInfo.user.shipping_method }}</div>
           <div><span class="tw-font-bold tw-mr-1">Payment Method</span> {{ orderInfo.user.payment_method==='atm'?'ATM transfer':'Credit ****'+orderInfo.user.card.slice(-4) }}<font-awesome-icon v-if="orderInfo.user?.payment_method==='creditcard'" :icon="['far', 'credit-card']" class="tw-opacity-40 tw-ml-1" /></div>
           <div v-if="orderInfo.user.payment_method==='atm'"
-            class="text-primary border-primary tw-border tw-border-solid tw-shadow-inner tw-rounded-xl tw-font-bold tw-col-span-2 md:tw-flex tw-items-center tw-py-3 tw-mt-2">
+            class="tw-text-primary tw-border-primary tw-border tw-border-solid tw-shadow-inner tw-rounded-xl tw-font-bold tw-col-span-2 md:tw-flex tw-items-center tw-py-3 tw-mt-2">
             <p class="tw-text-lg tw-text-center md:tw-px-8"><font-awesome-icon :icon="['fas', 'cat']" /> ATM transfer Info</p>
             <p class="tw-grid tw-gap-1 tw-text-center md:tw-text-left tw-my-4 md:tw-my-0">
               <span>Bank Code : 333 (Meow Bank)</span>
               <span>Account : 00001234567890</span>
-              <span class="text-second">Deadline : {{ filter.date(orderInfo.create_at*1000, 3, false) + ' 23:00' }}</span>
+              <span class="tw-text-notice">Deadline : {{ filter.date(orderInfo.create_at*1000, 3, false) + ' 23:00' }}</span>
             </p>
           </div>
         </section>
@@ -45,18 +45,18 @@
               {{ item.product.title }}
             </span>
             <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
-              <span class="text-primary tw-font-bold">${{ item.product.price }}</span>
+              <span class="tw-text-primary tw-font-bold">${{ item.product.price }}</span>
               <span class="tw-mr-4">X</span>
             </span>
             <span class="tw-col-span-4 md:tw-col-span-2">{{ item.qty }}</span>
             <span class="tw-col-span-4 md:tw-col-span-2 tw-flex tw-justify-between">
-              =<span class="text-primary tw-font-bold">${{ item.total }}</span>
+              =<span class="tw-text-primary tw-font-bold">${{ item.total }}</span>
             </span>
           </div>
           <p class="tw-mt-5 tw-text-right">
             <span v-if="orderInfo.user.discount>0" class="tw-text-sm">Discount / -{{ orderInfo.user.discount }}<br/></span>
             <span class="tw-text-sm">Shipping / {{ orderInfo.user.shipping_money }}</span><br/>
-            <span>Total / </span><span class="tw-font-bold text-primary tw-ml-1">{{ '$'+(Math.ceil(orderInfo.total)+orderInfo.user.shipping_money) }}</span>
+            <span>Total / </span><span class="tw-font-bold tw-text-primary tw-ml-1">{{ '$'+(Math.ceil(orderInfo.total)+orderInfo.user.shipping_money) }}</span>
           </p>
         </section>
       </div>

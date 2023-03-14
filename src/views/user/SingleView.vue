@@ -32,21 +32,21 @@
       <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
         <h2 class="tw-flex tw-justify-between tw-items-center">
           {{ product.title }}
-          <font-awesome-icon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="text-second tw-p-2 -tw-mr-2 tw-cursor-pointer" />
+          <font-awesome-icon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="tw-text-notice tw-p-2 -tw-mr-2 tw-cursor-pointer" />
         </h2>
         <NTag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</NTag>
         <p class="tw-mt-6" v-html="product.description" />
         <p class="tw-my-4">
-          <span class="text-second tw-text-2xl tw-font-bold tw-mr-3">NTD. {{ product.price }}</span>
+          <span class="tw-text-primary tw-text-2xl tw-font-bold tw-mr-3">NTD. {{ product.price }}</span>
           <del>NTD. {{ product.origin_price }}</del>
         </p>
         <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
           <NInputNumber class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
-          <button type="button" :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="bg-second hover:tw-brightness-90 tw-rounded-full tw-text-white tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
+          <button type="button" :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="tw-bg-second hover:tw-brightness-90 tw-rounded-full tw-text-theme tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'plus']" /> Add to Card
             <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
-          <button type="button" :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="bg-third hover:tw-brightness-90 tw-rounded-full text-theme tw-font-bold tw-text-base tw-p-2 tw-border-0 tw-cursor-pointer">
+          <button type="button" :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="tw-bg-third hover:tw-brightness-90 tw-rounded-full tw-text-theme tw-font-bold tw-text-base tw-p-2 tw-border-0 tw-cursor-pointer">
             <font-awesome-icon :icon="['fas', 'dollar-sign']" /> Buy Now
             <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
@@ -73,7 +73,7 @@
     </div>
   </section>
   <img v-if="noProduct" src="@/assets/img/nodata.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
-  <router-link to="/products" class="hover:tw-brightness-90 bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
+  <router-link to="/products" class="hover:tw-brightness-90 tw-bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
     Back To Product List
   </router-link>
 </template>

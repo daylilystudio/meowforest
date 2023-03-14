@@ -31,7 +31,7 @@
       </p>
     </div>
   </section>
-  <section class="bg-primary tw-py-20">
+  <section class="tw-bg-primary tw-py-20">
     <p class="tw-text-white tw-text-center tw-text-3xl md:tw-text-4xl tw-font-bold">
       SELECTED ITEM<br/>
       <span class="tw-block tw-text-base tw-font-normal">The Best Product For You</span>
@@ -43,7 +43,7 @@
     <div class="tw-grid sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4 lg:tw-gap-6">
       <div v-for="(item, i) in flow" :key="i" class="flow tw-flex tw-flex-col tw-bg-white">
         <p class="tw-flex-1">
-          <span class="text-primary tw-block tw-text-xl tw-font-bold tw-mb-2">{{ item.title }}</span>
+          <span class="tw-text-primary tw-block tw-text-xl tw-font-bold tw-mb-2">{{ item.title }}</span>
           <span>{{ item.txt }}</span>
         </p>
         <img class="tw-block tw-mx-auto tw-w-3/5 lg:tw-w-full tw-mt-6" :src="item.img" alt="cat display">

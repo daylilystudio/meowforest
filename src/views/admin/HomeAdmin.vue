@@ -6,7 +6,7 @@
         <NMenu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </NLayoutHeader>
       <NLayout has-sider position="absolute" style="top: 64px;">
-        <NLayout content-style="padding: 24px;" class="bg-primary bg-paw">
+        <NLayout content-style="padding: 24px;" class="tw-bg-primary bg-paw">
           <div v-if="route.path==='/admin/'||route.path==='/admin'" class="tips shadow tw-relative tw-max-w-full tw-w-60 tw-ml-auto tw-bg-white tw-rounded-xl tw-text-center tw-p-2">
             Please Click Menu !
           </div>

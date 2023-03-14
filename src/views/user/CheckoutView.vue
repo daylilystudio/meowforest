@@ -4,28 +4,28 @@
       <h5 class="tw-text-lg tw-mb-5">Shipping Information</h5>
       <div class="tw-grid sm:tw-grid-cols-2 tw-gap-x-4 sm:tw-gap-x-8 tw-gap-y-5 sm:tw-px-4">
         <label for="infoName">
-          Full Name <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
+          Full Name <span class="tw-text-notice">*</span><br>
+          <input class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
             v-model="globalStore.userInfo.name" type="text" name="name" id="infoName" placeholder="enter full name">
         </label>
         <label for="infoTel">
-          Mobile Number <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="16"
+          Mobile Number <span class="tw-text-notice">*</span><br>
+          <input class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="16"
             v-model="globalStore.userInfo.tel" type="tel" name="tel" id="infoTel" placeholder="e.g. 0900111222">
         </label>
         <label for="infoEmail">
-          E-mail <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
+          E-mail <span class="tw-text-notice">*</span><br>
+          <input class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
             v-model="globalStore.userInfo.email" type="email" name="email" id="infoEmail" placeholder="name@email.com">
         </label>
         <label for="infoAdd">
-          Address <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
+          Address <span class="tw-text-notice">*</span><br>
+          <input class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
             v-model="globalStore.userInfo.add" type="text" name="address" id="infoAdd" placeholder="enter full address">
         </label>
         <label for="msg" class="tw-col-span-2">
           Memo<br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
+          <input class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2"
             v-model="globalStore.msg" type="text" id="msg">
         </label>
       </div>
@@ -33,25 +33,25 @@
       <h5 class="tw-text-lg">Payment Details</h5>
       <div v-if="globalStore.payment==='creditcard'" class="tw-grid tw-grid-cols-6 tw-gap-4 sm:tw-gap-x-8 tw-gap-y-5 sm:tw-px-4 tw-mt-5">
         <label for="creditcard" class="tw-col-span-6 sm:tw-col-span-3">
-          Credit Card Number <span class="text-second">*</span><br>
-          <input @input="validCard($event)" class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="19"
+          Credit Card Number <span class="tw-text-notice">*</span><br>
+          <input @input="validCard($event)" class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="19"
             :value="globalStore.cardInfo.number" type="tel" id="creditcard" placeholder="1111 2222 3333 4444">
         </label>
         <label for="valid" class="tw-col-span-4 sm:tw-col-span-2">
-          Valid Thru <span class="text-second">*</span><br>
-          <input @input="validThru($event)" class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="5"
+          Valid Thru <span class="tw-text-notice">*</span><br>
+          <input @input="validThru($event)" class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="5"
             :value="globalStore.cardInfo.valid" type="tel" id="valid" placeholder="MMYY">
         </label>
         <label for="cvv" class="tw-col-span-2 sm:tw-col-span-1">
-          CVV <span class="text-second">*</span><br>
-          <input class="text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="3"
+          CVV <span class="tw-text-notice">*</span><br>
+          <input class="tw-text-primary tw-w-full tw-border tw-border-solid tw-rounded-md tw-py-1 tw-px-2" maxlength="3"
             v-model="globalStore.cardInfo.cvv" type="tel" id="cvv" placeholder="XXX">
         </label>
       </div>
       <p v-if="globalStore.payment==='atm'" class="tw-text-lg">
         you will get a ATM account for pay this order in Next Page.
       </p>
-      <p class="text-second tw-mt-8">
+      <p class="tw-text-notice tw-mt-8">
         *If you Submit Order, you also agree with our Shop Terms & Conditions
       </p>
     </template>

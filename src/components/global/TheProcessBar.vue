@@ -4,9 +4,9 @@
       <img :src="item.img" :alt="item.txt" class="tw-w-3/5 md:tw-w-2/5">
     </div>
     <div v-for="(item, i) in list" :key="item.txt"
-      :class="{'text-second':process>i||process===i}"
+      :class="{'tw-text-primary tw-font-bold':process>i||process===i}"
       class="tw-relative tw-flex tw-flex-col tw-items-center tw-text-center">
-      <span :class="(process>i?'bg-second':'bg-theme')"
+      <span :class="(process>i?'tw-bg-primary':'tw-bg-theme')"
         style="width:94%"
         class="tw-absolute tw-top-1.5 tw-left-1/2 tw-translate-y-px tw-translate-x-2 tw-h-0.5"
         v-if="i!==list.length-1" />

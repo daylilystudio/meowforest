@@ -9,7 +9,7 @@
   >
     <section class="md:tw-flex">
       <NList class="tw-flex-1">
-        <p class="text-primary tw-text-xl tw-font-bold md:tw-mb-2">User Info</p>
+        <p class="tw-text-primary tw-text-xl tw-font-bold md:tw-mb-2">User Info</p>
         <NListItem>
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Name</span>{{ data.user.name }}
         </NListItem>
@@ -24,7 +24,7 @@
         </NListItem>
       </NList>
       <NList class="tw-flex-1 tw-mt-6 md:tw-mt-auto">
-        <p class="text-primary tw-text-xl tw-font-bold md:tw-mb-2">Order Info</p>
+        <p class="tw-text-primary tw-text-xl tw-font-bold md:tw-mb-2">Order Info</p>
         <NListItem>
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Order at</span>{{ filter.date(data.create_at*1000) }}
         </NListItem>
@@ -39,7 +39,7 @@
         <NListItem>
           <span class="tw-font-bold tw-w-1/4 tw-inline-block">Message</span>{{ data.message?data.message:'-' }}
         </NListItem>
-        <NListItem class="text-second tw-text-base tw-font-bold">
+        <NListItem class="tw-text-second tw-text-base tw-font-bold">
           <span class="tw-w-1/4 tw-inline-block">Total</span>$ {{ filter.currency(Math.ceil(data.total)+data.user.shipping_money) }}
         </NListItem>
       </NList>
