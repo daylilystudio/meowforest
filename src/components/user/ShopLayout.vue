@@ -1,11 +1,11 @@
 <template>
   <TheHeader />
   <main class="container">
-    <div class="dropShadow -tw-mt-24 tw-mb-4 tw-text-white">
+    <div class="tw-drop-shadow-main -tw-mt-24 tw-mb-4 tw-text-white">
       <router-link to="/" class="tw-font-bold">Home</router-link> /
       <span>{{ breadcrumb }}</span>
     </div>
-    <section class="shadow tw-bg-white tw-rounded-2xl tw-mb-8 tw-p-4 sm:tw-p-6">
+    <section class="tw-shadow-main tw-bg-white tw-rounded-2xl tw-mb-8 tw-p-4 sm:tw-p-6">
       <TheProcessBar :process="process" />
       <slot name="content" />
     </section>
@@ -27,7 +27,7 @@
         </p>
       </div>
     </template>
-    <a v-if="nextBtn" @click="$emit('onGoNext', '')" class="hover:tw-brightness-90 tw-bg-second tw-text-theme tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto tw-cursor-pointer">
+    <a v-if="nextBtn" @click="$emit('onGoNext', '')" class="hover:tw-brightness-90 tw-bg-second tw-text-theme tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto" :class="nextBtnAllow?'tw-cursor-pointer':'tw-cursor-not-allowed'">
       {{ nextBtn }} <font-awesome-icon :icon="['fas', 'angle-right']" />
     </a>
   </main>
@@ -54,6 +54,10 @@ export default {
     nextBtn: {
       type: String,
       default: ''
+    },
+    nextBtnAllow: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['onGoNext'],

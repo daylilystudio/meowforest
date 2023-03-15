@@ -2,7 +2,7 @@
   <div class="tw-fixed tw-bottom-3 sm:tw-bottom-6 tw-right-3 md:tw-right-5 tw-z-20">
     <a v-for="item in list" :key="item.icon"
       @click="clickBtn(item.icon)" :class="(route.path.match(/checkout/)&&item.icon==='heart'?'tw-hidden':item.class)"
-      class="shadow tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center
+      class="tw-shadow-main tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center
       tw-bg-white tw-rounded-full tw-mb-2 tw-cursor-pointer">
       <font-awesome-icon :icon="['fas', item.icon]" class="fa-lg" />
     </a>

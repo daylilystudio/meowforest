@@ -1,12 +1,12 @@
 <template>
   <TheHeader />
   <main class="container">
-    <div class="dropShadow -tw-mt-24 tw-mb-4 tw-text-white">
+    <div class="tw-drop-shadow-main -tw-mt-24 tw-mb-4 tw-text-white">
       <router-link to="/" class="tw-font-bold">Home</router-link> /
       <router-link to="/products" class="tw-font-bold">Product List</router-link> /
       <span>{{ product.title }}</span>
     </div>
-    <div v-if="!noProduct" class="shadow md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
+    <div v-if="!noProduct" class="tw-shadow-main md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
       <div>
         <div class="tw-relative tw-w-full tw-h-0" style="padding-bottom:75%">
           <Swiper

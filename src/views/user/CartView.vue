@@ -1,5 +1,5 @@
 <template>
-  <ShopLayout breadcrumb="Shopping Cart" :nextBtn="globalStore.cart.carts?.length>0?'Checkout':'Back To Home'" @onGoNext="globalStore.cart.carts?.length>0?goNext():router.push('/')">
+  <ShopLayout breadcrumb="Shopping Cart" :nextBtn="globalStore.cart.carts?.length>0?'Checkout':'Back To Home'" :nextBtnAllow="nextBtnAllow" @onGoNext="globalStore.cart.carts?.length>0?goNext():router.push('/')">
     <template v-slot:content>
       <NSpin :show="globalStore.loading" class="tw-px-2">
         <template v-if="globalStore.cart.carts?.length>0">
@@ -64,7 +64,7 @@
   <NModal v-model:show="showModal" :block-scroll="false" title="Enter Coupon" preset="card" style="max-width:95%; width: 360px">
     <div @click="enterCoupon(card.code)" v-for="card in coupons" :key="card.code" class="tw-relative tw-flex tw-justify-between tw-items-center tw-border-b tw-border-dashed tw-border-gray-400 tw-mb-4 tw-px-3 tw-pb-4 tw-cursor-pointer">
       <div>
-        <p class="tw-text-second tw-text-lg tw-font-bold">{{ card.title }}</p>
+        <p class="tw-text-notice tw-text-lg tw-font-bold">{{ card.title }}</p>
         <p class="tw-text-primary tw-font-bold">CODE : {{ card.code }}</p>
         <span>{{ card.discount }}</span>
       </div>
@@ -76,7 +76,7 @@
 <script>
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { NSpin, NInputNumber, NModal } from 'naive-ui'
-import { onBeforeMount, ref, inject } from 'vue'
+import { onBeforeMount, ref, inject, computed } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
@@ -88,6 +88,12 @@ export default {
     const axios = inject('axios')
     const showModal = ref(false)
     const globalStore = useGlobalStore()
+    const nextBtnAllow = computed(() => {
+      if (globalStore.cart.carts?.length>0) {
+        return globalStore.payment !=='' && globalStore.shipping !==''
+      }
+      return true
+    })
     const updateCart = (qty, cartId, productId) => {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${cartId}`
@@ -121,6 +127,7 @@ export default {
     })
     return {
       showModal,
+      nextBtnAllow,
       router, globalStore, updateCart, delCart,
       goNext() {
         if (globalStore.payment ==='') {
