@@ -1,1 +1,0 @@
-input~i[data-v-d15d989e]{border:2px solid var(--themeColor);opacity:.4;position:relative}input:checked~i[data-v-d15d989e]{border-color:var(--primaryColor);opacity:1}input:checked~i[data-v-d15d989e]:after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%) translateY(-50%);width:66%;height:66%;border-radius:99px;background-color:var(--primaryColor)}
