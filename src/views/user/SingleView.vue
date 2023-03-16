@@ -20,7 +20,7 @@
               :style="{backgroundImage:`url(${img})`}" />
           </Swiper>
         </div>
-        <Swiper 
+        <Swiper
           :allowTouchMove="false" :spaceBetween="8" :slidesPerView="5"
           watch-slides-progress :modules="modules" @swiper="setThumbsSwiper"
           id="thumbs" class="tw-mt-2 tw-leading-none">
@@ -95,7 +95,7 @@ import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { TheHeader, Swiper, SwiperSlide, NInputNumber, NTag },
-  setup() {
+  setup () {
     const axios = inject('axios')
     const route = useRoute()
     const router = useRouter()
@@ -109,7 +109,7 @@ export default {
       globalStore.loadingPage = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
       axios.get(api).then((res) => {
-        if(res.data.success){
+        if (res.data.success) {
           product.value = res.data.product
         } else {
           noProduct.value = true
@@ -121,24 +121,27 @@ export default {
         globalStore.loadingPage = false
       })
     }
-    onBeforeMount(() =>{
+    onBeforeMount(() => {
       getProduct(productId)
     })
     onBeforeRouteUpdate((to) => {
       getProduct(to.path.split('/')[2])
     })
     // swiper
-    let thumbsSwiper = ref(null)
+    const thumbsSwiper = ref(null)
     const setThumbsSwiper = (swiper) => {
-      thumbsSwiper.value = swiper;
+      thumbsSwiper.value = swiper
     }
-    return{
+    return {
       globalStore,
       thumbsSwiper,
       setThumbsSwiper,
       modules: [Thumbs],
-      noProduct, product, tab, addNum,
-      async buy(id) {
+      noProduct,
+      product,
+      tab,
+      addNum,
+      async buy (id) {
         await globalStore.addCart(id, addNum.value)
         router.push('/cart')
       },
@@ -170,7 +173,7 @@ export default {
             '凡報名特殊活動，付款完成即報名成功，課前將另發送mail通知，課程開立一般收據將統一由財務部門寄發。'
           ]
         }
-    ]
+      ]
     }
   }
 }

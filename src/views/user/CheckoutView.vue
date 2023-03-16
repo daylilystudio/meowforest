@@ -67,12 +67,12 @@ import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { ShopLayout },
-  setup() {
+  setup () {
     const router = useRouter()
     const axios = inject('axios')
     const globalStore = useGlobalStore()
     onBeforeMount(() => {
-      if (globalStore.cart.carts?.length===0 || globalStore.payment==='' || globalStore.shipping==='' ) {
+      if (globalStore.cart.carts?.length === 0 || globalStore.payment === '' || globalStore.shipping === '') {
         router.push('/')
         window.$message.warning('Plz Add item first')
       }
@@ -80,7 +80,7 @@ export default {
     const payOrder = (id) => {
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/pay/${id}`
       axios.post(api).then((res) => {
-        if(res) {
+        if (res) {
           return res
         }
       }).catch((err) => {
@@ -99,7 +99,7 @@ export default {
             shipping_method: globalStore.shipping,
             shipping_money: globalStore.shippingMoney,
             discount: globalStore.cart.total - Math.ceil(globalStore.cart.final_total),
-            card: globalStore.cardInfo.number.split(' ').join(''),
+            card: globalStore.cardInfo.number.split(' ').join('')
           },
           message: globalStore.msg
         }
@@ -107,16 +107,16 @@ export default {
       globalStore.loadingPage = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`
       axios.post(api, data).then(async (res) => {
-        if(res) {
+        if (res) {
           window.$message.warning(res.data.message)
           if (res.data.success) {
-            if (globalStore.payment==='creditcard') {
+            if (globalStore.payment === 'creditcard') {
               await payOrder(res.data.orderId)
             }
             await globalStore.initInfo()
             await globalStore.getCart()
             // avoid not create order yet, so wait 1s
-            await setTimeout(()=>{
+            await setTimeout(() => {
               router.push('/order/' + res.data.orderId)
             }, 1000)
           } else {
@@ -131,13 +131,13 @@ export default {
     }
     // check
     const checkEmail = computed(() => globalStore.userInfo.email.match(/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/))
-    const checkFill = computed(() => Object.values(globalStore.userInfo).every(item => item!==''))
-    const checkCardFill = computed(() => Object.values(globalStore.cardInfo).every(item => item!=='') && globalStore.cardInfo.number.match(/[0-9]/gi).length===16 && globalStore.cardInfo.valid.length===5 && globalStore.cardInfo.cvv.length===3)
+    const checkFill = computed(() => Object.values(globalStore.userInfo).every(item => item !== ''))
+    const checkCardFill = computed(() => Object.values(globalStore.cardInfo).every(item => item !== '') && globalStore.cardInfo.number.match(/[0-9]/gi).length === 16 && globalStore.cardInfo.valid.length === 5 && globalStore.cardInfo.cvv.length === 3)
     const nextBtnAllow = computed(() => checkFill.value && checkEmail.value && (globalStore.payment !== 'creditcard' || checkCardFill.value))
     return {
       globalStore,
       nextBtnAllow,
-      validCard(e) {
+      validCard (e) {
         const arr = e.target.value.match(/[0-9]/gi)
         const newArr = []
         if (e.target.value !== '') {
@@ -155,20 +155,20 @@ export default {
         }
         globalStore.cardInfo.number = newArr.join('')
       },
-      validThru(e) {
+      validThru (e) {
         const arr = e.target.value.match(/[0-9]/gi)
         if (e.target.value !== '' && arr.length > 2) {
           arr.splice(2, 0, '/')
         }
         globalStore.cardInfo.valid = arr !== null ? arr.join('') : ''
       },
-      goNext() {
+      goNext () {
         // check all fill
         if (!checkFill.value) {
           window.$message.warning('Plz Finish Your Info :)')
           return
         }
-        if (globalStore.payment==='creditcard' && !checkCardFill.value) {
+        if (globalStore.payment === 'creditcard' && !checkCardFill.value) {
           window.$message.warning('Plz Confirm Payment Info')
           return
         }
@@ -180,9 +180,9 @@ export default {
         // go
         if (checkFill.value && checkCardFill.value) {
           window.$dialog.warning({
-            title: "Confirm Submit Order ?",
-            positiveText: "Sure !",
-            negativeText: "No",
+            title: 'Confirm Submit Order ?',
+            positiveText: 'Sure !',
+            negativeText: 'No',
             blockScroll: false,
             onPositiveClick: () => {
               submitOrder()

@@ -13,6 +13,6 @@
 import TheHeader from '@/components/global/TheHeader.vue'
 
 export default {
-  components: { TheHeader },
+  components: { TheHeader }
 }
 </script>

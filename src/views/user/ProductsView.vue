@@ -39,16 +39,16 @@
 <script>
 import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 import { useGlobalStore } from '@/stores/global.js'
 import TheHeader from '@/components/global/TheHeader.vue'
 
 export default {
   components: { TheHeader },
-  setup() {
+  setup () {
     const route = useRoute()
-    const globalStore = useGlobalStore();
-    const { menu, products } = storeToRefs(globalStore);
+    const globalStore = useGlobalStore()
+    const { menu, products } = storeToRefs(globalStore)
     const searchText = ref('')
     const bread = computed(() => route.query?.category ? route.query.category : '')
     const productMenu = ref([])
@@ -56,20 +56,20 @@ export default {
     productMenu.value.forEach((el, i) => {
       if (el.key.includes('login')) productMenu.value.splice(i, 1)
     })
-    watch(bread, ()=>{
+    watch(bread, () => {
       searchText.value = ''
     })
     const productsList = computed({
       get: () => {
-        if (route.query?.category && searchText.value==='') {
-          const category = menu.value.filter(el=>el.key===route.query?.category)
-          return products.value.filter(el=>el.category===category[0].name)
+        if (route.query?.category && searchText.value === '') {
+          const category = menu.value.filter(el => el.key === route.query?.category)
+          return products.value.filter(el => el.category === category[0].name)
         } else if (searchText.value) {
-          return products.value.filter(el=>el.title.includes(searchText.value))
+          return products.value.filter(el => el.title.includes(searchText.value))
         }
         return products.value
       }
-    });
+    })
     return {
       globalStore,
       searchText,

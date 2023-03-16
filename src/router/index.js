@@ -8,7 +8,7 @@ const router = createRouter({
       name: 'layout',
       component: () => import('../layouts/LayoutView.vue'),
       redirect: '/',
-      children:[
+      children: [
         {
           path: '/',
           name: 'home',
@@ -54,7 +54,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/HomeAdmin.vue'),
-      children:[
+      children: [
         {
           path: '/admin/products',
           name: 'admin-products',
@@ -73,9 +73,9 @@ const router = createRouter({
       ]
     }
   ],
-  scrollBehavior() {
+  scrollBehavior () {
     return { top: 0, behavior: 'smooth' }
-  },
+  }
 })
 
 export default router

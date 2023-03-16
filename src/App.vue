@@ -6,5 +6,5 @@
 
 <script setup>
 import { RouterView } from 'vue-router'
-import AppProvider from './components/AppProvider.vue';
+import AppProvider from './components/AppProvider.vue'
 </script>

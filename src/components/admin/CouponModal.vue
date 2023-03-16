@@ -46,45 +46,45 @@
 </template>
 <script>
 import { ref } from 'vue'
-import { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker } from "naive-ui";
+import { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker } from 'naive-ui'
 export default {
   components: { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker },
   props: {
-    temp:{
+    temp: {
       type: Object,
-      default() { return {} }
+      default () { return {} }
     },
-    isNew:{
+    isNew: {
       type: Boolean,
       default: false
     },
-    loading:{
+    loading: {
       type: Boolean,
       default: false
     }
   },
-  setup(props) {
+  setup (props) {
     const data = ref(props.temp)
-    return { 
+    return {
       data,
       rules: {
         title: {
           required: true,
-          message: "Plz input title"
+          message: 'Plz input title'
         },
         code: {
           required: true,
-          message: "Plz input code"
+          message: 'Plz input code'
         },
         percent: {
-          type: "number",
+          type: 'number',
           required: true,
-          trigger: ["blur", "change"],
-          message: "Plz input percent"
+          trigger: ['blur', 'change'],
+          message: 'Plz input percent'
         },
         due_date: {
           required: true,
-          message: "Plz input date"
+          message: 'Plz input date'
         }
       }
     }

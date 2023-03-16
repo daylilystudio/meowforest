@@ -39,18 +39,18 @@ export default {
     NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin
   },
   setup () {
-    let loading = ref(false)
+    const loading = ref(false)
     const router = useRouter()
     const modelRef = ref({
       username: '',
       password: ''
-    });
+    })
     const login = async () => {
       try {
         loading.value = true
         const res = await api.login(modelRef.value)
         loading.value = false
-        if(!res.data.success){
+        if (!res.data.success) {
           window.$notification.error({
             content: res.data.message,
             meta: res.data.error.message,
@@ -60,7 +60,7 @@ export default {
         } else {
           await window.$notification.success({
             content: res.data.message,
-            duration: 2000,
+            duration: 2000
           })
           const { token, expired } = res.data
           document.cookie = `meowforestToken=${token}; expires=${new Date(expired)}`
@@ -75,32 +75,6 @@ export default {
       loading,
       model: modelRef,
       login
-      // login() {
-      //   loading.value = true
-      //   const api = `${import.meta.env.VITE_API}admin/signin`
-      //   axios.post(api,modelRef.value).then((res) => {
-      //     loading.value = false
-      //     //toast alert
-      //     if(!res.data.success){
-      //       window.$notification.error({
-      //         content: res.data.message,
-      //         meta: res.data.error.message,
-      //         duration: 2500,
-      //         keepAliveOnHover: true
-      //       })
-      //     } else {
-      //       window.$notification.success({
-      //         content: res.data.message,
-      //         duration: 2000,
-      //       })
-      //       const { token, expired } = res.data
-      //       document.cookie = `meowforestToken=${token}; expires=${new Date(expired)}`
-      //       router.push('/admin')
-      //     }
-      //   }).catch((err) => {
-      //     loading.value = false
-      //   })
-      // }
     }
   }
 }

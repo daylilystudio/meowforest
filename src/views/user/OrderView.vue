@@ -74,15 +74,15 @@ import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { ShopLayout },
-  setup() {
+  setup () {
     const axios = inject('axios')
     const filter = inject('$filter')
     const router = useRouter()
     const route = useRoute()
     const globalStore = useGlobalStore()
     const orderInfo = ref(null)
-    const openProducts =  ref(false)
-    async function getOrder(id) {
+    const openProducts = ref(false)
+    async function getOrder (id) {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order/${id}`
       axios.get(api).then((res) => {
@@ -98,8 +98,11 @@ export default {
     })
     return {
       filter,
-      globalStore, router, orderInfo, openProducts,
-      async copy() {
+      globalStore,
+      router,
+      orderInfo,
+      openProducts,
+      async copy () {
         const inputNode = document.createElement('input')
         inputNode.value = window.location.href
         inputNode.style.display = 'none'

@@ -28,14 +28,16 @@ import bar2 from '@/assets/img/processbar2.png'
 import bar3 from '@/assets/img/processbar3.png'
 export default {
   props: {
-    process:{
+    process: {
       type: Number,
       default: 0
     }
   },
-  setup() {
-    return{
-      bar1, bar2, bar3,
+  setup () {
+    return {
+      bar1,
+      bar2,
+      bar3,
       list: [
         {
           txt: '購物車',

@@ -47,7 +47,7 @@ export const useGlobalStore = defineStore('global', () => {
   })
   const toggleFav = (id) => {
     const fav = window.localStorage.getItem('meowforestFav' + id)
-    if(fav==='y') {
+    if (fav === 'y') {
       window.localStorage.removeItem('meowforestFav' + id)
       isfav['meowforestFav' + id] = false
     } else {
@@ -58,11 +58,11 @@ export const useGlobalStore = defineStore('global', () => {
   }
   // get all products
   const products = ref([])
-  async function getProducts() {
+  async function getProducts () {
     if (products.value.length > 0) return
     const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/products/all`
     await axios.get(api).then((res) => {
-      if(res.data.success){
+      if (res.data.success) {
         products.value = res.data.products
       }
     }).catch((err) => {
@@ -71,7 +71,7 @@ export const useGlobalStore = defineStore('global', () => {
   }
   // get carts
   const cart = ref([])
-  async function getCart() {
+  async function getCart () {
     loading.value = true
     const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
     axios.get(api).then((res) => {
@@ -83,11 +83,11 @@ export const useGlobalStore = defineStore('global', () => {
     })
   }
   // add to cart
-  async function addCart(id, num) {
+  async function addCart (id, num) {
     loadingAdd.value = true
     const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
     try {
-      const res = await axios.post(api,{'data': {'product_id':id,'qty':num}})
+      const res = await axios.post(api, { data: { product_id: id, qty: num } })
       if (res) {
         const icon = res.data.success ? 'success' : 'error'
         window.$message[icon](res.data.message)
@@ -108,13 +108,13 @@ export const useGlobalStore = defineStore('global', () => {
   const payment = ref('')
   const shipping = ref('')
   const shippingMoney = ref(0)
-  watch(shipping, (newVal)=>{
-    shippingMoney.value = newVal==='delivery' ? 80 : 0
-    shippingMoney.value = cart.value.final_total>3000 ? 0 : shippingMoney.value
+  watch(shipping, (newVal) => {
+    shippingMoney.value = newVal === 'delivery' ? 80 : 0
+    shippingMoney.value = cart.value.final_total > 3000 ? 0 : shippingMoney.value
   })
-  watch(cart, (newVal)=>{
-    shippingMoney.value = shipping.value==='delivery' ? 80 : 0
-    shippingMoney.value = newVal.final_total>3000 ? 0 : shippingMoney.value
+  watch(cart, (newVal) => {
+    shippingMoney.value = shipping.value === 'delivery' ? 80 : 0
+    shippingMoney.value = newVal.final_total > 3000 ? 0 : shippingMoney.value
   })
   // checkout info
   const userInfo = reactive({
@@ -145,12 +145,24 @@ export const useGlobalStore = defineStore('global', () => {
   }
 
   return {
-    loadingPage, loading, loadingAdd, addingCart,
+    loadingPage,
+    loading,
+    loadingAdd,
+    addingCart,
     menu,
-    isfav, toggleFav,
-    getProducts, products,
-    getCart, addCart, cart,
-    payment, shipping, shippingMoney,
-    userInfo, msg, cardInfo, initInfo
+    isfav,
+    toggleFav,
+    getProducts,
+    products,
+    getCart,
+    addCart,
+    cart,
+    payment,
+    shipping,
+    shippingMoney,
+    userInfo,
+    msg,
+    cardInfo,
+    initInfo
   }
 })

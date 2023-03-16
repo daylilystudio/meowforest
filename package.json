@@ -28,6 +28,7 @@
     "@vitejs/plugin-vue": "^3.0.3",
     "autoprefixer": "^10.4.12",
     "eslint": "^8.22.0",
+    "eslint-config-standard": "^17.0.0",
     "eslint-plugin-vue": "^9.3.0",
     "gh-pages": "^4.0.0",
     "naive-ui": "^2.33.3",

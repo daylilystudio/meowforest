@@ -18,13 +18,13 @@
 </template>
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
-import { h, ref, reactive, inject, onMounted} from 'vue'
-import CouponModal from "@/components/admin/CouponModal.vue"
+import { h, ref, reactive, inject, onMounted } from 'vue'
+import CouponModal from '@/components/admin/CouponModal.vue'
 import api from '@/utils/api.js'
 
 export default {
   components: { CouponModal, NSpace, NDataTable, NButton, NModal, NPagination },
-  setup() {
+  setup () {
     const filter = inject('$filter')
     // data
     const loading = ref(false)
@@ -33,16 +33,16 @@ export default {
     const temp = ref({})
     const pagination = reactive({
       current: 1,
-      total: 2,
+      total: 2
     })
     // get data
-    const tableData = reactive({data:[]})
+    const tableData = reactive({ data: [] })
     const getData = async () => {
       loading.value = true
       try {
         const res = await api.getAdminData('coupons', pagination.current)
         loading.value = false
-        if(res.data.success){
+        if (res.data.success) {
           tableData.data = res.data.coupons
           pagination.total = res.data.pagination.total_pages
         }
@@ -59,7 +59,7 @@ export default {
       loading.value = true
       let slug = 'coupon'
       let httpMethod = 'post'
-      if(!isNew.value) {
+      if (!isNew.value) {
         slug = `coupon/${data.id}`
         httpMethod = 'put'
       }
@@ -67,16 +67,16 @@ export default {
         const res = await api.updateAdminData(httpMethod, slug, data)
         showModal.value = false
         loading.value = false
-        if(res.data.success){
+        if (res.data.success) {
           window.$notification.success({
             content: 'Update Success',
-            duration: 1500,
+            duration: 1500
           })
           getData()
         } else {
           window.$notification.success({
             content: res.data.message.toString(),
-            duration: 2500,
+            duration: 2500
           })
         }
       } catch (err) {
@@ -92,7 +92,7 @@ export default {
         loading.value = false
         window.$notification.success({
           content: res.data.message,
-          duration: 1500,
+          duration: 1500
         })
         getData()
       } catch (err) {
@@ -106,54 +106,54 @@ export default {
     }) => {
       return [
         {
-          title: "title",
-          key: "title"
+          title: 'title',
+          key: 'title'
         },
         {
-          title: "Code",
-          key: "code"
+          title: 'Code',
+          key: 'code'
         },
         {
-          title: "Discount",
-          key: "percent"
+          title: 'Discount',
+          key: 'percent'
         },
         {
-          title: "Due Date",
-          key: "due_date",
-          render(row) {
+          title: 'Due Date',
+          key: 'due_date',
+          render (row) {
             return h(
               'span',
               filter.date(row.due_date)
-            );
+            )
           }
         },
         {
-          title: "Enabled",
-          key: "is_enabled",
-          render(row) {
+          title: 'Enabled',
+          key: 'is_enabled',
+          render (row) {
             return h(
               NTag,
-              { type: row.is_enabled===1 ? 'success' : '', bordered: false },
-              { default: () => row.is_enabled===1 ? 'Yes' : 'No' }
-            );
+              { type: row.is_enabled === 1 ? 'success' : '', bordered: false },
+              { default: () => row.is_enabled === 1 ? 'Yes' : 'No' }
+            )
           }
         },
         {
-          title: "Action",
-          key: "actions",
-          render(row) {
+          title: 'Action',
+          key: 'actions',
+          render (row) {
             return h('div', null, [
               h(NButton,
-                { type: "primary", size: "small", onClick: () => editList(row), class: 'tw-mr-2'},
-                { default: () => "Edit" },),
+                { type: 'primary', size: 'small', onClick: () => editList(row), class: 'tw-mr-2' },
+                { default: () => 'Edit' }),
               h(NButton,
-                { size: "small", onClick: () => clickDel(row)},
-                { default: () => "Del" })
-            ]);
+                { size: 'small', onClick: () => clickDel(row) },
+                { default: () => 'Del' })
+            ])
           }
         }
-      ];
-    };
+      ]
+    }
     return {
       loading,
       showModal,
@@ -163,16 +163,16 @@ export default {
       pagination,
       update,
       columns: createColumns({
-        editList(rowData) {
+        editList (rowData) {
           temp.value = rowData
           isNew.value = false
           showModal.value = true
         },
-        clickDel(rowData) {
+        clickDel (rowData) {
           window.$dialog.warning({
-            title: "Confirm Delete ?",
-            positiveText: "Sure !",
-            negativeText: "No",
+            title: 'Confirm Delete ?',
+            positiveText: 'Sure !',
+            negativeText: 'No',
             blockScroll: false,
             onPositiveClick: () => {
               delList(rowData)
@@ -180,11 +180,11 @@ export default {
           })
         }
       }),
-      pageChange(v) {
+      pageChange (v) {
         pagination.current = v
         getData()
       }
-    };
+    }
   }
 }
 </script>

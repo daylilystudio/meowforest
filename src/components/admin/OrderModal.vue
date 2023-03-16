@@ -58,53 +58,53 @@
 </template>
 <script>
 import { inject, h } from 'vue'
-import { NCard, NButton, NDataTable, NList, NListItem, NTag } from "naive-ui";
+import { NCard, NButton, NDataTable, NList, NListItem, NTag } from 'naive-ui'
 export default {
   components: { NCard, NButton, NDataTable, NList, NListItem, NTag },
   props: {
-    data:{
+    data: {
       type: Object,
-      default() { return {} }
+      default () { return {} }
     }
   },
-  setup() {
+  setup () {
     const filter = inject('$filter')
     // table key
     return {
       filter,
       columns: [
         {
-          title: "Product Name",
-          key: "product[title]"
+          title: 'Product Name',
+          key: 'product[title]'
         },
         {
-          title: "Price",
-          key: "product[price]"
+          title: 'Price',
+          key: 'product[price]'
         },
         {
-          title: "Qty",
-          key: "qty",
-          render(row) {
+          title: 'Qty',
+          key: 'qty',
+          render (row) {
             return h(
               'span',
               `${row.qty} / ${row.product.unit}`
-            );
+            )
           }
         },
         {
-          title: "Total",
-          key: "total",
-          render(row) {
+          title: 'Total',
+          key: 'total',
+          render (row) {
             return h(
               'span',
               filter.currency(row.total)
-            );
+            )
           }
         },
         {
-          title: "Coupon",
-          key: "coupon[code]"
-        },
+          title: 'Coupon',
+          key: 'coupon[code]'
+        }
       ]
     }
   }

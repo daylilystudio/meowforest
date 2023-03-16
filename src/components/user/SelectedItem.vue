@@ -44,26 +44,26 @@
 </template>
 <script>
 import { useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 import { useGlobalStore } from '@/stores/global.js'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Pagination, Navigation } from 'swiper';
+import { Autoplay, Pagination, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 export default {
   components: { Swiper, SwiperSlide },
-  setup() {
+  setup () {
     const router = useRouter()
-    const globalStore = useGlobalStore();
-    const { products } = storeToRefs(globalStore);
+    const globalStore = useGlobalStore()
+    const { products } = storeToRefs(globalStore)
     return {
       router,
       modules: [Autoplay, Pagination, Navigation],
       products
-    };
+    }
   }
 }
 </script>

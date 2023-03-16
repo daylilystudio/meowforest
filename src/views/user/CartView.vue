@@ -83,22 +83,22 @@ import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { ShopLayout, NSpin, NInputNumber, NModal },
-  setup() {
+  setup () {
     const router = useRouter()
     const axios = inject('axios')
     const showModal = ref(false)
     const globalStore = useGlobalStore()
     const nextBtnAllow = computed(() => {
-      if (globalStore.cart.carts?.length>0) {
-        return globalStore.payment !=='' && globalStore.shipping !==''
+      if (globalStore.cart.carts?.length > 0) {
+        return globalStore.payment !== '' && globalStore.shipping !== ''
       }
       return true
     })
     const updateCart = (qty, cartId, productId) => {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${cartId}`
-      axios.put(api, { 'data': {'product_id':productId,'qty':qty} }).then((res) => {
-        if(res) {
+      axios.put(api, { data: { product_id: productId, qty } }).then((res) => {
+        if (res) {
           globalStore.getCart()
           window.$message.warning(res.data.message)
         }
@@ -112,7 +112,7 @@ export default {
       globalStore.loading = true
       const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${id}`
       axios.delete(api).then((res) => {
-        if(res) {
+        if (res) {
           globalStore.getCart()
           window.$message.warning(res.data.message)
         }
@@ -122,27 +122,30 @@ export default {
         globalStore.loading = false
       })
     }
-    onBeforeMount(() =>{
+    onBeforeMount(() => {
       globalStore.getCart()
     })
     return {
       showModal,
       nextBtnAllow,
-      router, globalStore, updateCart, delCart,
-      goNext() {
-        if (globalStore.payment ==='') {
+      router,
+      globalStore,
+      updateCart,
+      delCart,
+      goNext () {
+        if (globalStore.payment === '') {
           window.$message.warning('Plz choose payment method')
-        } else if (globalStore.shipping ==='') {
+        } else if (globalStore.shipping === '') {
           window.$message.warning('Plz choose shipping method')
         } else {
           router.push('/checkout')
         }
       },
-      enterCoupon(code) {
+      enterCoupon (code) {
         showModal.value = false
         const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/coupon`
-        axios.post(api, {'data':{'code':code}}).then((res) => {
-          if(res) {
+        axios.post(api, { data: { code } }).then((res) => {
+          if (res) {
             globalStore.getCart()
             window.$message.warning(res.data.message)
           }

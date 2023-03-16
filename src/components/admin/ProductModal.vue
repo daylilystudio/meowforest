@@ -78,46 +78,46 @@
 
 <script>
 import { ref, inject, onMounted } from 'vue'
-import { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch } from "naive-ui";
+import { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch } from 'naive-ui'
 export default {
   components: { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch },
   props: {
-    tempProduct:{
+    tempProduct: {
       type: Object,
-      default() { return {} }
+      default () { return {} }
     },
-    isNew:{
+    isNew: {
       type: Boolean,
       default: false
     },
-    loading:{
+    loading: {
       type: Boolean,
       default: false
     }
   },
-  setup(props) {
+  setup (props) {
     const axios = inject('axios')
     const data = ref(props.tempProduct)
     const fileList = ref([])
     onMounted(() => {
-      if(data.value.imagesUrl?.length>0) {
+      if (data.value.imagesUrl?.length > 0) {
         data.value.imagesUrl.forEach(el => {
-          fileList.value.push({status: "finished", url: el})
-        });
+          fileList.value.push({ status: 'finished', url: el })
+        })
       }
     })
     const fileAction = ref(`${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/upload`)
-    const updateFile = ({ file, action, onProgress, onFinish, onError}) => {
-      const formData = new FormData();
-      formData.append('file-to-upload', file.file);
+    const updateFile = ({ file, action, onProgress, onFinish, onError }) => {
+      const formData = new FormData()
+      formData.append('file-to-upload', file.file)
       axios.post(action, formData, {
         onUploadProgress: ({ percent }) => {
-          onProgress({ percent: Math.ceil(percent) });
+          onProgress({ percent: Math.ceil(percent) })
         }
       }).then((res) => {
-        if(res.data.success){
-          fileList.value.push({status: "finished",url:res.data.imageUrl})
-          if(data.value.imagesUrl===undefined) data.value.imagesUrl = []
+        if (res.data.success) {
+          fileList.value.push({ status: 'finished', url: res.data.imageUrl })
+          if (data.value.imagesUrl === undefined) data.value.imagesUrl = []
           data.value.imagesUrl.push(res.data.imageUrl)
           onFinish()
           window.$message.success('Image Upload Success !')
@@ -135,13 +135,13 @@ export default {
       })
     }
     const beforeUpload = (data) => {
-      if (!data.file.file?.type.match("image")) {
+      if (!data.file.file?.type.match('image')) {
         window.$message.error(
-          "Only upload image files, please re-upload."
+          'Only upload image files, please re-upload.'
         )
       }
     }
-    return { 
+    return {
       data,
       fileAction,
       beforeUpload,
@@ -157,40 +157,40 @@ export default {
       rules: {
         title: {
           required: true,
-          trigger: ["blur", "input"],
-          message: "Plz input product name"
+          trigger: ['blur', 'input'],
+          message: 'Plz input product name'
         },
         category: {
           required: false,
-          trigger: ["blur", "change"],
-          message: "Plz choose category"
+          trigger: ['blur', 'change'],
+          message: 'Plz choose category'
         },
         origin_price: {
-          type: "number",
+          type: 'number',
           required: true,
-          trigger: ["blur", "change"],
-          message: "Plz input origin price"
+          trigger: ['blur', 'change'],
+          message: 'Plz input origin price'
         },
         price: {
-          type: "number",
+          type: 'number',
           required: true,
-          trigger: ["blur", "change"],
-          message: "Plz input price"
+          trigger: ['blur', 'change'],
+          message: 'Plz input price'
         },
         unit: {
           required: true,
-          trigger: ["blur", "input"],
-          message: "Plz input unit"
+          trigger: ['blur', 'input'],
+          message: 'Plz input unit'
         },
         description: {
           required: true,
-          trigger: ["blur", "input"],
-          message: "Plz input description"
+          trigger: ['blur', 'input'],
+          message: 'Plz input description'
         },
         content: {
           required: true,
-          trigger: ["blur", "input"],
-          message: "Plz input content"
+          trigger: ['blur', 'input'],
+          message: 'Plz input content'
         }
       }
     }

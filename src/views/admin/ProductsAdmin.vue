@@ -19,13 +19,13 @@
 
 <script>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
-import { h, ref, reactive, inject, onMounted} from 'vue'
-import ProductModal from "@/components/admin/ProductModal.vue"
+import { h, ref, reactive, inject, onMounted } from 'vue'
+import ProductModal from '@/components/admin/ProductModal.vue'
 import api from '@/utils/api.js'
 
 export default {
   components: { ProductModal, NSpace, NDataTable, NButton, NModal, NPagination },
-  setup() {
+  setup () {
     const filter = inject('$filter')
     // data
     const loading = ref(false)
@@ -34,16 +34,16 @@ export default {
     const tempProduct = ref({})
     const pagination = reactive({
       current: 1,
-      total: 2,
+      total: 2
     })
     // get product
-    const tableData = reactive({data:[]})
+    const tableData = reactive({ data: [] })
     const getData = async () => {
       loading.value = true
       try {
         const res = await api.getAdminData('products', pagination.current)
         loading.value = false
-        if(res.data.success){
+        if (res.data.success) {
           tableData.data = res.data.products
           pagination.total = res.data.pagination.total_pages
         }
@@ -52,18 +52,6 @@ export default {
         window.$message.error(err.toString())
       }
     }
-    // const getProduct = () => {
-    //   loading.value = true
-    //   const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/products`
-    //   axios.get(api).then((res) => {
-    //     loading.value = false
-    //     if(res.data.success){
-    //       tableData.data = res.data.products
-    //     }
-    //   }).catch((err) => {
-    //     loading.value = false
-    //   })
-    // }
     onMounted(() => {
       getData()
     })
@@ -72,7 +60,7 @@ export default {
       loading.value = true
       let slug = 'product'
       let httpMethod = 'post'
-      if(!isNew.value) {
+      if (!isNew.value) {
         slug = `product/${data.id}`
         httpMethod = 'put'
       }
@@ -80,16 +68,16 @@ export default {
         const res = await api.updateAdminData(httpMethod, slug, data)
         showModal.value = false
         loading.value = false
-        if(res.data.success){
+        if (res.data.success) {
           window.$notification.success({
             content: 'Update Success',
-            duration: 1500,
+            duration: 1500
           })
           getData()
         } else {
           window.$notification.success({
             content: res.data.message.toString(),
-            duration: 2500,
+            duration: 2500
           })
         }
       } catch (err) {
@@ -97,33 +85,6 @@ export default {
         window.$message.error(err.toString())
       }
     }
-    // const updateProduct = (data) => {
-    //   loading.value = true
-    //   let api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product`
-    //   let httpMethod = 'post'
-    //   if(!isNew.value) {
-    //     api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product/${data.id}`
-    //     httpMethod = 'put'
-    //   }
-    //   axios[httpMethod](api, {'data': data}).then((res) => {
-    //     showModal.value = false
-    //     loading.value = false
-    //     if(res.data.success){
-    //       window.$notification.success({
-    //         content: 'Update Success',
-    //         duration: 1500,
-    //       })
-    //       getData()
-    //     } else {
-    //       window.$notification.success({
-    //         content: res.data.message.toString(),
-    //         duration: 2500,
-    //       })
-    //     }
-    //   }).catch((err) => {
-    //     loading.value = false
-    //   })
-    // }
     // delete item
     const delList = async (rowData) => {
       loading.value = true
@@ -132,7 +93,7 @@ export default {
         loading.value = false
         window.$notification.success({
           content: res.data.message,
-          duration: 1500,
+          duration: 1500
         })
         getData()
       } catch (err) {
@@ -140,85 +101,71 @@ export default {
         window.$message.error(err.toString())
       }
     }
-    // const delList = async (rowData) => {
-    //   loading.value = true
-    //   const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/product/${rowData.id}`
-    //   await axios.delete(api).then((res) => {
-    //     loading.value = false
-    //     window.$notification.success({
-    //       content: res.data.message,
-    //       duration: 1500,
-    //     })
-    //   }).catch((err) => {
-    //     loading.value = false
-    //   })
-    //   getData()
-    // }
     // table key
     const createColumns = ({
       editList, clickDel
     }) => {
       return [
         {
-          title: "No.",
-          key: "num"
+          title: 'No.',
+          key: 'num'
         },
         {
-          title: "Category",
-          key: "category"
+          title: 'Category',
+          key: 'category'
         },
         {
-          title: "Product Name",
-          key: "title",
+          title: 'Product Name',
+          key: 'title',
           width: '35%'
         },
         {
-          title: "Original Price",
-          key: "origin_price",
-          render(row) {
+          title: 'Original Price',
+          key: 'origin_price',
+          render (row) {
             return h(
               'span',
               filter.currency(row.origin_price)
-            );
+            )
           }
         },
         {
-          title: "Price",
-          key: "price",
-          render(row) {
+          title: 'Price',
+          key: 'price',
+          render (row) {
             return h(
               'span',
               filter.currency(row.price)
-            );
+            )
           }
         },
         {
-          title: "Enable",
-          key: "is_enabled",
-          render(row) {
+          title: 'Enable',
+          key: 'is_enabled',
+          render (row) {
             return h(
               NTag,
-              { type: row.is_enabled===true ? 'success' : '', bordered: false },
-              { default: () => row.is_enabled===true ? 'Yes' : 'No' }
-            );
+              { type: row.is_enabled === true ? 'success' : '', bordered: false },
+              { default: () => row.is_enabled === true ? 'Yes' : 'No' }
+            )
           }
         },
         {
-          title: "Action",
-          key: "actions",
-          render(row) {
+          title: 'Action',
+          key: 'actions',
+          render (row) {
             return h('div', null, [
               h(NButton,
-                { type: "primary", size: "small", onClick: () => editList(row), class: 'tw-mr-2'},
-                { default: () => "Edit" },),
+                { type: 'primary', size: 'small', onClick: () => editList(row), class: 'tw-mr-2' },
+                { default: () => 'Edit' }),
               h(NButton,
-                { size: "small", onClick: () => clickDel(row)},
-                { default: () => "Del" })
-            ]);
+                { size: 'small', onClick: () => clickDel(row) },
+                { default: () => 'Del' })
+            ])
           }
         }
-      ];
-    };
+      ]
+    }
     return {
       loading,
       showModal,
@@ -227,16 +174,16 @@ export default {
       tableData,
       update,
       columns: createColumns({
-        editList(rowData) {
+        editList (rowData) {
           tempProduct.value = rowData
           isNew.value = false
           showModal.value = true
         },
-        clickDel(rowData) {
+        clickDel (rowData) {
           window.$dialog.warning({
-            title: "Confirm Delete ?",
-            positiveText: "Sure !",
-            negativeText: "No",
+            title: 'Confirm Delete ?',
+            positiveText: 'Sure !',
+            negativeText: 'No',
             blockScroll: false,
             onPositiveClick: () => {
               delList(rowData)
@@ -245,11 +192,11 @@ export default {
         }
       }),
       pagination,
-      pageChange(v) {
+      pageChange (v) {
         pagination.current = v
         getData()
       }
-    };
+    }
   }
 }
 </script>

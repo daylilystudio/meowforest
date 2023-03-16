@@ -33,18 +33,18 @@ import { useRoute, useRouter } from 'vue-router'
 import { useGlobalStore } from '@/stores/global.js'
 
 export default {
-  setup() {
+  setup () {
     const route = useRoute()
     const router = useRouter()
     const globalStore = useGlobalStore()
     const openLoading = ref(true)
     const openMobileNav = ref(false)
-    onBeforeMount(() =>  {
+    onBeforeMount(() => {
       globalStore.getProducts()
       globalStore.getCart()
     })
-    onMounted(() =>  {
-      setTimeout(()=>{
+    onMounted(() => {
+      setTimeout(() => {
         openLoading.value = false
       }, 300)
     })

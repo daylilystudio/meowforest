@@ -37,7 +37,7 @@ import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { NModal },
-  setup() {
+  setup () {
     const route = useRoute()
     const router = useRouter()
     const showModal = ref(false)
@@ -45,11 +45,12 @@ export default {
     const clickItem = ref('')
     return {
       globalStore,
-      route, router,
+      route,
+      router,
       showModal,
       clickItem,
-      clickBtn(e) {
-        switch(e) {
+      clickBtn (e) {
+        switch (e) {
           case 'heart':
             showModal.value = true
             break
@@ -64,7 +65,7 @@ export default {
       list: [
         {
           icon: 'heart',
-          class: 'tw-text-notice',
+          class: 'tw-text-notice'
         },
         {
           icon: 'arrow-up',

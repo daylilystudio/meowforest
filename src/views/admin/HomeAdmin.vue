@@ -24,7 +24,7 @@ import api from '@/utils/api.js'
 
 export default {
   components: { NLayout, NLayoutHeader, NMenu },
-  setup() {
+  setup () {
     const route = useRoute()
     const router = useRouter()
     const check = async () => {
@@ -33,7 +33,7 @@ export default {
         if (!res.data.success) {
           window.$notification.warning({
             content: 'Plz Login!',
-            duration: 2000,
+            duration: 2000
           })
           router.push('/login')
         }
@@ -41,13 +41,13 @@ export default {
         window.$message.error(err)
       }
     }
-    const logout = async ()=> {
+    const logout = async () => {
       try {
         const res = await api.logout()
-        if(res.data.success){
+        if (res.data.success) {
           window.$notification.success({
             content: 'Logout Success!',
-            duration: 2000,
+            duration: 2000
           })
           router.push('/login')
         }
@@ -61,35 +61,35 @@ export default {
     const menuOptions = [
       {
         label: () =>
-          h (RouterLink, 
+          h(RouterLink,
             { to: '/admin/products' },
             { default: () => 'Products list' }
           ),
-        key: "product",
+        key: 'product'
       },
       {
         label: () =>
-          h (RouterLink, 
+          h(RouterLink,
             { to: '/admin/orders' },
             { default: () => 'Orders' }
           ),
-        key: "order",
+        key: 'order'
       },
       {
         label: () =>
-          h (RouterLink, 
+          h(RouterLink,
             { to: '/admin/coupons' },
             { default: () => 'Coupons' }
           ),
-        key: "coupon",
+        key: 'coupon'
       },
       {
         label: () =>
-          h ('a', 
+          h('a',
             { onclick: logout },
             { default: () => 'Logout' }
           ),
-        key: "logout",
+        key: 'logout'
       }
     ]
     return { route, menuOptions }

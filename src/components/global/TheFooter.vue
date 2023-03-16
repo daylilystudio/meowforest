@@ -28,11 +28,11 @@
 import { useGlobalStore } from '@/stores/global.js'
 
 export default {
-  setup() {
+  setup () {
     const globalStore = useGlobalStore()
     return {
       globalStore,
-      thisYear() {
+      thisYear () {
         const now = new Date()
         return now.getFullYear()
       }

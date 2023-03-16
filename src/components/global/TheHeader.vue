@@ -7,8 +7,8 @@
 // image
 import bg from '@/assets/img/heroOther.jpg'
 export default {
-  setup() {
-    return{ bg }
+  setup () {
+    return { bg }
   }
 }
 </script>

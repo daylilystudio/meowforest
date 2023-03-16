@@ -76,14 +76,14 @@ import cat4 from '@/assets/img/process4.png'
 
 export default {
   components: { TheTitle, SelectedItem },
-  setup() {
+  setup () {
     const circleRef = ref(null)
     const scrollNext = () => {
       const pos = circleRef.value.offsetTop
       window.scrollTo({
         top: pos - 80,
         behavior: 'smooth'
-      });
+      })
     }
     return {
       circleRef,

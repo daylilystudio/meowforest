@@ -61,7 +61,7 @@ export default {
     }
   },
   emits: ['onGoNext'],
-  setup() {
+  setup () {
     const route = useRoute()
     const globalStore = useGlobalStore()
     return { route, globalStore }
