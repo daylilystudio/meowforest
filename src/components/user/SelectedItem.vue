@@ -31,7 +31,7 @@
         <p class="tw-bg-second tw-text-theme tw-relative tw-text-lg tw-rounded-full tw-py-1 tw-px-5">
           {{ item.category }}
         </p>
-        <span class="tw-relative tw-text-xl tw-mt-1 tw-drop-shadow-lg">{{ item.title }}</span>
+        <span class="tw-relative tw-text-xl tw-mt-1 tw-drop-shadow-main">{{ item.title }}</span>
       </SwiperSlide>
     </Swiper>
     <div class="swiper-navigation-prev tw-hidden md:tw-block tw-z-10 tw-absolute tw-left-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">

@@ -1,5 +1,5 @@
 <template>
-  <ShopLayout :process="1" breadcrumb="Checkout" nextBtn="Submit Order" @onGoNext="goNext">
+  <ShopLayout :process="1" breadcrumb="Checkout" nextBtn="Submit Order" :nextBtnAllow="nextBtnAllow" @onGoNext="goNext">
     <template v-slot:content>
       <h5 class="tw-text-lg tw-mb-5">Shipping Information</h5>
       <div class="tw-grid sm:tw-grid-cols-2 tw-gap-x-4 sm:tw-gap-x-8 tw-gap-y-5 sm:tw-px-4">
@@ -60,7 +60,7 @@
 
 <script>
 import ShopLayout from '@/components/user/ShopLayout.vue'
-import { inject, onBeforeMount } from 'vue'
+import { inject, onBeforeMount, computed } from 'vue'
 import { useRouter } from 'vue-router'
 // store
 import { useGlobalStore } from '@/stores/global.js'
@@ -129,8 +129,14 @@ export default {
         globalStore.loadingPage = false
       })
     }
+    // check
+    const checkEmail = computed(() => globalStore.userInfo.email.match(/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/))
+    const checkFill = computed(() => Object.values(globalStore.userInfo).every(item => item!==''))
+    const checkCardFill = computed(() => Object.values(globalStore.cardInfo).every(item => item!=='') && globalStore.cardInfo.number.match(/[0-9]/gi).length===16 && globalStore.cardInfo.valid.length===5 && globalStore.cardInfo.cvv.length===3)
+    const nextBtnAllow = computed(() => checkFill.value && checkEmail.value && (globalStore.payment !== 'creditcard' || checkCardFill.value))
     return {
       globalStore,
+      nextBtnAllow,
       validCard(e) {
         const arr = e.target.value.match(/[0-9]/gi)
         const newArr = []
@@ -154,26 +160,25 @@ export default {
         if (e.target.value !== '' && arr.length > 2) {
           arr.splice(2, 0, '/')
         }
-        globalStore.cardInfo.valid = arr.join('')
+        globalStore.cardInfo.valid = arr !== null ? arr.join('') : ''
       },
       goNext() {
-        // check email
-        const regexEmail = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
-        if (!globalStore.userInfo.email.match(regexEmail)) {
-          window.$message.warning('Wrong Email')
-        }
         // check all fill
-        const checkFill = Object.values(globalStore.userInfo).every(item => item!=='')
-        let checkCardFill = true
-        if (!checkFill) window.$message.warning('Plz Finish Your Info :)')
-        else if (globalStore.payment==='creditcard') {
-          checkCardFill = Object.values(globalStore.cardInfo).every(item => item!=='')
-          if (checkCardFill && globalStore.cardInfo.number.match(/[0-9]/gi).length !==16 || globalStore.cardInfo.valid.length !==5 || globalStore.cardInfo.cvv.length !==3) {
-            window.$message.warning('Plz Confirm Payment Info')
-            return
-          }
+        if (!checkFill.value) {
+          window.$message.warning('Plz Finish Your Info :)')
+          return
         }
-        if (checkFill && checkCardFill) {
+        if (globalStore.payment==='creditcard' && !checkCardFill.value) {
+          window.$message.warning('Plz Confirm Payment Info')
+          return
+        }
+        // check email
+        if (!checkEmail.value) {
+          window.$message.warning('Wrong Email')
+          return
+        }
+        // go
+        if (checkFill.value && checkCardFill.value) {
           window.$dialog.warning({
             title: "Confirm Submit Order ?",
             positiveText: "Sure !",
