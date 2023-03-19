@@ -79,9 +79,10 @@
 </template>
 <script>
 import TheHeader from '@/components/global/TheHeader.vue'
-import { onBeforeMount, inject, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { NInputNumber, NTag } from 'naive-ui'
+import api from '@/utils/api'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Thumbs } from 'swiper'
@@ -96,7 +97,6 @@ import { useGlobalStore } from '@/stores/global.js'
 export default {
   components: { TheHeader, Swiper, SwiperSlide, NInputNumber, NTag },
   setup () {
-    const axios = inject('axios')
     const route = useRoute()
     const router = useRouter()
     const product = ref({})
@@ -105,21 +105,15 @@ export default {
     const addNum = ref(1)
     const globalStore = useGlobalStore()
     const productId = route.path.split('/')[2]
-    const getProduct = (id) => {
+    const getProduct = async (id) => {
       globalStore.loadingPage = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
-      axios.get(api).then((res) => {
-        if (res.data.success) {
-          product.value = res.data.product
-        } else {
-          noProduct.value = true
-        }
-        globalStore.loadingPage = false
-      }).catch((err) => {
-        window.$message.error(err.toString())
+      const res = await api.getProduct(id)
+      if (res.data.success) {
+        product.value = res.data.product
+      } else {
         noProduct.value = true
-        globalStore.loadingPage = false
-      })
+      }
+      globalStore.loadingPage = false
     }
     onBeforeMount(() => {
       getProduct(productId)

@@ -69,29 +69,24 @@
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { inject, ref, onBeforeMount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import api from '@/utils/api'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
 export default {
   components: { ShopLayout },
   setup () {
-    const axios = inject('axios')
     const filter = inject('$filter')
     const router = useRouter()
     const route = useRoute()
     const globalStore = useGlobalStore()
     const orderInfo = ref(null)
     const openProducts = ref(false)
-    async function getOrder (id) {
+    const getOrder = async (id) => {
       globalStore.loading = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order/${id}`
-      axios.get(api).then((res) => {
-        orderInfo.value = res.data.success ? res.data.order : 'No order found'
-        globalStore.loading = false
-      }).catch((err) => {
-        window.$message.error(err.toString())
-        globalStore.loading = false
-      })
+      const res = await api.getOrder(id)
+      orderInfo.value = res.data.success ? res.data.order : 'No order found'
+      globalStore.loading = false
     }
     onBeforeMount(async () => {
       await getOrder(route.path.split('/')[2])

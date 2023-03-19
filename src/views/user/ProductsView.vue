@@ -10,7 +10,7 @@
       <div class="tw-mt-4 lg:tw-ml-2 tw-flex lg:tw-flex-col tw-justify-around">
         <router-link :to="item.link" v-for="item in productMenu" :key="item.name" class="tw-leading-8 tw-font-bold tw-cursor-pointer">
           <font-awesome-icon class="tw-hidden sm:tw-inline sm:tw-mr-2" :icon="['fas', 'paw']" />
-          {{ item.name }}
+          {{ item.name === 'Products' ? 'All' : item.name }}
         </router-link>
       </div>
     </aside>

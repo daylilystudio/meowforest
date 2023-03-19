@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
 import router from './router'
 
 // index
@@ -21,8 +21,8 @@ import { createPinia } from 'pinia'
 
 const app = createApp(App)
 app.use(router)
-app.use(VueAxios, axios)
-app.provide('axios', app.config.globalProperties.axios)
+// app.use(VueAxios, axios)
+// app.provide('axios', app.config.globalProperties.axios)
 app.config.globalProperties.$filter = filter
 app.provide('$filter', filter)
 library.add(fas, far, fab)

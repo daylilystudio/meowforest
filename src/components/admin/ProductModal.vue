@@ -16,7 +16,6 @@
       <NGrid :x-gap="24" cols="1 s:2" responsive="screen">
         <NGi>
           <NUpload
-            :action="fileAction"
             :max=5
             list-type="image-card"
             :default-file-list="fileList"
@@ -30,14 +29,14 @@
           </NFormItemGi>
           <NFormItemGi label="Product Category" path="category">
             <NRadioGroup v-model:value="data.category" name="category">
-              <NRadioButton value="貓の食品">
-                貓の食品
+              <NRadioButton value="Cat´s Food">
+                Cat´s Food
               </NRadioButton >
-              <NRadioButton value="貓の用品">
-                貓の用品
+              <NRadioButton value="Cat´s Use">
+                Cat´s Use
               </NRadioButton>
-              <NRadioButton value="貓の玩具">
-                貓の玩具
+              <NRadioButton value="Cat´s Toy">
+                Cat´s Toy
               </NRadioButton>
             </NRadioGroup>
           </NFormItemGi>
@@ -77,8 +76,10 @@
 </template>
 
 <script>
-import { ref, inject, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch } from 'naive-ui'
+import api from '@/utils/api'
+
 export default {
   components: { NCard, NButton, NUpload, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NRadioButton, NRadioGroup, NSwitch },
   props: {
@@ -96,27 +97,27 @@ export default {
     }
   },
   setup (props) {
-    const axios = inject('axios')
     const data = ref(props.tempProduct)
     const fileList = ref([])
     onMounted(() => {
       if (data.value.imagesUrl?.length > 0) {
-        data.value.imagesUrl.forEach(el => {
-          fileList.value.push({ status: 'finished', url: el })
+        data.value.imagesUrl.forEach((el, i) => {
+          fileList.value.push({ id: i, status: 'finished', url: el })
         })
       }
     })
-    const fileAction = ref(`${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/upload`)
-    const updateFile = ({ file, action, onProgress, onFinish, onError }) => {
+    const updateFile = async ({ file, onProgress, onFinish, onError }) => {
       const formData = new FormData()
       formData.append('file-to-upload', file.file)
-      axios.post(action, formData, {
-        onUploadProgress: ({ percent }) => {
-          onProgress({ percent: Math.ceil(percent) })
-        }
-      }).then((res) => {
+      try {
+        const res = await api.uploadImg(formData, {
+          onUploadProgress: ({ percent }) => {
+            onProgress({ percent: Math.ceil(percent) })
+          }
+        })
         if (res.data.success) {
-          fileList.value.push({ status: 'finished', url: res.data.imageUrl })
+          console.log(res)
+          fileList.value.push({ id: res.data.imageUrl, status: 'finished', url: res.data.imageUrl })
           if (data.value.imagesUrl === undefined) data.value.imagesUrl = []
           data.value.imagesUrl.push(res.data.imageUrl)
           onFinish()
@@ -124,10 +125,10 @@ export default {
         } else {
           window.$message.error(res.data.message)
         }
-      }).catch((err) => {
+      } catch (err) {
         window.$message.error(err.toString())
         onError()
-      })
+      }
     }
     const removeFile = (img) => {
       data.value.imagesUrl = data.value.imagesUrl?.filter(el => {
@@ -143,7 +144,6 @@ export default {
     }
     return {
       data,
-      fileAction,
       beforeUpload,
       updateFile,
       removeFile,

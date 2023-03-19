@@ -1,40 +1,35 @@
-import { ref, reactive, inject, watch } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { defineStore } from 'pinia'
+import api from '../utils/api'
 
 export const useGlobalStore = defineStore('global', () => {
-  const axios = inject('axios')
   const loadingPage = ref(false)
   const loading = ref(false)
   const loadingAdd = ref(false)
-  const addingCart = ref(false)
+  const addingCart = ref(false) // Ani
   const menu = ref([
     {
-      name: '全部商品',
-      en: 'Products',
+      name: 'Products',
       link: '/products',
       key: 'all'
     },
     {
-      name: '貓の食品',
-      en: 'Cat´s Food',
+      name: 'Cat´s Food',
       link: '/products?category=food',
       key: 'food'
     },
     {
-      name: '貓の用品',
-      en: 'Cat´s Use',
+      name: 'Cat´s Use',
       link: '/products?category=use',
       key: 'use'
     },
     {
-      name: '貓の玩具',
-      en: 'Cat´s Toy',
+      name: 'Cat´s Toy',
       link: '/products?category=toy',
       key: 'toy'
     },
     {
-      name: '登入後台',
-      en: 'Admin',
+      name: 'Admin',
       link: '/login',
       key: 'login'
     }
@@ -60,48 +55,32 @@ export const useGlobalStore = defineStore('global', () => {
   const products = ref([])
   async function getProducts () {
     if (products.value.length > 0) return
-    const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/products/all`
-    await axios.get(api).then((res) => {
-      if (res.data.success) {
-        products.value = res.data.products
-      }
-    }).catch((err) => {
-      window.$message.error(err.toString())
-    })
+    const res = await api.getProducts()
+    if (res.data.success) {
+      products.value = res.data.products
+    }
   }
   // get carts
   const cart = ref([])
   async function getCart () {
     loading.value = true
-    const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
-    axios.get(api).then((res) => {
-      cart.value = res.data.data
-      loading.value = false
-    }).catch((err) => {
-      window.$message.error(err.toString())
-      loading.value = false
-    })
+    const res = await api.getCart()
+    cart.value = res.data.data
+    loading.value = false
   }
   // add to cart
   async function addCart (id, num) {
     loadingAdd.value = true
-    const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
-    try {
-      const res = await axios.post(api, { data: { product_id: id, qty: num } })
-      if (res) {
-        const icon = res.data.success ? 'success' : 'error'
-        window.$message[icon](res.data.message)
-        await getCart()
-      }
-      loadingAdd.value = false
-      addingCart.value = true
-      setTimeout(() => {
-        addingCart.value = false
-      }, 1100)
-      return res
-    } catch (err) {
-      loadingAdd.value = false
-      return err
+    const res = await api.addCart({ data: { product_id: id, qty: num } })
+    loadingAdd.value = false
+    addingCart.value = true
+    setTimeout(() => {
+      addingCart.value = false
+    }, 1100)
+    if (res) {
+      const icon = res.data.success ? 'success' : 'error'
+      window.$message[icon](res.data.message)
+      await getCart()
     }
   }
   // method

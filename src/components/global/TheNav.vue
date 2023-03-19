@@ -2,11 +2,10 @@
   <nav class="nav-container tw-h-14 xl:tw-h-16 tw-fixed tw-top-3 sm:tw-top-6 tw-left-1/2 -tw-translate-x-1/2
   tw-rounded-full tw-shadow-xl tw-bg-white tw-flex tw-items-center tw-p-1.5 tw-z-20">
     <img @click="router.push('/')" src="@/assets/logo.svg" class="tw-h-8 tw-ml-6 tw-cursor-pointer" alt="Logo">
-    <div :class="{'active':openMobileNav}" class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-7 md:tw-gap-8 tw-items-center tw-justify-center
-    tw-bg-white tw-text-primary tw-font-bold lg:tw-text-lg md:tw-ml-auto tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none">
-      <router-link v-for="list in globalStore.menu" :key="list.link" @click="openMobileNav=false" :to="list.link" :class="{'tw-text-theme':list.key==='login'}" class="menuA tw-flex tw-flex-col tw-items-center">
+    <div :class="{'active':openMobileNav}" class="menuList tw-fixed tw-top-14 tw-left-6 tw-right-6 md:tw-static tw-flex tw-flex-col md:tw-flex-row tw-gap-y-7 tw-gap-x-6 lg:tw-gap-x-10 tw-items-center tw-justify-center
+    tw-bg-white tw-text-primary tw-font-bold lg:tw-text-xl md:tw-ml-auto tw-rounded-b-2xl tw-shadow-xl md:tw-shadow-none">
+      <router-link v-for="list in globalStore.menu" :key="list.link" @click="openMobileNav=false" :to="list.link" :class="{'tw-text-theme':list.key==='login'}" class="menuA">
         {{ list.name }}
-        <span class="tw-text-xs tw-leading-0 md:-tw-mb-1">{{ list.en }}</span>
       </router-link>
     </div>
     <a @click="openMobileNav=!openMobileNav" :class="{'active':openMobileNav}" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
@@ -93,7 +92,7 @@ export default {
   }
   &.active{
     @media (max-width:767px) {
-      height: 20rem;
+      height: 17rem;
     }
   }
 }

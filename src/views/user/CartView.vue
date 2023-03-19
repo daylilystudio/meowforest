@@ -76,8 +76,9 @@
 <script>
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { NSpin, NInputNumber, NModal } from 'naive-ui'
-import { onBeforeMount, ref, inject, computed } from 'vue'
+import { onBeforeMount, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import api from '@/utils/api'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
@@ -85,7 +86,6 @@ export default {
   components: { ShopLayout, NSpin, NInputNumber, NModal },
   setup () {
     const router = useRouter()
-    const axios = inject('axios')
     const showModal = ref(false)
     const globalStore = useGlobalStore()
     const nextBtnAllow = computed(() => {
@@ -94,33 +94,31 @@ export default {
       }
       return true
     })
-    const updateCart = (qty, cartId, productId) => {
+    const updateCart = async (qty, cartId, productId) => {
       globalStore.loading = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${cartId}`
-      axios.put(api, { data: { product_id: productId, qty } }).then((res) => {
-        if (res) {
-          globalStore.getCart()
-          window.$message.warning(res.data.message)
-        }
-        globalStore.loading = false
-      }).catch((err) => {
-        window.$message.error(err.toString())
-        globalStore.loading = false
-      })
+      const res = await api.updateCart(cartId, { data: { product_id: productId, qty } })
+      if (res) {
+        globalStore.getCart()
+        window.$message.warning(res.data.message)
+      }
+      globalStore.loading = false
     }
-    const delCart = (id) => {
+    const delCart = async (id) => {
       globalStore.loading = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${id}`
-      axios.delete(api).then((res) => {
-        if (res) {
-          globalStore.getCart()
-          window.$message.warning(res.data.message)
-        }
-        globalStore.loading = false
-      }).catch((err) => {
-        window.$message.error(err.toString())
-        globalStore.loading = false
-      })
+      const res = await api.delCart(id)
+      if (res) {
+        globalStore.getCart()
+        window.$message.warning(res.data.message)
+      }
+      globalStore.loading = false
+    }
+    const enterCoupon = async (code) => {
+      showModal.value = false
+      const res = await api.enterCoupon({ data: { code } })
+      if (res) {
+        globalStore.getCart()
+        window.$message.warning(res.data.message)
+      }
     }
     onBeforeMount(() => {
       globalStore.getCart()
@@ -132,6 +130,7 @@ export default {
       globalStore,
       updateCart,
       delCart,
+      enterCoupon,
       goNext () {
         if (globalStore.payment === '') {
           window.$message.warning('Plz choose payment method')
@@ -140,18 +139,6 @@ export default {
         } else {
           router.push('/checkout')
         }
-      },
-      enterCoupon (code) {
-        showModal.value = false
-        const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/coupon`
-        axios.post(api, { data: { code } }).then((res) => {
-          if (res) {
-            globalStore.getCart()
-            window.$message.warning(res.data.message)
-          }
-        }).catch((err) => {
-          window.$message.error(err.toString())
-        })
       },
       coupons: [
         {

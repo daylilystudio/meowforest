@@ -60,8 +60,9 @@
 
 <script>
 import ShopLayout from '@/components/user/ShopLayout.vue'
-import { inject, onBeforeMount, computed } from 'vue'
+import { onBeforeMount, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import api from '@/utils/api'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
@@ -69,7 +70,6 @@ export default {
   components: { ShopLayout },
   setup () {
     const router = useRouter()
-    const axios = inject('axios')
     const globalStore = useGlobalStore()
     onBeforeMount(() => {
       if (globalStore.cart.carts?.length === 0 || globalStore.payment === '' || globalStore.shipping === '') {
@@ -77,17 +77,7 @@ export default {
         window.$message.warning('Plz Add item first')
       }
     })
-    const payOrder = (id) => {
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/pay/${id}`
-      axios.post(api).then((res) => {
-        if (res) {
-          return res
-        }
-      }).catch((err) => {
-        window.$message.error(err.toString())
-      })
-    }
-    const submitOrder = () => {
+    const submitOrder = async () => {
       const data = {
         data: {
           user: {
@@ -105,29 +95,24 @@ export default {
         }
       }
       globalStore.loadingPage = true
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`
-      axios.post(api, data).then(async (res) => {
-        if (res) {
-          window.$message.warning(res.data.message)
-          if (res.data.success) {
-            if (globalStore.payment === 'creditcard') {
-              await payOrder(res.data.orderId)
-            }
-            await globalStore.initInfo()
-            await globalStore.getCart()
-            // avoid not create order yet, so wait 1s
-            await setTimeout(() => {
-              router.push('/order/' + res.data.orderId)
-            }, 1000)
-          } else {
-            router.push('/cart')
+      const res = await api.submitOrder(data)
+      if (res) {
+        window.$message.warning(res.data.message)
+        if (res.data.success) {
+          if (globalStore.payment === 'creditcard') {
+            await api.payOrder(res.data.orderId)
           }
+          await globalStore.initInfo()
+          await globalStore.getCart()
+          // waiting api create order, so delay 1s
+          await setTimeout(() => {
+            router.push('/order/' + res.data.orderId)
+          }, 1000)
+        } else {
+          router.push('/cart')
         }
-        globalStore.loadingPage = false
-      }).catch((err) => {
-        window.$message.error(err.toString())
-        globalStore.loadingPage = false
-      })
+      }
+      globalStore.loadingPage = false
     }
     // check
     const checkEmail = computed(() => globalStore.userInfo.email.match(/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/))
@@ -177,18 +162,17 @@ export default {
           window.$message.warning('Wrong Email')
           return
         }
+        console.log(1)
         // go
-        if (checkFill.value && checkCardFill.value) {
-          window.$dialog.warning({
-            title: 'Confirm Submit Order ?',
-            positiveText: 'Sure !',
-            negativeText: 'No',
-            blockScroll: false,
-            onPositiveClick: () => {
-              submitOrder()
-            }
-          })
-        }
+        window.$dialog.warning({
+          title: 'Confirm Submit Order ?',
+          positiveText: 'Sure !',
+          negativeText: 'No',
+          blockScroll: false,
+          onPositiveClick: () => {
+            submitOrder()
+          }
+        })
       }
     }
   }

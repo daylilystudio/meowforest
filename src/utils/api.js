@@ -49,44 +49,114 @@ instance.interceptors.response.use(
   }
 )
 
-/// //////
-// API //
-/// //////
+// ///////// //
+// Web API //
+// ///////// //
+
+// getProduct
+async function getProduct (id) {
+  return instance.get(`api/${import.meta.env.VITE_PATH}/product/${id}`)
+}
+
+// getProducts
+async function getProducts () {
+  return instance.get(`api/${import.meta.env.VITE_PATH}/products/all`)
+}
+
+// getCart
+async function getCart (id) {
+  return instance.get(`api/${import.meta.env.VITE_PATH}/cart`)
+}
+
+// addCart
+async function addCart (data) {
+  return instance.post(`api/${import.meta.env.VITE_PATH}/cart`, data)
+}
+
+// updateCart
+async function updateCart (cartId, data) {
+  return instance.put(`api/${import.meta.env.VITE_PATH}/cart/${cartId}`, data)
+}
+
+// delCart
+async function delCart (id) {
+  return instance.delete(`api/${import.meta.env.VITE_PATH}/cart/${id}`)
+}
+
+// enterCoupon
+async function enterCoupon (data) {
+  return instance.post(`api/${import.meta.env.VITE_PATH}/coupon`, data)
+}
+
+// submitOrder
+async function submitOrder (data) {
+  return instance.post(`api/${import.meta.env.VITE_PATH}/order`, data)
+}
+
+// payOrder
+async function payOrder (id) {
+  return instance.delete(`api/${import.meta.env.VITE_PATH}/order`)
+}
+
+// getOrder
+async function getOrder (id) {
+  return instance.get(`api/${import.meta.env.VITE_PATH}/order/${id}`)
+}
+
+// ///////// //
+// Admin API //
+// ///////// //
 
 // Login
-function login (data) {
+async function login (data) {
   return instance.post('admin/signin', data)
 }
 
 // Check
-function check () {
+async function check () {
   return instance.post('api/user/check')
 }
 
 // Logout
-function logout () {
+async function logout () {
   return instance.post('logout')
 }
 
+// Upload Img
+async function uploadImg (data, onProgress) {
+  return instance.post(`api/${import.meta.env.VITE_PATH}/admin/upload`, data, onProgress)
+}
+
 // Get Admin Data List
-function getAdminData (slug, page) {
+async function getAdminData (slug, page) {
   return instance.get(`api/${import.meta.env.VITE_PATH}/admin/${slug}?page=${page}`)
 }
 
 // Update Admin Data List
-function updateAdminData (http, slug, data) {
+async function updateAdminData (http, slug, data) {
   return instance[http](`api/${import.meta.env.VITE_PATH}/admin/${slug}`, { data })
 }
 
 // Delete Admin Data List
-function delAdminData (slug, id) {
+async function delAdminData (slug, id) {
   return instance.delete(`api/${import.meta.env.VITE_PATH}/admin/${slug}/${id}`)
 }
 
 export default {
+  getProduct,
+  getProducts,
+  getCart,
+  addCart,
+  updateCart,
+  delCart,
+  enterCoupon,
+  submitOrder,
+  payOrder,
+  getOrder,
   login,
   check,
   logout,
+  uploadImg,
   getAdminData,
   updateAdminData,
   delAdminData
