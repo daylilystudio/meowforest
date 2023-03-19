@@ -1,1 +1,0 @@
-import{_ as r}from"./_plugin-vue_export-helper.cdc0426e.js";import{d as t,e as o,s}from"./index.3fd88bf0.js";const c="/meowforest/assets/heroOther.c979ce42.jpg",a={setup(){return{bg:c}}};function n(l,m,p,e,_,d){return t(),o("header",{class:"tw-h-64 md:tw-h-96 tw-bg-cover",style:s({backgroundImage:"url("+e.bg+")"})},null,4)}const u=r(a,[["render",n]]);export{u as T};
