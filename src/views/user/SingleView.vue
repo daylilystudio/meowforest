@@ -77,7 +77,7 @@
     Back To Product List
   </router-link>
 </template>
-<script>
+<script setup>
 import TheHeader from '@/components/global/TheHeader.vue'
 import { onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
@@ -94,84 +94,71 @@ import 'swiper/css/thumbs'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
-export default {
-  components: { TheHeader, Swiper, SwiperSlide, NInputNumber, NTag },
-  setup () {
-    const route = useRoute()
-    const router = useRouter()
-    const product = ref({})
-    const noProduct = ref(false)
-    const tab = ref('spec')
-    const addNum = ref(1)
-    const globalStore = useGlobalStore()
-    const productId = route.path.split('/')[2]
-    const getProduct = async (id) => {
-      globalStore.loadingPage = true
-      const res = await api.getProduct(id)
-      if (res.data.success) {
-        product.value = res.data.product
-      } else {
-        noProduct.value = true
-      }
-      globalStore.loadingPage = false
-    }
-    onBeforeMount(() => {
-      getProduct(productId)
-    })
-    onBeforeRouteUpdate((to) => {
-      getProduct(to.path.split('/')[2])
-    })
-    // swiper
-    const thumbsSwiper = ref(null)
-    const setThumbsSwiper = (swiper) => {
-      thumbsSwiper.value = swiper
-    }
-    return {
-      globalStore,
-      thumbsSwiper,
-      setThumbsSwiper,
-      modules: [Thumbs],
-      noProduct,
-      product,
-      tab,
-      addNum,
-      async buy (id) {
-        await globalStore.addCart(id, addNum.value)
-        router.push('/cart')
-      },
-      notice: [
-        {
-          title: '運費說明',
-          content: [
-            '喵森據點取貨免運費｜宅配到府運費 80 元，',
-            '單筆訂單滿 3,000 元免運費。',
-            '若因其商品價值、時效性或體積等特性，僅提供一種出貨方式、運費不同時，將在該商品頁面告知。',
-            '宅配除特殊品項，會於商品頁的「注意事項」公告配送說明，其餘品項使用宅配通進行配送。'
-          ]
-        },
-        {
-          title: '配送說明',
-          content: [
-            '付款完成日算起的7個工作天內(不含例假日)送達。'
-          ]
-        },
-        {
-          title: '退換貨說明',
-          content: [
-            '若有退換貨需求，可來信 meowforest@mail.com 或來電 02-12340000 洽詢，謝謝。'
-          ]
-        },
-        {
-          title: '特殊活動認購說明',
-          content: [
-            '凡報名特殊活動，付款完成即報名成功，課前將另發送mail通知，課程開立一般收據將統一由財務部門寄發。'
-          ]
-        }
-      ]
-    }
+const route = useRoute()
+const router = useRouter()
+const product = ref({})
+const noProduct = ref(false)
+const tab = ref('spec')
+const addNum = ref(1)
+const globalStore = useGlobalStore()
+const productId = route.path.split('/')[2]
+const getProduct = async (id) => {
+  globalStore.loadingPage = true
+  const res = await api.getProduct(id)
+  if (res.data.success) {
+    product.value = res.data.product
+  } else {
+    noProduct.value = true
   }
+  globalStore.loadingPage = false
 }
+onBeforeMount(() => {
+  getProduct(productId)
+})
+onBeforeRouteUpdate((to) => {
+  getProduct(to.path.split('/')[2])
+})
+// swiper
+const thumbsSwiper = ref(null)
+const setThumbsSwiper = (swiper) => {
+  thumbsSwiper.value = swiper
+}
+const modules = [Thumbs]
+const buy = async (id) => {
+  await globalStore.addCart(id, addNum.value)
+  router.push('/cart')
+}
+const notice = [
+  {
+    title: '運費說明',
+    content: [
+      '喵森據點取貨免運費｜宅配到府運費 80 元，',
+      '單筆訂單滿 3,000 元免運費。',
+      '若因其商品價值、時效性或體積等特性，僅提供一種出貨方式、運費不同時，將在該商品頁面告知。',
+      '宅配除特殊品項，會於商品頁的「注意事項」公告配送說明，其餘品項使用宅配通進行配送。'
+    ]
+  },
+  {
+    title: '配送說明',
+    content: [
+      '付款完成日算起的7個工作天內(不含例假日)送達。'
+    ]
+  },
+  {
+    title: '退換貨說明',
+    content: [
+      '若有退換貨需求，可來信 meowforest@mail.com 或來電 02-12340000 洽詢，謝謝。'
+    ]
+  },
+  {
+    title: '特殊活動認購說明',
+    content: [
+      '凡報名特殊活動，付款完成即報名成功，課前將另發送mail通知，課程開立一般收據將統一由財務部門寄發。'
+    ]
+  }
+]
 </script>
+
 <style scoped>
   .menuA::after{
     background-color: var(--secondColor);

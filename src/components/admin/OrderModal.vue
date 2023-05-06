@@ -1,7 +1,7 @@
 <template>
   <NCard
     style="max-width:95%; width: 800px"
-    :title="'Order No. '+data.id"
+    :title="'Order No. '+props.data.id"
     :bordered="false"
     size="huge"
     role="dialog"
@@ -56,57 +56,49 @@
     </div>
   </NCard>
 </template>
-<script>
+<script setup>
 import { inject, h } from 'vue'
 import { NCard, NButton, NDataTable, NList, NListItem, NTag } from 'naive-ui'
-export default {
-  components: { NCard, NButton, NDataTable, NList, NListItem, NTag },
-  props: {
-    data: {
-      type: Object,
-      default () { return {} }
+const props = defineProps({
+  data: {
+    type: Object,
+    default () { return {} }
+  }
+})
+const filter = inject('$filter')
+// table key
+const columns = [
+  {
+    title: 'Product Name',
+    key: 'product[title]'
+  },
+  {
+    title: 'Price',
+    key: 'product[price]'
+  },
+  {
+    title: 'Qty',
+    key: 'qty',
+    render (row) {
+      return h(
+        'span',
+        `${row.qty} / ${row.product.unit}`
+      )
     }
   },
-  setup () {
-    const filter = inject('$filter')
-    // table key
-    return {
-      filter,
-      columns: [
-        {
-          title: 'Product Name',
-          key: 'product[title]'
-        },
-        {
-          title: 'Price',
-          key: 'product[price]'
-        },
-        {
-          title: 'Qty',
-          key: 'qty',
-          render (row) {
-            return h(
-              'span',
-              `${row.qty} / ${row.product.unit}`
-            )
-          }
-        },
-        {
-          title: 'Total',
-          key: 'total',
-          render (row) {
-            return h(
-              'span',
-              filter.currency(row.total)
-            )
-          }
-        },
-        {
-          title: 'Coupon',
-          key: 'coupon[code]'
-        }
-      ]
+  {
+    title: 'Total',
+    key: 'total',
+    render (row) {
+      return h(
+        'span',
+        filter.currency(row.total)
+      )
     }
+  },
+  {
+    title: 'Coupon',
+    key: 'coupon[code]'
   }
-}
+]
 </script>

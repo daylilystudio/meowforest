@@ -1,6 +1,6 @@
 import { ref, reactive, watch } from 'vue'
 import { defineStore } from 'pinia'
-import api from '../utils/api'
+import api from '@/utils/api'
 
 export const useGlobalStore = defineStore('global', () => {
   const loadingPage = ref(false)

@@ -58,7 +58,7 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import TheTitle from '@/components/global/TheTitle.vue'
 import SelectedItem from '@/components/user/SelectedItem.vue'
@@ -74,87 +74,78 @@ import cat2 from '@/assets/img/process2.png'
 import cat3 from '@/assets/img/process3.png'
 import cat4 from '@/assets/img/process4.png'
 
-export default {
-  components: { TheTitle, SelectedItem },
-  setup () {
-    const circleRef = ref(null)
-    const scrollNext = () => {
-      const pos = circleRef.value.offsetTop
-      window.scrollTo({
-        top: pos - 80,
-        behavior: 'smooth'
-      })
-    }
-    return {
-      circleRef,
-      scrollNext,
-      circle: [
-        {
-          link: 'products?category=food',
-          img: list1,
-          imgFont: listFont1,
-          alt: 'Cat Food'
-        },
-        {
-          link: 'products?category=use',
-          img: list2,
-          imgFont: listFont2,
-          alt: 'Cat Use'
-        },
-        {
-          link: 'products?category=toy',
-          img: list3,
-          imgFont: listFont3,
-          alt: 'Cat Toy'
-        }
-      ],
-      flow: [
-        {
-          title: '1.選購產品',
-          txt: '將商品加入購物車，進入購物車',
-          img: cat1
-        },
-        {
-          title: '2.確認購物車商品',
-          txt: '確認購買商品，選擇送貨及付款方式',
-          img: cat2
-        },
-        {
-          title: '3.資料填寫與結帳',
-          txt: '填寫訂購與收件人資訊，輸入信用卡資訊，如選擇 ATM 付款將在訂單完成頁顯示匯款帳戶',
-          img: cat3
-        },
-        {
-          title: '4.訂單完成並出貨',
-          txt: '訂單完成付款後立即為您出貨，等幾天就可收到貨囉！如選擇喵森據點取件為結帳後隔日。',
-          img: cat4
-        }
-      ],
-      notice: [
-        {
-          title: '退換貨須知',
-          content: [
-            '依消費者保護法規定：您可以享有商品貨到次日起七天猶豫期的權利, 但猶豫期並非試用期',
-            '請您留意商品實屬食品，基於衛生安全考量，除瑕疵品情形外，換貨商品必須為『全新未經使用』若有拆封，恕將無法提供換貨服務',
-            '若非品質問題退貨，請您於7天內將全新商品寄回公司，需自行負擔運費',
-            '購買商品七天內，若遇商品瑕疵問題，請與我們聯繫，我們將無條件為您做退換貨處理，收到商品超過七天，亦不接受退換貨 (包含貨品如有短少，將無法為您補寄)',
-            '若您需要辦理退換貨請與客服聯繫我們會盡快為您處理'
-          ]
-        },
-        {
-          title: '寄送須知',
-          content: [
-            '宅配運費(常溫)80元，喵森據點取件免運費，一張訂單只能配送同一地址，如需寄送不同地址，麻煩請分開下單',
-            '單筆訂單消費金額滿3,000元，即可享有免運費優惠（寄送範圍僅限台灣本島，團購除外）',
-            '一般將於下單後約3-5個工作天可送達若遇節日（如春節、中秋、端午）運送量較大，及遇有颱風過境時配送上較無法符合您所指定的時間，建議提早幾天下單，以免耽誤您的時間',
-            '颱風天或例假日物流公司無法送貨，謝謝大家的體諒',
-            '天候氣象狀況則依中央氣象台與各地縣市政府之公告為準'
-          ]
-        }
-      ]
-    }
-  }
+const circleRef = ref(null)
+const scrollNext = () => {
+  const pos = circleRef.value.offsetTop
+  window.scrollTo({
+    top: pos - 80,
+    behavior: 'smooth'
+  })
 }
+const circle = [
+  {
+    link: 'products?category=food',
+    img: list1,
+    imgFont: listFont1,
+    alt: 'Cat Food'
+  },
+  {
+    link: 'products?category=use',
+    img: list2,
+    imgFont: listFont2,
+    alt: 'Cat Use'
+  },
+  {
+    link: 'products?category=toy',
+    img: list3,
+    imgFont: listFont3,
+    alt: 'Cat Toy'
+  }
+]
+const flow = [
+  {
+    title: '1.選購產品',
+    txt: '將商品加入購物車，進入購物車',
+    img: cat1
+  },
+  {
+    title: '2.確認購物車商品',
+    txt: '確認購買商品，選擇送貨及付款方式',
+    img: cat2
+  },
+  {
+    title: '3.資料填寫與結帳',
+    txt: '填寫訂購與收件人資訊，輸入信用卡資訊，如選擇 ATM 付款將在訂單完成頁顯示匯款帳戶',
+    img: cat3
+  },
+  {
+    title: '4.訂單完成並出貨',
+    txt: '訂單完成付款後立即為您出貨，等幾天就可收到貨囉！如選擇喵森據點取件為結帳後隔日。',
+    img: cat4
+  }
+]
+const notice = [
+  {
+    title: '退換貨須知',
+    content: [
+      '依消費者保護法規定：您可以享有商品貨到次日起七天猶豫期的權利, 但猶豫期並非試用期',
+      '請您留意商品實屬食品，基於衛生安全考量，除瑕疵品情形外，換貨商品必須為『全新未經使用』若有拆封，恕將無法提供換貨服務',
+      '若非品質問題退貨，請您於7天內將全新商品寄回公司，需自行負擔運費',
+      '購買商品七天內，若遇商品瑕疵問題，請與我們聯繫，我們將無條件為您做退換貨處理，收到商品超過七天，亦不接受退換貨 (包含貨品如有短少，將無法為您補寄)',
+      '若您需要辦理退換貨請與客服聯繫我們會盡快為您處理'
+    ]
+  },
+  {
+    title: '寄送須知',
+    content: [
+      '宅配運費(常溫)80元，喵森據點取件免運費，一張訂單只能配送同一地址，如需寄送不同地址，麻煩請分開下單',
+      '單筆訂單消費金額滿3,000元，即可享有免運費優惠（寄送範圍僅限台灣本島，團購除外）',
+      '一般將於下單後約3-5個工作天可送達若遇節日（如春節、中秋、端午）運送量較大，及遇有颱風過境時配送上較無法符合您所指定的時間，建議提早幾天下單，以免耽誤您的時間',
+      '颱風天或例假日物流公司無法送貨，謝謝大家的體諒',
+      '天候氣象狀況則依中央氣象台與各地縣市政府之公告為準'
+    ]
+  }
+]
 </script>
 
 <style lang="scss" scoped>

@@ -65,7 +65,7 @@
   </ShopLayout>
 </template>
 
-<script>
+<script setup>
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { inject, ref, onBeforeMount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -73,43 +73,31 @@ import api from '@/utils/api'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
-export default {
-  components: { ShopLayout },
-  setup () {
-    const filter = inject('$filter')
-    const router = useRouter()
-    const route = useRoute()
-    const globalStore = useGlobalStore()
-    const orderInfo = ref(null)
-    const openProducts = ref(false)
-    const getOrder = async (id) => {
-      globalStore.loading = true
-      const res = await api.getOrder(id)
-      orderInfo.value = res.data.success ? res.data.order : 'No order found'
-      globalStore.loading = false
-    }
-    onBeforeMount(async () => {
-      await getOrder(route.path.split('/')[2])
-    })
-    return {
-      filter,
-      globalStore,
-      router,
-      orderInfo,
-      openProducts,
-      async copy () {
-        const inputNode = document.createElement('input')
-        inputNode.value = window.location.href
-        inputNode.style.display = 'none'
-        document.body.appendChild(inputNode)
-        try {
-          await navigator.clipboard.writeText(inputNode.value)
-          window.$message.success('Copy URL Success !')
-        } catch (error) {
-          window.$message.error('Copy URL Error !')
-        }
-      }
-    }
+const filter = inject('$filter')
+const router = useRouter()
+const route = useRoute()
+const globalStore = useGlobalStore()
+const orderInfo = ref(null)
+const openProducts = ref(false)
+const getOrder = async (id) => {
+  globalStore.loading = true
+  const res = await api.getOrder(id)
+  orderInfo.value = res.data.success ? res.data.order : 'No order found'
+  globalStore.loading = false
+}
+onBeforeMount(async () => {
+  await getOrder(route.path.split('/')[2])
+})
+const copy = async () => {
+  const inputNode = document.createElement('input')
+  inputNode.value = window.location.href
+  inputNode.style.display = 'none'
+  document.body.appendChild(inputNode)
+  try {
+    await navigator.clipboard.writeText(inputNode.value)
+    window.$message.success('Copy URL Success !')
+  } catch (error) {
+    window.$message.error('Copy URL Error !')
   }
 }
 </script>

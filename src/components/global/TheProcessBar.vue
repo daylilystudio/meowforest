@@ -4,7 +4,7 @@
       <img :src="item.img" :alt="item.txt" class="tw-w-3/5 md:tw-w-2/5">
     </div>
     <div v-for="(item, i) in list" :key="item.txt"
-      :class="{'tw-text-primary tw-font-bold':process>i||process===i}"
+      :class="{'tw-text-primary tw-font-bold':props.process>i||process===i}"
       class="tw-relative tw-flex tw-flex-col tw-items-center tw-text-center">
       <span :class="(process>i?'tw-bg-primary':'tw-bg-theme')"
         style="width:94%"
@@ -21,41 +21,29 @@
   </section>
 </template>
 
-<script>
-// image
+<script setup>
 import bar1 from '@/assets/img/processbar1.png'
 import bar2 from '@/assets/img/processbar2.png'
 import bar3 from '@/assets/img/processbar3.png'
-export default {
-  props: {
-    process: {
-      type: Number,
-      default: 0
-    }
-  },
-  setup () {
-    return {
-      bar1,
-      bar2,
-      bar3,
-      list: [
-        {
-          txt: '購物車',
-          en: 'Cart',
-          img: bar1
-        },
-        {
-          txt: '資料填寫',
-          en: 'Checkout',
-          img: bar2
-        },
-        {
-          txt: '訂購完成',
-          en: 'Finish',
-          img: bar3
-        }
-      ]
-    }
+const props = defineProps({
+  process: {
+    type: Number,
+    default: 0
   }
-}
+})
+const list = [{
+  txt: '購物車',
+  en: 'Cart',
+  img: bar1
+},
+{
+  txt: '資料填寫',
+  en: 'Checkout',
+  img: bar2
+},
+{
+  txt: '訂購完成',
+  en: 'Finish',
+  img: bar3
+}]
 </script>

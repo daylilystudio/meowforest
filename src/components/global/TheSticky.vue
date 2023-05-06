@@ -28,51 +28,39 @@
     </div>
   </NModal>
 </template>
-<script>
+<script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { NModal } from 'naive-ui'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
-export default {
-  components: { NModal },
-  setup () {
-    const route = useRoute()
-    const router = useRouter()
-    const showModal = ref(false)
-    const globalStore = useGlobalStore()
-    const clickItem = ref('')
-    return {
-      globalStore,
-      route,
-      router,
-      showModal,
-      clickItem,
-      clickBtn (e) {
-        switch (e) {
-          case 'heart':
-            showModal.value = true
-            break
-          case 'arrow-up':
-            window.scrollTo({
-              top: document.body,
-              behavior: 'smooth'
-            })
-            break
-        }
-      },
-      list: [
-        {
-          icon: 'heart',
-          class: 'tw-text-notice'
-        },
-        {
-          icon: 'arrow-up',
-          class: 'tw-mb-2'
-        }
-      ]
-    }
+const route = useRoute()
+const router = useRouter()
+const showModal = ref(false)
+const globalStore = useGlobalStore()
+const clickItem = ref('')
+const clickBtn = (e) => {
+  switch (e) {
+    case 'heart':
+      showModal.value = true
+      break
+    case 'arrow-up':
+      window.scrollTo({
+        top: document.body,
+        behavior: 'smooth'
+      })
+      break
   }
 }
+const list = [
+  {
+    icon: 'heart',
+    class: 'tw-text-notice'
+  },
+  {
+    icon: 'arrow-up',
+    class: 'tw-mb-2'
+  }
+]
 </script>

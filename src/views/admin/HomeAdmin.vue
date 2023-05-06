@@ -16,85 +16,79 @@
     </NLayout>
   </div>
 </template>
-<script>
+<script setup>
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
 import { h, onBeforeMount } from 'vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
 import api from '@/utils/api.js'
 
-export default {
-  components: { NLayout, NLayoutHeader, NMenu },
-  setup () {
-    const route = useRoute()
-    const router = useRouter()
-    const check = async () => {
-      try {
-        const res = await api.check()
-        if (!res.data.success) {
-          window.$notification.warning({
-            content: 'Plz Login!',
-            duration: 2000
-          })
-          router.push('/login')
-        }
-      } catch (err) {
-        window.$message.error(err)
-      }
+const route = useRoute()
+const router = useRouter()
+const check = async () => {
+  try {
+    const res = await api.check()
+    if (!res.data.success) {
+      window.$notification.warning({
+        content: 'Plz Login!',
+        duration: 2000
+      })
+      router.push('/login')
     }
-    const logout = async () => {
-      try {
-        const res = await api.logout()
-        if (res.data.success) {
-          window.$notification.success({
-            content: 'Logout Success!',
-            duration: 2000
-          })
-          router.push('/login')
-        }
-      } catch (err) {
-        window.$message.error(err)
-      }
-    }
-    onBeforeMount(() => {
-      check()
-    })
-    const menuOptions = [
-      {
-        label: () =>
-          h(RouterLink,
-            { to: '/admin/products' },
-            { default: () => 'Products list' }
-          ),
-        key: 'product'
-      },
-      {
-        label: () =>
-          h(RouterLink,
-            { to: '/admin/orders' },
-            { default: () => 'Orders' }
-          ),
-        key: 'order'
-      },
-      {
-        label: () =>
-          h(RouterLink,
-            { to: '/admin/coupons' },
-            { default: () => 'Coupons' }
-          ),
-        key: 'coupon'
-      },
-      {
-        label: () =>
-          h('a',
-            { onclick: logout },
-            { default: () => 'Logout' }
-          ),
-        key: 'logout'
-      }
-    ]
-    return { route, menuOptions }
+  } catch (err) {
+    window.$message.error(err)
   }
 }
+const logout = async () => {
+  try {
+    const res = await api.logout()
+    if (res.data.success) {
+      window.$notification.success({
+        content: 'Logout Success!',
+        duration: 2000
+      })
+      router.push('/login')
+    }
+  } catch (err) {
+    window.$message.error(err)
+  }
+}
+onBeforeMount(() => {
+  check()
+})
+const menuOptions = [
+  {
+    label: () =>
+      h(RouterLink,
+        { to: '/admin/products' },
+        { default: () => 'Products list' }
+      ),
+    key: 'product'
+  },
+  {
+    label: () =>
+      h(RouterLink,
+        { to: '/admin/orders' },
+        { default: () => 'Orders' }
+      ),
+    key: 'order'
+  },
+  {
+    label: () =>
+      h(RouterLink,
+        { to: '/admin/coupons' },
+        { default: () => 'Coupons' }
+      ),
+    key: 'coupon'
+  },
+  {
+    label: () =>
+      h('a',
+        { onclick: logout },
+        { default: () => 'Logout' }
+      ),
+    key: 'logout'
+  }
+]
 </script>
 
 <style lang="scss" scoped>

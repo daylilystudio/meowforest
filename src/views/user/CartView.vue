@@ -73,7 +73,7 @@
     </div>
   </NModal>
 </template>
-<script>
+<script setup>
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { NSpin, NInputNumber, NModal } from 'naive-ui'
 import { onBeforeMount, ref, computed } from 'vue'
@@ -82,114 +82,101 @@ import api from '@/utils/api'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
-export default {
-  components: { ShopLayout, NSpin, NInputNumber, NModal },
-  setup () {
-    const router = useRouter()
-    const showModal = ref(false)
-    const globalStore = useGlobalStore()
-    const nextBtnAllow = computed(() => {
-      if (globalStore.cart.carts?.length > 0) {
-        return globalStore.payment !== '' && globalStore.shipping !== ''
-      }
-      return true
-    })
-    const updateCart = async (qty, cartId, productId) => {
-      globalStore.loading = true
-      const res = await api.updateCart(cartId, { data: { product_id: productId, qty } })
-      if (res) {
-        globalStore.getCart()
-        window.$message.warning(res.data.message)
-      }
-      globalStore.loading = false
-    }
-    const delCart = async (id) => {
-      globalStore.loading = true
-      const res = await api.delCart(id)
-      if (res) {
-        globalStore.getCart()
-        window.$message.warning(res.data.message)
-      }
-      globalStore.loading = false
-    }
-    const enterCoupon = async (code) => {
-      showModal.value = false
-      const res = await api.enterCoupon({ data: { code } })
-      if (res) {
-        globalStore.getCart()
-        window.$message.warning(res.data.message)
-      }
-    }
-    onBeforeMount(() => {
-      globalStore.getCart()
-    })
-    return {
-      showModal,
-      nextBtnAllow,
-      router,
-      globalStore,
-      updateCart,
-      delCart,
-      enterCoupon,
-      goNext () {
-        if (globalStore.payment === '') {
-          window.$message.warning('Plz choose payment method')
-        } else if (globalStore.shipping === '') {
-          window.$message.warning('Plz choose shipping method')
-        } else {
-          router.push('/checkout')
-        }
-      },
-      coupons: [
-        {
-          title: '94愛貓咪',
-          code: '94lovecat',
-          discount: 'All Product 10% OFF'
-        },
-        {
-          title: '過年特惠',
-          code: 'CNY',
-          discount: 'All Product 50% OFF'
-        }
-      ],
-      method: [
-        {
-          title: 'Payment Method',
-          name: 'payment',
-          option: [
-            {
-              id: 'creditcard',
-              txt: 'Credit Card',
-              info: 'Visa、MasterCard、JCB皆可使用。'
-            },
-            {
-              id: 'atm',
-              txt: 'ATM transfer',
-              info: '會提供一組 ATM 專用之虛擬帳號，如三日內未收到款項，訂購將會自動取消。'
-            }
-          ]
-        },
-        {
-          title: 'Shipping Method',
-          name: 'shipping',
-          option: [
-            {
-              id: 'delivery',
-              txt: 'Home Delivery',
-              info: '宅配運費 NTD.80，滿3,000免運'
-            },
-            {
-              id: 'pickup',
-              txt: 'Store pickup',
-              info: '喵森據點自取免運，據點地址：台北市中山區幸運路666號' // No. 666, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan
-            }
-          ]
-        }
-      ]
-    }
+const router = useRouter()
+const showModal = ref(false)
+const globalStore = useGlobalStore()
+const nextBtnAllow = computed(() => {
+  if (globalStore.cart.carts?.length > 0) {
+    return globalStore.payment !== '' && globalStore.shipping !== ''
+  }
+  return true
+})
+const updateCart = async (qty, cartId, productId) => {
+  globalStore.loading = true
+  const res = await api.updateCart(cartId, { data: { product_id: productId, qty } })
+  if (res) {
+    globalStore.getCart()
+    window.$message.warning(res.data.message)
+  }
+  globalStore.loading = false
+}
+const delCart = async (id) => {
+  globalStore.loading = true
+  const res = await api.delCart(id)
+  if (res) {
+    globalStore.getCart()
+    window.$message.warning(res.data.message)
+  }
+  globalStore.loading = false
+}
+const enterCoupon = async (code) => {
+  showModal.value = false
+  const res = await api.enterCoupon({ data: { code } })
+  if (res) {
+    globalStore.getCart()
+    window.$message.warning(res.data.message)
   }
 }
+onBeforeMount(() => {
+  globalStore.getCart()
+})
+const goNext = () => {
+  if (globalStore.payment === '') {
+    window.$message.warning('Plz choose payment method')
+  } else if (globalStore.shipping === '') {
+    window.$message.warning('Plz choose shipping method')
+  } else {
+    router.push('/checkout')
+  }
+}
+const coupons = [
+  {
+    title: '94愛貓咪',
+    code: '94lovecat',
+    discount: 'All Product 10% OFF'
+  },
+  {
+    title: '過年特惠',
+    code: 'CNY',
+    discount: 'All Product 50% OFF'
+  }
+]
+const method = [
+  {
+    title: 'Payment Method',
+    name: 'payment',
+    option: [
+      {
+        id: 'creditcard',
+        txt: 'Credit Card',
+        info: 'Visa、MasterCard、JCB皆可使用。'
+      },
+      {
+        id: 'atm',
+        txt: 'ATM transfer',
+        info: '會提供一組 ATM 專用之虛擬帳號，如三日內未收到款項，訂購將會自動取消。'
+      }
+    ]
+  },
+  {
+    title: 'Shipping Method',
+    name: 'shipping',
+    option: [
+      {
+        id: 'delivery',
+        txt: 'Home Delivery',
+        info: '宅配運費 NTD.80，滿3,000免運'
+      },
+      {
+        id: 'pickup',
+        txt: 'Store pickup',
+        info: '喵森據點自取免運，據點地址：台北市中山區幸運路666號' // No. 666, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan
+      }
+    ]
+  }
+]
 </script>
+
 <style lang="scss" scoped>
   input ~ i {
     border: 2px solid var(--themeColor);

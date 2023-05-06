@@ -23,20 +23,11 @@
     </section>
   </footer>
 </template>
-<script>
-// store composition API
+<script setup>
 import { useGlobalStore } from '@/stores/global.js'
-
-export default {
-  setup () {
-    const globalStore = useGlobalStore()
-    return {
-      globalStore,
-      thisYear () {
-        const now = new Date()
-        return now.getFullYear()
-      }
-    }
-  }
+const globalStore = useGlobalStore()
+const thisYear = () => {
+  const now = new Date()
+  return now.getFullYear()
 }
 </script>

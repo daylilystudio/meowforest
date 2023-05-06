@@ -58,7 +58,7 @@
   </ShopLayout>
 </template>
 
-<script>
+<script setup>
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { onBeforeMount, computed } from 'vue'
 import { useRouter } from 'vue-router'
@@ -66,116 +66,107 @@ import api from '@/utils/api'
 // store
 import { useGlobalStore } from '@/stores/global.js'
 
-export default {
-  components: { ShopLayout },
-  setup () {
-    const router = useRouter()
-    const globalStore = useGlobalStore()
-    onBeforeMount(() => {
-      if (globalStore.cart.carts?.length === 0 || globalStore.payment === '' || globalStore.shipping === '') {
-        router.push('/')
-        window.$message.warning('Plz Add item first')
-      }
-    })
-    const submitOrder = async () => {
-      const data = {
-        data: {
-          user: {
-            name: globalStore.userInfo.name,
-            email: globalStore.userInfo.email,
-            tel: globalStore.userInfo.tel,
-            address: globalStore.userInfo.add,
-            payment_method: globalStore.payment,
-            shipping_method: globalStore.shipping,
-            shipping_money: globalStore.shippingMoney,
-            discount: globalStore.cart.total - Math.ceil(globalStore.cart.final_total),
-            card: globalStore.cardInfo.number.split(' ').join('')
-          },
-          message: globalStore.msg
-        }
-      }
-      globalStore.loadingPage = true
-      const res = await api.submitOrder(data)
-      if (res) {
-        window.$message.warning(res.data.message)
-        if (res.data.success) {
-          if (globalStore.payment === 'creditcard') {
-            await api.payOrder(res.data.orderId)
-          }
-          await globalStore.initInfo()
-          await globalStore.getCart()
-          // waiting api create order, so delay 1s
-          await setTimeout(() => {
-            router.push('/order/' + res.data.orderId)
-          }, 1000)
-        } else {
-          router.push('/cart')
-        }
-      }
-      globalStore.loadingPage = false
-    }
-    // check
-    const checkEmail = computed(() => globalStore.userInfo.email.match(/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/))
-    const checkFill = computed(() => Object.values(globalStore.userInfo).every(item => item !== ''))
-    const checkCardFill = computed(() => Object.values(globalStore.cardInfo).every(item => item !== '') && globalStore.cardInfo.number.match(/[0-9]/gi).length === 16 && globalStore.cardInfo.valid.length === 5 && globalStore.cardInfo.cvv.length === 3)
-    const nextBtnAllow = computed(() => checkFill.value && checkEmail.value && (globalStore.payment !== 'creditcard' || checkCardFill.value))
-    return {
-      globalStore,
-      nextBtnAllow,
-      validCard (e) {
-        const arr = e.target.value.match(/[0-9]/gi)
-        const newArr = []
-        if (e.target.value !== '') {
-          const arr1 = arr.slice(0, 4)
-          const arr2 = arr.slice(4, 8)
-          const arr3 = arr.slice(8, 12)
-          const arr4 = arr.slice(12)
-          if (arr1.length > 0 && arr2.length > 0 && arr3.length === 0) {
-            newArr.push(arr1.join(''), ' ', arr2.join(''))
-          } else if (arr3.length > 0 && arr4.length === 0) {
-            newArr.push(arr1.join(''), ' ', arr2.join(''), ' ', arr3.join(''))
-          } else if (arr4.length > 0) {
-            newArr.push(arr1.join(''), ' ', arr2.join(''), ' ', arr3.join(''), ' ', arr4.join(''))
-          }
-        }
-        globalStore.cardInfo.number = newArr.join('')
+const router = useRouter()
+const globalStore = useGlobalStore()
+onBeforeMount(() => {
+  if (globalStore.cart.carts?.length === 0 || globalStore.payment === '' || globalStore.shipping === '') {
+    router.push('/')
+    window.$message.warning('Plz Add item first')
+  }
+})
+const submitOrder = async () => {
+  const data = {
+    data: {
+      user: {
+        name: globalStore.userInfo.name,
+        email: globalStore.userInfo.email,
+        tel: globalStore.userInfo.tel,
+        address: globalStore.userInfo.add,
+        payment_method: globalStore.payment,
+        shipping_method: globalStore.shipping,
+        shipping_money: globalStore.shippingMoney,
+        discount: globalStore.cart.total - Math.ceil(globalStore.cart.final_total),
+        card: globalStore.cardInfo.number.split(' ').join('')
       },
-      validThru (e) {
-        const arr = e.target.value.match(/[0-9]/gi)
-        if (e.target.value !== '' && arr.length > 2) {
-          arr.splice(2, 0, '/')
-        }
-        globalStore.cardInfo.valid = arr !== null ? arr.join('') : ''
-      },
-      goNext () {
-        // check all fill
-        if (!checkFill.value) {
-          window.$message.warning('Plz Finish Your Info :)')
-          return
-        }
-        if (globalStore.payment === 'creditcard' && !checkCardFill.value) {
-          window.$message.warning('Plz Confirm Payment Info')
-          return
-        }
-        // check email
-        if (!checkEmail.value) {
-          window.$message.warning('Wrong Email')
-          return
-        }
-        console.log(1)
-        // go
-        window.$dialog.warning({
-          title: 'Confirm Submit Order ?',
-          positiveText: 'Sure !',
-          negativeText: 'No',
-          blockScroll: false,
-          onPositiveClick: () => {
-            submitOrder()
-          }
-        })
-      }
+      message: globalStore.msg
     }
   }
+  globalStore.loadingPage = true
+  const res = await api.submitOrder(data)
+  if (res) {
+    window.$message.warning(res.data.message)
+    if (res.data.success) {
+      if (globalStore.payment === 'creditcard') {
+        await api.payOrder(res.data.orderId)
+      }
+      await globalStore.initInfo()
+      await globalStore.getCart()
+      // waiting api create order, so delay 1s
+      await setTimeout(() => {
+        router.push('/order/' + res.data.orderId)
+      }, 1000)
+    } else {
+      router.push('/cart')
+    }
+  }
+  globalStore.loadingPage = false
+}
+// check
+const checkEmail = computed(() => globalStore.userInfo.email.match(/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/))
+const checkFill = computed(() => Object.values(globalStore.userInfo).every(item => item !== ''))
+const checkCardFill = computed(() => Object.values(globalStore.cardInfo).every(item => item !== '') && globalStore.cardInfo.number.match(/[0-9]/gi).length === 16 && globalStore.cardInfo.valid.length === 5 && globalStore.cardInfo.cvv.length === 3)
+const nextBtnAllow = computed(() => checkFill.value && checkEmail.value && (globalStore.payment !== 'creditcard' || checkCardFill.value))
+const validCard = (e) => {
+  const arr = e.target.value.match(/[0-9]/gi)
+  const newArr = []
+  if (e.target.value !== '') {
+    const arr1 = arr.slice(0, 4)
+    const arr2 = arr.slice(4, 8)
+    const arr3 = arr.slice(8, 12)
+    const arr4 = arr.slice(12)
+    if (arr1.length > 0 && arr2.length > 0 && arr3.length === 0) {
+      newArr.push(arr1.join(''), ' ', arr2.join(''))
+    } else if (arr3.length > 0 && arr4.length === 0) {
+      newArr.push(arr1.join(''), ' ', arr2.join(''), ' ', arr3.join(''))
+    } else if (arr4.length > 0) {
+      newArr.push(arr1.join(''), ' ', arr2.join(''), ' ', arr3.join(''), ' ', arr4.join(''))
+    }
+  }
+  globalStore.cardInfo.number = newArr.join('')
+}
+const validThru = (e) => {
+  const arr = e.target.value.match(/[0-9]/gi)
+  if (e.target.value !== '' && arr.length > 2) {
+    arr.splice(2, 0, '/')
+  }
+  globalStore.cardInfo.valid = arr !== null ? arr.join('') : ''
+}
+const goNext = () => {
+  // check all fill
+  if (!checkFill.value) {
+    window.$message.warning('Plz Finish Your Info :)')
+    return
+  }
+  if (globalStore.payment === 'creditcard' && !checkCardFill.value) {
+    window.$message.warning('Plz Confirm Payment Info')
+    return
+  }
+  // check email
+  if (!checkEmail.value) {
+    window.$message.warning('Wrong Email')
+    return
+  }
+  console.log(1)
+  // go
+  window.$dialog.warning({
+    title: 'Confirm Submit Order ?',
+    positiveText: 'Sure !',
+    negativeText: 'No',
+    blockScroll: false,
+    onPositiveClick: () => {
+      submitOrder()
+    }
+  })
 }
 </script>
 

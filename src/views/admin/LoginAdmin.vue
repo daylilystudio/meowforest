@@ -28,54 +28,42 @@
   </div>
 </template>
 
-<script lang="js">
+<script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin } from 'naive-ui'
 import api from '@/utils/api.js'
 
-export default {
-  components: {
-    NForm, NFormItem, NInput, NRow, NCol, NButton, NSpin
-  },
-  setup () {
-    const loading = ref(false)
-    const router = useRouter()
-    const modelRef = ref({
-      username: '',
-      password: ''
-    })
-    const login = async () => {
-      try {
-        loading.value = true
-        const res = await api.login(modelRef.value)
-        loading.value = false
-        if (!res.data.success) {
-          window.$notification.error({
-            content: res.data.message,
-            meta: res.data.error.message,
-            duration: 2500,
-            keepAliveOnHover: true
-          })
-        } else {
-          await window.$notification.success({
-            content: res.data.message,
-            duration: 2000
-          })
-          const { token, expired } = res.data
-          document.cookie = `meowforestToken=${token}; expires=${new Date(expired)}`
-          await router.push('/admin')
-        }
-      } catch (err) {
-        loading.value = false
-        window.$message.error(err)
-      }
+const loading = ref(false)
+const router = useRouter()
+const model = ref({
+  username: '',
+  password: ''
+})
+const login = async () => {
+  try {
+    loading.value = true
+    const res = await api.login(model.value)
+    loading.value = false
+    if (!res.data.success) {
+      window.$notification.error({
+        content: res.data.message,
+        meta: res.data.error.message,
+        duration: 2500,
+        keepAliveOnHover: true
+      })
+    } else {
+      await window.$notification.success({
+        content: res.data.message,
+        duration: 2000
+      })
+      const { token, expired } = res.data
+      document.cookie = `meowforestToken=${token}; expires=${new Date(expired)}`
+      await router.push('/admin')
     }
-    return {
-      loading,
-      model: modelRef,
-      login
-    }
+  } catch (err) {
+    loading.value = false
+    window.$message.error(err)
   }
 }
 </script>

@@ -24,34 +24,24 @@
     <img src="@/assets/img/loading.png" alt="loading cat" class="cat tw-w-32 tw-h-auto">
   </div>
 </template>
-<script>
-
+<script setup>
 import { onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-// store composition API
 import { useGlobalStore } from '@/stores/global.js'
-
-export default {
-  setup () {
-    const route = useRoute()
-    const router = useRouter()
-    const globalStore = useGlobalStore()
-    const openLoading = ref(true)
-    const openMobileNav = ref(false)
-    onBeforeMount(() => {
-      globalStore.getProducts()
-      globalStore.getCart()
-    })
-    onMounted(() => {
-      setTimeout(() => {
-        openLoading.value = false
-      }, 300)
-    })
-    return {
-      route, router, globalStore, openMobileNav, openLoading
-    }
-  }
-}
+const route = useRoute()
+const router = useRouter()
+const globalStore = useGlobalStore()
+const openLoading = ref(true)
+const openMobileNav = ref(false)
+onBeforeMount(() => {
+  globalStore.getProducts()
+  globalStore.getCart()
+})
+onMounted(() => {
+  setTimeout(() => {
+    openLoading.value = false
+  }, 300)
+})
 </script>
 
 <style lang="scss" scoped>

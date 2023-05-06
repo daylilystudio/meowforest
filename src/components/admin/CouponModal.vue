@@ -44,50 +44,42 @@
     </div>
   </NCard>
 </template>
-<script>
+<script setup>
 import { ref } from 'vue'
 import { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker } from 'naive-ui'
-export default {
-  components: { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker },
-  props: {
-    temp: {
-      type: Object,
-      default () { return {} }
-    },
-    isNew: {
-      type: Boolean,
-      default: false
-    },
-    loading: {
-      type: Boolean,
-      default: false
-    }
+const props = defineProps({
+  temp: {
+    type: Boolean,
+    default () { return {} }
   },
-  setup (props) {
-    const data = ref(props.temp)
-    return {
-      data,
-      rules: {
-        title: {
-          required: true,
-          message: 'Plz input title'
-        },
-        code: {
-          required: true,
-          message: 'Plz input code'
-        },
-        percent: {
-          type: 'number',
-          required: true,
-          trigger: ['blur', 'change'],
-          message: 'Plz input percent'
-        },
-        due_date: {
-          required: true,
-          message: 'Plz input date'
-        }
-      }
-    }
+  isNew: {
+    type: Boolean,
+    default: false
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
+})
+const data = ref(props.temp)
+const rules = {
+  title: {
+    required: true,
+    message: 'Plz input title'
+  },
+  code: {
+    required: true,
+    message: 'Plz input code'
+  },
+  percent: {
+    type: 'number',
+    required: true,
+    trigger: ['blur', 'change'],
+    message: 'Plz input percent'
+  },
+  due_date: {
+    required: true,
+    message: 'Plz input date'
   }
 }
 </script>
