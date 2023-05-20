@@ -1,4 +1,4 @@
-import{O as b,V as m,Q as c,aw as z,S as u,W as S,X as C,Y as h,J as p,$ as x,C as r,al as $,ax as k,ay as w,a4 as T}from"./index.a6041f1b.js";import{u as R}from"./use-compitable.4e107fcb.js";const B=i=>{const{opacityDisabled:a,heightTiny:e,heightSmall:s,heightMedium:l,heightLarge:t,heightHuge:n,primaryColor:o,fontSize:d}=i;return{fontSize:d,textColor:o,sizeTiny:e,sizeSmall:s,sizeMedium:l,sizeLarge:t,sizeHuge:n,color:o,opacitySpinning:a}},L={name:"Spin",common:b,self:B},N=L,V=m([m("@keyframes spin-rotate",`
+import{O as b,V as m,Q as c,aw as z,S as u,W as S,X as C,Y as h,J as p,$ as x,C as r,al as $,ax as k,ay as w,a4 as T}from"./index.a4b4a846.js";import{u as R}from"./use-compitable.1065dfee.js";const B=i=>{const{opacityDisabled:a,heightTiny:e,heightSmall:s,heightMedium:l,heightLarge:t,heightHuge:n,primaryColor:o,fontSize:d}=i;return{fontSize:d,textColor:o,sizeTiny:e,sizeSmall:s,sizeMedium:l,sizeLarge:t,sizeHuge:n,color:o,opacitySpinning:a}},L={name:"Spin",common:b,self:B},N=L,V=m([m("@keyframes spin-rotate",`
  from {
  transform: rotate(0);
  }
