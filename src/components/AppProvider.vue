@@ -1,17 +1,17 @@
 <template>
-    <NConfigProvider>
-      <NLoadingBarProvider>
-        <NDialogProvider>
-          <NNotificationProvider placement="bottom-left">
-            <NMessageProvider placement="bottom-left">
-              <slot></slot>
-              <NaiveProviderContent />
-            </NMessageProvider>
-          </NNotificationProvider>
-        </NDialogProvider>
-      </NLoadingBarProvider>
-    </NConfigProvider>
-  </template>
+  <NConfigProvider>
+    <NLoadingBarProvider>
+      <NDialogProvider>
+        <NNotificationProvider placement="bottom-left">
+          <NMessageProvider placement="bottom-left">
+            <slot></slot>
+            <NaiveProviderContent />
+          </NMessageProvider>
+        </NNotificationProvider>
+      </NDialogProvider>
+    </NLoadingBarProvider>
+  </NConfigProvider>
+</template>
 
 <script setup>
 import { h } from 'vue'

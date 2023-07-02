@@ -25,11 +25,11 @@
                 <span class="tw-text-primary tw-font-bold">${{ item.total }}</span>
               </span>
               <p @click="delCart(item.id)" class="tw-absolute tw-right-0 tw-top-8 md:tw-top-1/2 -tw-translate-y-1/2 tw-p-2 tw-cursor-pointer">
-                <font-awesome-icon :icon="['far', 'trash-can']" />
+                <FontAwesomeIcon :icon="['far', 'trash-can']" />
               </p>
             </div>
             <a class="tw-text-primary tw-font-bold tw-block tw-pt-6 tw-pb-2 tw-cursor-pointer" @click="showModal=true">
-              Enter Coupon Code <font-awesome-icon :icon="['fas', 'caret-right']" />
+              Enter Coupon Code <FontAwesomeIcon :icon="['fas', 'caret-right']" />
             </a>
             <div class="tw-text-xl tw-text-right tw-font-bold">
               Subtotal
@@ -68,11 +68,12 @@
         <p class="tw-text-primary tw-font-bold">CODE : {{ card.code }}</p>
         <span>{{ card.discount }}</span>
       </div>
-      <p class="tw-p-2"><font-awesome-icon :icon="['far', 'hand-pointer']" class="tw-text-theme fa-xl fa-beat" /></p>
-      <font-awesome-icon :icon="['fas', 'scissors']" class="tw-absolute tw-text-gray-300 tw-left-20 -tw-bottom-2 fa-lg" />
+      <p class="tw-p-2"><FontAwesomeIcon :icon="['far', 'hand-pointer']" class="tw-text-theme fa-xl fa-beat" /></p>
+      <FontAwesomeIcon :icon="['fas', 'scissors']" class="tw-absolute tw-text-gray-300 tw-left-20 -tw-bottom-2 fa-lg" />
     </div>
   </NModal>
 </template>
+
 <script setup>
 import ShopLayout from '@/components/user/ShopLayout.vue'
 import { NSpin, NInputNumber, NModal } from 'naive-ui'
@@ -131,12 +132,12 @@ const goNext = () => {
 }
 const coupons = [
   {
-    title: '94愛貓咪',
-    code: '94lovecat',
+    title: 'Love Cat',
+    code: 'lovecat',
     discount: 'All Product 10% OFF'
   },
   {
-    title: '過年特惠',
+    title: 'New Year Special',
     code: 'CNY',
     discount: 'All Product 50% OFF'
   }
@@ -149,12 +150,12 @@ const method = [
       {
         id: 'creditcard',
         txt: 'Credit Card',
-        info: 'Visa、MasterCard、JCB皆可使用。'
+        info: 'Visa, MasterCard, and JCB are all accepted.'
       },
       {
         id: 'atm',
         txt: 'ATM transfer',
-        info: '會提供一組 ATM 專用之虛擬帳號，如三日內未收到款項，訂購將會自動取消。'
+        info: 'We will provide a set of virtual account numbers for ATM payment. If payment is not received within three days, the order will be automatically canceled.'
       }
     ]
   },
@@ -165,12 +166,12 @@ const method = [
       {
         id: 'delivery',
         txt: 'Home Delivery',
-        info: '宅配運費 NTD.80，滿3,000免運'
+        info: 'Home delivery fee: NTD.80 Free shipping for orders over NTD.3,000.'
       },
       {
         id: 'pickup',
         txt: 'Store pickup',
-        info: '喵森據點自取免運，據點地址：台北市中山區幸運路666號' // No. 666, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan
+        info: 'Free shipping for pick-up at Meow Forest store. Address: No. 666, lucky St., Zhongshan Dist., Taipei City 104 , Taiwan'
       }
     ]
   }

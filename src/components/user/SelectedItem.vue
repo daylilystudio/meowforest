@@ -1,7 +1,7 @@
 <template>
   <div class="tw-relative tw-text-white">
     <p v-if="products.length===0" class="tw-text-center tw-py-20">
-      <font-awesome-icon class="fa-spin fa-xl" :icon="['fas', 'spinner']" />
+      <FontAwesomeIcon class="fa-spin fa-xl" :icon="['fas', 'spinner']" />
     </p>
     <Swiper
       v-if="products.length>0"
@@ -35,13 +35,14 @@
       </SwiperSlide>
     </Swiper>
     <div class="swiper-navigation-prev tw-hidden md:tw-block tw-z-10 tw-absolute tw-left-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">
-      <font-awesome-icon :icon="['fas', 'paw']" class="fa-2xl fa-rotate-270" />
+      <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-2xl fa-rotate-270" />
     </div>
     <div class="swiper-navigation-next tw-hidden md:tw-block tw-z-10 tw-absolute tw-right-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">
-      <font-awesome-icon :icon="['fas', 'paw']" class="fa-2xl fa-rotate-90" />
+      <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-2xl fa-rotate-90" />
     </div>
   </div>
 </template>
+
 <script>
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'

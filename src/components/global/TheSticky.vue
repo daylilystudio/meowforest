@@ -4,21 +4,21 @@
       @click="clickBtn(item.icon)" :class="(route.path.match(/checkout/)&&item.icon==='heart'?'tw-hidden':item.class)"
       class="tw-shadow-main tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center
       tw-bg-white tw-rounded-full tw-mb-2 tw-cursor-pointer">
-      <font-awesome-icon :icon="['fas', item.icon]" class="fa-lg" />
+      <FontAwesomeIcon :icon="['fas', item.icon]" class="fa-lg" />
     </a>
   </div>
   <NModal v-model:show="showModal" :block-scroll="false" title="My Fav Product" preset="card" style="max-width:95%; width: 650px">
     <template v-for="item in globalStore.products" :key="item.id">
       <div v-if="globalStore.isfav['meowforestFav' + item.id]" class="tw-flex tw-justify-between tw-items-center tw-py-2">
         <a @click="globalStore.toggleFav(item.id)" title="Remove Fav" class="tw-p-2 -tw-ml-2 tw-cursor-pointer">
-          <font-awesome-icon :icon="['far', 'circle-xmark']" class="tw-text-theme fa-xl" />
+          <FontAwesomeIcon :icon="['far', 'circle-xmark']" class="tw-text-theme fa-xl" />
         </a>
         <a @click="showModal=false;router.push('/products/'+item.id)" class="tw-flex-1 tw-flex tw-items-center tw-cursor-pointer">
           <img :src="item.imagesUrl[0]" :alt="item.title" class="tw-w-16 sm:tw-w-24 tw-rounded-lg">
           <span class="tw-text-theme md:tw-text-base tw-pl-4">{{ item.title }} / ${{ item.price }}</span>
         </a>
         <a @click="globalStore.addCart(item.id, 1);clickItem=item.id" title="Add To Cart" class="tw-bg-primary tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full hover:tw-brightness-90 tw-cursor-pointer">
-          <font-awesome-icon v-if="globalStore.loadingAdd&&clickItem===item.id" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
+          <FontAwesomeIcon v-if="globalStore.loadingAdd&&clickItem===item.id" class="fa-spin tw-text-white" :icon="['fas', 'spinner']" />
           <img v-else src="@/assets/img/icon_cart.svg" class="tw-w-5" alt="Cart">
         </a>
       </div>
@@ -28,6 +28,7 @@
     </div>
   </NModal>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -56,7 +57,7 @@ const clickBtn = (e) => {
 const list = [
   {
     icon: 'heart',
-    class: 'tw-text-notice'
+    class: 'tw-bg-notice tw-text-white'
   },
   {
     icon: 'arrow-up',

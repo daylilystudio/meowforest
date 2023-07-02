@@ -5,33 +5,36 @@
       <label for="search" class="tw-relative">
         <input class="tw-border-primary focus:tw-border-second tw-w-full tw-rounded-full tw-border-solid tw-py-2 tw-pl-8 tw-pr-4"
           v-model="searchText" id="search" type="text" placeholder="Search">
-        <font-awesome-icon class="tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" :icon="['fas', 'magnifying-glass']" />
+        <FontAwesomeIcon class="tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2" :icon="['fas', 'magnifying-glass']" />
       </label>
       <div class="tw-mt-4 lg:tw-ml-2 tw-flex lg:tw-flex-col tw-justify-around">
-        <router-link :to="item.link" v-for="item in productMenu" :key="item.name" class="tw-leading-8 tw-font-bold tw-cursor-pointer">
-          <font-awesome-icon class="tw-hidden sm:tw-inline sm:tw-mr-2" :icon="['fas', 'paw']" />
+        <RouterLink :to="item.link" v-for="item in productMenu" :key="item.name" class="tw-leading-8 tw-font-bold tw-cursor-pointer">
+          <FontAwesomeIcon class="tw-hidden sm:tw-inline sm:tw-mr-2" :icon="['fas', 'paw']" />
           {{ item.name === 'Products' ? 'All' : item.name }}
-        </router-link>
+        </RouterLink>
       </div>
     </aside>
     <main class="tw-col-span-3">
       <div class="tw-mt-8 lg:tw-mt-0">
-        <router-link to="/" class="tw-font-bold">Home</router-link> / Product List
+        <RouterLink to="/" class="tw-font-bold">Home</RouterLink> / Product List
         <span v-if="bread">/ {{ bread[0].toUpperCase()+bread.slice(1) }}</span>
       </div>
       <section class="tw-grid tw-grid-cols-2 md:tw-grid-cols-3 tw-gap-x-4 tw-gap-y-10 tw-mt-6">
-        <router-link :to="'/products/'+list.id" class="tw-group" v-for="list in productsList" :key="list.id">
+        <RouterLink :to="`/products/${list.id}`" class="tw-group" v-for="list in productsList" :key="list.id">
           <div class="tw-relative tw-overflow-hidden">
             <img class="tw-w-full group-hover:tw-scale-110" :src="list.imagesUrl[0]" alt="product image">
             <p @click.prevent="globalStore.toggleFav(list.id)" class="tw-text-second fa-xl tw-absolute tw-right-3 tw-top-3" title="Add Favorite">
-              <font-awesome-icon :icon="[globalStore.isfav['meowforestFav' + list.id] ? 'fas' : 'far', 'heart']" />
+              <FontAwesomeIcon :icon="[globalStore.isfav['meowforestFav' + list.id] ? 'fas' : 'far', 'heart']" />
             </p>
           </div>
           <p class="tw-font-bold tw-mt-3 tw-mb-1">{{ list.title }}</p>
           <span class="tw-text-second tw-mr-4 tw-font-bold">NTD. {{ list.price }}</span>
           <del>NTD. {{ list.origin_price }}</del>
-        </router-link>
+        </RouterLink>
       </section>
+      <div v-if="productsList.length===0" class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-10">
+        <img src="@/assets/img/nodata.png" class="tw-w-full tw-h-auto" alt="no data">
+      </div>
     </main>
   </div>
 </template>

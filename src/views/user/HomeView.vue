@@ -4,31 +4,34 @@
     <img class="heroTxt tw-relative tw-hidden sm:tw-block tw-w-5/6 tw-opacity-75" src="@/assets/img/meowforestTxt.svg" alt="Meow Forest">
     <img class="heroTxt tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowforestTxt_m.svg" alt="Meow Forest">
     <span @click="scrollNext" class="fa-rotate-180 tw-absolute tw-text-white tw-bottom-10 tw-p-10 md:tw-hidden">
-      <font-awesome-icon :icon="['fas', 'paw']" class="fa-bounce fa-2x" />
+      <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-bounce fa-2x" />
     </span>
   </header>
   <section ref="circleRef" class="circleBlock tw-relative tw-mx-auto tw-text-center tw-flex tw-justify-between tw-gap-4 md:tw-gap-24">
-    <router-link v-for="(list ,i) in circle" :key="i" :to="list.link" class="tw-flex-1 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
+    <RouterLink v-for="(list ,i) in circle" :key="i" :to="list.link" class="tw-flex-1 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
       <span class="circle tw-block tw-w-full tw-rounded-full" :style="{backgroundImage: 'url('+ list.img +')'}" />
       <img :src="list.imgFont" class="tw-w-5/6 sm:tw-w-3/5 tw-pt-4" :alt="list.alt">
-    </router-link>
+    </RouterLink>
   </section>
   <section class="container tw-mt-20 tw-mb-28">
     <img class="tw-w-full tw-hidden md:tw-block tw-opacity-60" src="@/assets/img/line.svg" alt="cat divider line">
     <img class="tw-w-full md:tw-hidden" src="@/assets/img/line_m.svg" alt="cat divider line">
     <TheTitle titletxt="關於喵森" subtxt="About Meow Forest" />
     <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-gap-x-20">
-      <div class="tw-max-w-md tw-w-3/5 tw-relative">
-        <img class="tw-w-full tw-h-auto tw-opacity-0" src="@/assets/img/cats1.png" alt="three cats(left)">
-        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats1" src="@/assets/img/cats1.png" alt="three cats(left)">
-        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats2" src="@/assets/img/cats2.png" alt="three cats(right)">
-        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats3" src="@/assets/img/cats3.png" alt="three cats(center)">
+      <div class="tw-relative">
+        <img class="tw-w-full tw-h-auto tw-opacity-0" src="@/assets/img/cats_a.png" alt="three cats(left)">
+        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats_a" src="@/assets/img/cats_a.png" alt="three cats(left)">
+        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats_b" src="@/assets/img/cats_b.png" alt="three cats(right)">
+        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats_c" src="@/assets/img/cats_c.png" alt="three cats(center)">
       </div>
-      <p class="intro tw-font-medium tw-leading-8 tw-mt-4 tw-pb-1">
-        建立喵森之前，我是一個有三隻貓的貓奴，因為很熱衷尋找貓咪的食物跟用品，認識了很多貓相關產品，也很重視貓咪們的食物，想給他們天然無害的用品。<br/><br/>
-        漸漸開始熱衷研究貓用產品，有國外的品牌與台灣本土的產品，想把最好的貓咪各種用品，推薦給家裡有寶貝貓咪的主人們。<br/><br/>
-        喵森的名字由來，希望帶給大家的產品，像天然的森林一樣，純淨自然，讓貓咪們有著自由自在的環境，成為森系貓咪！
-      </p>
+      <div class="intro tw-w-2/3 tw-font-medium tw-leading-8 tw-mt-4 tw-pb-1">
+        <!-- <p>建立喵森之前，我是一個有三隻貓的貓奴，因為很熱衷尋找貓咪的食物跟用品，認識了很多貓相關產品，也很重視貓咪們的食物，想給他們天然無害的用品。</p>
+        <p>漸漸開始熱衷研究貓用產品，有國外的品牌與台灣本土的產品，想把最好的貓咪各種用品，推薦給家裡有寶貝貓咪的主人們。</p>
+        <p>喵森的名字由來，希望帶給大家的產品，像天然的森林一樣，純淨自然，讓貓咪們有著自由自在的環境，成為森系貓咪！</p> -->
+        <p>Before establishing Meow Forest, I was a cat servant with three cats. Because I was passionate about finding cat food and supplies, I became acquainted with many cat-related products and placed great importance on providing my cats with natural and harmless items.</p>
+        <p>Gradually, I developed a strong interest in researching cat products, both from international brands and local Taiwanese products, with the goal of recommending the best variety of cat supplies to cat owners who have precious feline companions at home.</p>
+        <p>The name Meow Forest originates from the desire to bring products that resemble a natural forest, pure and pristine, offering cats a free and unrestricted environment, thus becoming a haven for forest-loving cats!</p>
+      </div>
     </div>
   </section>
   <section class="tw-bg-primary tw-py-20">
@@ -104,45 +107,45 @@ const circle = [
 ]
 const flow = [
   {
-    title: '1.選購產品',
-    txt: '將商品加入購物車，進入購物車',
+    title: '1. Choose Products',
+    txt: 'Add Products in Cart, then go to Cart.',
     img: cat1
   },
   {
-    title: '2.確認購物車商品',
-    txt: '確認購買商品，選擇送貨及付款方式',
+    title: '2. Check Cart',
+    txt: 'Comfirm purchase of items, select delivery and payment method.',
     img: cat2
   },
   {
-    title: '3.資料填寫與結帳',
-    txt: '填寫訂購與收件人資訊，輸入信用卡資訊，如選擇 ATM 付款將在訂單完成頁顯示匯款帳戶',
+    title: '3. Checkout',
+    txt: 'Fill in the order information, credit card details. If choosing ATM payment, the remittance account will be displayed on the finish page.',
     img: cat3
   },
   {
-    title: '4.訂單完成並出貨',
-    txt: '訂單完成付款後立即為您出貨，等幾天就可收到貨囉！如選擇喵森據點取件為結帳後隔日。',
+    title: '4. Finish',
+    txt: 'After payment, your order will be shipped, you will receive in few days! If you pick up at store, available for pickup next day.',
     img: cat4
   }
 ]
 const notice = [
   {
-    title: '退換貨須知',
+    title: 'Return and Exchange Policy',
     content: [
-      '依消費者保護法規定：您可以享有商品貨到次日起七天猶豫期的權利, 但猶豫期並非試用期',
-      '請您留意商品實屬食品，基於衛生安全考量，除瑕疵品情形外，換貨商品必須為『全新未經使用』若有拆封，恕將無法提供換貨服務',
-      '若非品質問題退貨，請您於7天內將全新商品寄回公司，需自行負擔運費',
-      '購買商品七天內，若遇商品瑕疵問題，請與我們聯繫，我們將無條件為您做退換貨處理，收到商品超過七天，亦不接受退換貨 (包含貨品如有短少，將無法為您補寄)',
-      '若您需要辦理退換貨請與客服聯繫我們會盡快為您處理'
+      'According to the Consumer Protection Act, you are entitled to a seven-day cooling-off period starting from the day after the goods are delivered. However, please note that the cooling-off period is not a trial period.',
+      'Please note that the products are food items, and for hygiene and safety reasons, except in the case of defective products, the exchanged items must be “brand new and unused“ If the packaging has been opened, we regret to inform you that exchange services cannot be provided.',
+      'If you wish to return the product for reasons other than quality issues, please return the brand new item to our company within 7 days. You will be responsible for the shipping fees.',
+      'If you encounter any product defects within seven days of purchase, please contact us, and we will provide unconditional returns or exchanges. However, we do not accept returns or exchanges for products received after seven days (including cases where the product is missing, as we are unable to send replacements).',
+      'If you need to process returns or exchanges, please contact our customer service, and we will assist you as soon as possible.'
     ]
   },
   {
-    title: '寄送須知',
+    title: 'Shipping Information',
     content: [
-      '宅配運費(常溫)80元，喵森據點取件免運費，一張訂單只能配送同一地址，如需寄送不同地址，麻煩請分開下單',
-      '單筆訂單消費金額滿3,000元，即可享有免運費優惠（寄送範圍僅限台灣本島，團購除外）',
-      '一般將於下單後約3-5個工作天可送達若遇節日（如春節、中秋、端午）運送量較大，及遇有颱風過境時配送上較無法符合您所指定的時間，建議提早幾天下單，以免耽誤您的時間',
-      '颱風天或例假日物流公司無法送貨，謝謝大家的體諒',
-      '天候氣象狀況則依中央氣象台與各地縣市政府之公告為準'
+      'The home delivery fee (normal temperature) is NTD.80. Pick-up at Meow Forest store is free of charge. Only one address can be used for delivery per order. If you need to send to different addresses, please place separate orders.',
+      'For a single order with a total purchase amount of NTD.3,000 or more, you will be eligible for free shipping (limited to Taiwan Main Island, excluding group purchases).',
+      'Normally, the delivery will take approximately 3-5 business days after placing the order. However, during holidays such as Chinese New Year, Mid-Autumn Festival, Dragon Boat Festival, or when there is a high volume of shipments or typhoon impacts, the delivery may not be able to meet the specified time. We recommend placing your order a few days in advance to avoid any inconvenience or delays.',
+      'During typhoon days or holidays, delivery service may not be available. We appreciate your understanding.',
+      'The weather conditions will be based on the announcements made by the Central Weather Bureau and local city/county governments.'
     ]
   }
 ]
@@ -205,16 +208,16 @@ const notice = [
     transform: scale3d(1, 1, 1);
   }
 }
-.cats1{
-  animation: cats1 6s ease-in-out infinite;
+.cats_a{
+  animation: cats_a 6s ease-in-out infinite;
 }
-.cats2{
-  animation: cats2 6s .5s ease-in-out infinite;
+.cats_b{
+  animation: cats_b 6s .5s ease-in-out infinite;
 }
-.cats3{
-  animation: cats3 6s 1s ease-in-out infinite;
+.cats_c{
+  animation: cats_c 6s 1s ease-in-out infinite;
 }
-@keyframes cats1 {
+@keyframes cats_a {
   0%, 100%{
     opacity: 0;
     transform: translateX(-40%) translateY(70%);
@@ -228,7 +231,7 @@ const notice = [
     transform: translateX(5%) translateY(-25%);
   }
 }
-@keyframes cats2 {
+@keyframes cats_b {
   0%, 100%{
     opacity: 0;
     transform: translateX(40%) translateY(70%);
@@ -242,7 +245,7 @@ const notice = [
     transform: translateX(-5%) translateY(-25%);
   }
 }
-@keyframes cats3 {
+@keyframes cats_c {
   0%, 100%{
     opacity: 0;
     transform: translateX(0) translateY(70%);

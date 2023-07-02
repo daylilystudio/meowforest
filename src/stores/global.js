@@ -27,11 +27,6 @@ export const useGlobalStore = defineStore('global', () => {
       name: 'Cat´s Toy',
       link: '/products?category=toy',
       key: 'toy'
-    },
-    {
-      name: 'Admin',
-      link: '/login',
-      key: 'login'
     }
   ])
   // favorite

@@ -5,7 +5,8 @@
         <img class="tw-mr-14 tw-hidden lg:tw-block" src="@/assets/logo_light.svg" alt="Logo">
         <div class="tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Product</p>
-          <router-link v-for="list in globalStore.menu" :key="list.link" :to="list.link" :class="{'tw-text-second':list.key==='login'}">{{ list.name }}</router-link>
+          <RouterLink v-for="list in globalStore.menu" :key="list.link" :to="list.link">{{ list.name }}</RouterLink>
+          <RouterLink to="/login" class="tw-text-second">Admin</RouterLink>
         </div>
         <div class="tw-mt-14 sm:tw-mt-0 tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Contact</p>
@@ -23,6 +24,7 @@
     </section>
   </footer>
 </template>
+
 <script setup>
 import { useGlobalStore } from '@/stores/global.js'
 const globalStore = useGlobalStore()

@@ -39,11 +39,12 @@
       <NButton @click="$emit('closeModal', false)" class="tw-mr-3">Cancel</NButton>
       <NButton @click="$emit('update', data)" type="primary">
         {{ isNew ? 'Add' : 'Update' }}
-        <font-awesome-icon v-if="loading" class="fa-spin fa-lg tw-ml-2" :icon="['fas', 'spinner']" />
+        <FontAwesomeIcon v-if="loading" class="fa-spin fa-lg tw-ml-2" :icon="['fas', 'spinner']" />
       </NButton>
     </div>
   </NCard>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker } from 'naive-ui'

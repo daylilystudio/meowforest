@@ -2,8 +2,8 @@
   <TheHeader />
   <main class="container">
     <div class="tw-drop-shadow-main -tw-mt-24 tw-mb-4 tw-text-white">
-      <router-link to="/" class="tw-font-bold">Home</router-link> /
-      <router-link to="/products" class="tw-font-bold">Product List</router-link> /
+      <RouterLink to="/" class="tw-font-bold">Home</RouterLink> /
+      <RouterLink to="/products" class="tw-font-bold">Product List</RouterLink> /
       <span>{{ product.title }}</span>
     </div>
     <div v-if="!noProduct" class="tw-shadow-main md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
@@ -32,7 +32,7 @@
       <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
         <h2 class="tw-flex tw-justify-between tw-items-center">
           {{ product.title }}
-          <font-awesome-icon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="tw-text-notice tw-p-2 -tw-mr-2 tw-cursor-pointer" />
+          <FontAwesomeIcon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="tw-text-notice tw-p-2 -tw-mr-2 tw-cursor-pointer" />
         </h2>
         <NTag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</NTag>
         <p class="tw-mt-6" v-html="product.description" />
@@ -43,12 +43,12 @@
         <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
           <NInputNumber class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
           <button type="button" :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="tw-bg-second hover:tw-brightness-90 tw-rounded-full tw-text-theme tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
-            <font-awesome-icon :icon="['fas', 'plus']" /> Add to Card
-            <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
+            <FontAwesomeIcon :icon="['fas', 'plus']" /> Add to Cart
+            <FontAwesomeIcon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
           <button type="button" :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="tw-bg-third hover:tw-brightness-90 tw-rounded-full tw-text-theme tw-font-bold tw-text-base tw-p-2 tw-border-0 tw-cursor-pointer">
-            <font-awesome-icon :icon="['fas', 'dollar-sign']" /> Buy Now
-            <font-awesome-icon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
+            <FontAwesomeIcon :icon="['fas', 'dollar-sign']" /> Buy Now
+            <FontAwesomeIcon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
         </p>
       </div>
@@ -64,7 +64,7 @@
     <div v-if="tab==='notice'" class="tw-mt-8">
       <template v-for="list in notice" :key="list.title">
         <p class="tw-font-bold tw-mt-4">
-          <font-awesome-icon :icon="['fas', 'paw']" class="tw-mr-2" />{{ list.title }}
+          <FontAwesomeIcon :icon="['fas', 'paw']" class="tw-mr-2" />{{ list.title }}
         </p>
         <p v-for="item in list.content" :key="item" class="tw-ml-6">
           {{ item }}
@@ -73,10 +73,11 @@
     </div>
   </section>
   <img v-if="noProduct" src="@/assets/img/nodata.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
-  <router-link to="/products" class="hover:tw-brightness-90 tw-bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
+  <RouterLink to="/products" class="hover:tw-brightness-90 tw-bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
     Back To Product List
-  </router-link>
+  </RouterLink>
 </template>
+
 <script setup>
 import TheHeader from '@/components/global/TheHeader.vue'
 import { onBeforeMount, ref } from 'vue'
@@ -130,30 +131,30 @@ const buy = async (id) => {
 }
 const notice = [
   {
-    title: '運費說明',
+    title: 'Shipping Fees',
     content: [
-      '喵森據點取貨免運費｜宅配到府運費 80 元，',
-      '單筆訂單滿 3,000 元免運費。',
-      '若因其商品價值、時效性或體積等特性，僅提供一種出貨方式、運費不同時，將在該商品頁面告知。',
-      '宅配除特殊品項，會於商品頁的「注意事項」公告配送說明，其餘品項使用宅配通進行配送。'
+      'Free shipping for pick-up at Meow Forest store.Home delivery fee: NTD 80.',
+      'Free shipping for single orders over NTD 3,000.',
+      'For certain products with specific characteristics such as value, urgency, or size, only one shipping method may be available, and the shipping fee will be indicated on the product page.',
+      'For home delivery, except for special items, the shipping instructions will be provided in the "Notes" section on the product page. Other items will be delivered via a courier service.'
     ]
   },
   {
-    title: '配送說明',
+    title: 'Delivery Instructions',
     content: [
-      '付款完成日算起的7個工作天內(不含例假日)送達。'
+      'Delivery will be made within 7 business days (excluding holidays) from the date of payment completion.'
     ]
   },
   {
-    title: '退換貨說明',
+    title: 'Return and Exchange Instructions',
     content: [
-      '若有退換貨需求，可來信 meowforest@mail.com 或來電 02-12340000 洽詢，謝謝。'
+      'For any return or exchange requests, please contact us by email at meowforest@mail.com or call 02-12340000. Thank you.'
     ]
   },
   {
-    title: '特殊活動認購說明',
+    title: 'Special Event Subscription Instructions',
     content: [
-      '凡報名特殊活動，付款完成即報名成功，課前將另發送mail通知，課程開立一般收據將統一由財務部門寄發。'
+      'Upon completing the payment, you will be successfully registered for the special event. A separate email notification will be sent before the event. General receipts for the course will be issued by the finance department.'
     ]
   }
 ]

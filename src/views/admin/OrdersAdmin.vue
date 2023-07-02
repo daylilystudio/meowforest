@@ -13,6 +13,7 @@
     <OrderModal :data="temp" @closeModal="v => showModal=v"/>
   </NModal>
 </template>
+
 <script setup>
 import { NSpace, NDataTable, NTag, NButton, NModal, NPagination } from 'naive-ui'
 import { h, ref, reactive, inject, onMounted } from 'vue'

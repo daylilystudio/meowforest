@@ -2,7 +2,7 @@
   <div class="tw-h-screen tw-relative">
     <NLayout position="absolute">
       <NLayoutHeader class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
-        <router-link to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></router-link>
+        <RouterLink to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></RouterLink>
         <NMenu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </NLayoutHeader>
       <NLayout has-sider position="absolute" style="top: 64px;">
@@ -16,6 +16,7 @@
     </NLayout>
   </div>
 </template>
+
 <script setup>
 import { NLayout, NLayoutHeader, NMenu } from 'naive-ui'
 import { h, onBeforeMount } from 'vue'

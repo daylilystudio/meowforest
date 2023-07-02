@@ -2,7 +2,7 @@
   <TheHeader />
   <main class="container">
     <div class="tw-drop-shadow-main -tw-mt-24 tw-mb-4 tw-text-white">
-      <router-link to="/" class="tw-font-bold">Home</router-link> /
+      <RouterLink to="/" class="tw-font-bold">Home</RouterLink> /
       <span>{{ breadcrumb }}</span>
     </div>
     <section class="tw-shadow-main tw-bg-white tw-rounded-2xl tw-mb-8 tw-p-4 sm:tw-p-6">
@@ -28,7 +28,7 @@
       </div>
     </template>
     <a v-if="nextBtn" @click="$emit('onGoNext', '')" class="hover:tw-brightness-90 tw-bg-second tw-text-theme tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto" :class="nextBtnAllow?'tw-cursor-pointer':'tw-cursor-not-allowed'">
-      {{ nextBtn }} <font-awesome-icon :icon="['fas', 'angle-right']" />
+      {{ nextBtn }} <FontAwesomeIcon :icon="['fas', 'angle-right']" />
     </a>
   </main>
 </template>

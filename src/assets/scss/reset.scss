@@ -11,20 +11,20 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
 span {
-	line-height: 1;
+  line-height: 1;
 }
 input{
-	outline: 0;
-	transition: border-color .3s;
+  outline: 0;
+  transition: border-color .3s;
 }
 hr{
-	border: 0;
-	border-style: solid;
-	border-top-width: 1px;
+  border: 0;
+  border-style: solid;
+  border-top-width: 1px;
 }

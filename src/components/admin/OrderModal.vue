@@ -56,6 +56,7 @@
     </div>
   </NCard>
 </template>
+
 <script setup>
 import { inject, h } from 'vue'
 import { NCard, NButton, NDataTable, NList, NListItem, NTag } from 'naive-ui'

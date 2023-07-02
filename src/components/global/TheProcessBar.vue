@@ -11,12 +11,11 @@
         class="tw-absolute tw-top-1.5 tw-left-1/2 tw-translate-y-px tw-translate-x-2 tw-h-0.5"
         v-if="i!==list.length-1" />
       <span class="tw-bg-white">
-        <font-awesome-icon :icon="['far', 'circle']" v-if="process<i" />
-        <font-awesome-icon :icon="['far', 'circle-dot']" v-if="process===i" />
-        <font-awesome-icon :icon="['fas', 'circle-check']" v-if="process>i" />
+        <FontAwesomeIcon :icon="['far', 'circle']" v-if="process<i" />
+        <FontAwesomeIcon :icon="['far', 'circle-dot']" v-if="process===i" />
+        <FontAwesomeIcon :icon="['fas', 'circle-check']" v-if="process>i" />
       </span>
-      {{ item.txt }}
-      <span>{{ item.en }}</span>
+      {{ item.en }}
     </div>
   </section>
 </template>
