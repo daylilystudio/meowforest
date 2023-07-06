@@ -58,7 +58,7 @@ const login = async () => {
         duration: 2000
       })
       const { token, expired } = res.data
-      document.cookie = `meowforestToken=${token}; expires=${new Date(expired)}`
+      document.cookie = `meowForestToken=${token}; expires=${new Date(expired)}`
       await router.push('/admin')
     }
   } catch (err) {
@@ -77,9 +77,9 @@ const login = async () => {
   top: -50%;
   left: -50%;
   z-index: -1;
-  animation: movebg 10s linear infinite;
+  animation: moveBg 10s linear infinite;
 }
-@keyframes movebg {
+@keyframes moveBg {
   to {
     transform:translateX(-100px) translateY(-100px) scale(1)
   }

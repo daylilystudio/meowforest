@@ -1,6 +1,6 @@
 <template>
   <section class="md:tw-w-4/5 tw-mx-auto tw-grid tw-grid-cols-3 tw-gap-y-2 tw-justify-between tw-mt-4 tw-mb-8">
-    <div v-for="(item, i) in list" :key="i" class="tw-text-center">
+    <div v-for="(item, i) in list" :key="`processBar${i}`" class="tw-text-center">
       <img :src="item.img" :alt="item.txt" class="tw-w-3/5 md:tw-w-2/5">
     </div>
     <div v-for="(item, i) in list" :key="item.txt"
@@ -21,9 +21,9 @@
 </template>
 
 <script setup>
-import bar1 from '@/assets/img/processbar1.png'
-import bar2 from '@/assets/img/processbar2.png'
-import bar3 from '@/assets/img/processbar3.png'
+import bar1 from '@/assets/img/processBar1.png'
+import bar2 from '@/assets/img/processBar2.png'
+import bar3 from '@/assets/img/processBar3.png'
 const props = defineProps({
   process: {
     type: Number,

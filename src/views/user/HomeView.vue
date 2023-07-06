@@ -1,14 +1,14 @@
 <template>
   <header class="tw-relative tw-overflow-hidden tw-w-full tw-h-screen tw-flex md:tw-items-center tw-justify-center">
     <div class="hero tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-right-0" />
-    <img class="heroTxt tw-relative tw-hidden sm:tw-block tw-w-5/6 tw-opacity-75" src="@/assets/img/meowforestTxt.svg" alt="Meow Forest">
-    <img class="heroTxt tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowforestTxt_m.svg" alt="Meow Forest">
+    <img class="heroTxt tw-relative tw-hidden sm:tw-block tw-w-5/6 tw-opacity-75" src="@/assets/img/meowForestTxt.svg" alt="Meow Forest">
+    <img class="heroTxt tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowForestTxt_m.svg" alt="Meow Forest">
     <span @click="scrollNext" class="fa-rotate-180 tw-absolute tw-text-white tw-bottom-10 tw-p-10 md:tw-hidden">
       <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-bounce fa-2x" />
     </span>
   </header>
   <section ref="circleRef" class="circleBlock tw-relative tw-mx-auto tw-text-center tw-flex tw-justify-between tw-gap-4 md:tw-gap-24">
-    <RouterLink v-for="(list ,i) in circle" :key="i" :to="list.link" class="tw-flex-1 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
+    <RouterLink v-for="list in circle" :key="list.alt" :to="list.link" class="tw-flex-1 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
       <span class="circle tw-block tw-w-full tw-rounded-full" :style="{backgroundImage: 'url('+ list.img +')'}" />
       <img :src="list.imgFont" class="tw-w-5/6 sm:tw-w-3/5 tw-pt-4" :alt="list.alt">
     </RouterLink>
@@ -16,7 +16,7 @@
   <section class="container tw-mt-20 tw-mb-28">
     <img class="tw-w-full tw-hidden md:tw-block tw-opacity-60" src="@/assets/img/line.svg" alt="cat divider line">
     <img class="tw-w-full md:tw-hidden" src="@/assets/img/line_m.svg" alt="cat divider line">
-    <TheTitle titletxt="關於喵森" subtxt="About Meow Forest" />
+    <TheTitle titleTxt="關於喵森" subTxt="About Meow Forest" />
     <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-gap-x-20">
       <div class="tw-relative">
         <img class="tw-w-full tw-h-auto tw-opacity-0" src="@/assets/img/cats_a.png" alt="three cats(left)">
@@ -42,7 +42,7 @@
     <SelectedItem />
   </section>
   <section class="container tw-pt-10">
-    <TheTitle titletxt="購物流程" subtxt="Shopping Process" />
+    <TheTitle titleTxt="購物流程" subTxt="Shopping Process" />
     <div class="tw-grid sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4 lg:tw-gap-6">
       <div v-for="(item, i) in flow" :key="i" class="flow tw-flex tw-flex-col tw-bg-white">
         <p class="tw-flex-1">
@@ -113,7 +113,7 @@ const flow = [
   },
   {
     title: '2. Check Cart',
-    txt: 'Comfirm purchase of items, select delivery and payment method.',
+    txt: 'Confirm purchase of items, select delivery and payment method.',
     img: cat2
   },
   {
@@ -180,7 +180,7 @@ const notice = [
   background-position: center;
 }
 .intro{
-  background-image: url('@/assets/img/txtline.png');
+  background-image: url('@/assets/img/txtLine.png');
   background-position: 0 30px;
 }
 .flow, .notice{

@@ -10,9 +10,9 @@
         </div>
         <div class="tw-mt-14 sm:tw-mt-0 tw-ml-14 tw-flex tw-flex-col tw-gap-4">
           <p class="tw-font-bold sm:tw-mb-2">Contact</p>
-          <span>02-12340000</span>
+          <a href="tel:02-12340000">02-12340000</a>
           <span>open from Mon - Fri, 9:00 -18:00</span>
-          <span>meowforest@mail.com</span>
+          <a href="mailto:meowforest@mail.com">meowforest@mail.com</a>
         </div>
       </div>
     </section>

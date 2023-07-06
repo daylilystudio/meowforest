@@ -12,7 +12,7 @@ const instance = axios.create({
 // request 的攔截器
 instance.interceptors.request.use(
   function (config) {
-    const token = Cookies.get('meowforestToken') || null
+    const token = Cookies.get('meowForestToken') || null
     if (token) {
       config.headers.Authorization = token
       instance.defaults.headers.common.Authorization = token
@@ -95,7 +95,7 @@ async function submitOrder (data) {
 
 // payOrder
 async function payOrder (id) {
-  return instance.delete(`api/${import.meta.env.VITE_PATH}/order`)
+  return instance.post(`api/${import.meta.env.VITE_PATH}/order`)
 }
 
 // getOrder

@@ -16,7 +16,7 @@
             :allowTouchMove="product.imagesUrl?.length>1 ? true : false"
             class="!tw-absolute tw-top-0 tw-w-full tw-h-full">
             <SwiperSlide
-              v-for="(img, i) in product.imagesUrl" :key="i"
+              v-for="(img, i) in product.imagesUrl" :key="`swiper${i}`"
               :style="{backgroundImage:`url(${img})`}" />
           </Swiper>
         </div>
@@ -32,7 +32,7 @@
       <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
         <h2 class="tw-flex tw-justify-between tw-items-center">
           {{ product.title }}
-          <FontAwesomeIcon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isfav['meowforestFav' + product.id]?'fas':'far', 'heart']" class="tw-text-notice tw-p-2 -tw-mr-2 tw-cursor-pointer" />
+          <FontAwesomeIcon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isFav['meowForestFav' + product.id]?'fas':'far', 'heart']" class="tw-text-notice tw-p-2 -tw-mr-2 tw-cursor-pointer" />
         </h2>
         <NTag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</NTag>
         <p class="tw-mt-6" v-html="product.description" />
@@ -72,7 +72,7 @@
       </template>
     </div>
   </section>
-  <img v-if="noProduct" src="@/assets/img/nodata.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
+  <img v-if="noProduct" src="@/assets/img/noData.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
   <RouterLink to="/products" class="hover:tw-brightness-90 tw-bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
     Back To Product List
   </RouterLink>
@@ -104,14 +104,18 @@ const addNum = ref(1)
 const globalStore = useGlobalStore()
 const productId = route.path.split('/')[2]
 const getProduct = async (id) => {
-  globalStore.loadingPage = true
-  const res = await api.getProduct(id)
-  if (res.data.success) {
-    product.value = res.data.product
-  } else {
-    noProduct.value = true
+  try {
+    globalStore.loadingPage = true
+    const res = await api.getProduct(id)
+    if (res.data.success) {
+      product.value = res.data.product
+    } else {
+      noProduct.value = true
+    }
+    globalStore.loadingPage = false
+  } catch (err) {
+    window.$message.error(err.toString())
   }
-  globalStore.loadingPage = false
 }
 onBeforeMount(() => {
   getProduct(productId)
@@ -126,8 +130,12 @@ const setThumbsSwiper = (swiper) => {
 }
 const modules = [Thumbs]
 const buy = async (id) => {
-  await globalStore.addCart(id, addNum.value)
-  router.push('/cart')
+  try {
+    await globalStore.addCart(id, addNum.value)
+    router.push('/cart')
+  } catch (err) {
+    window.$message.error(err.toString())
+  }
 }
 const notice = [
   {

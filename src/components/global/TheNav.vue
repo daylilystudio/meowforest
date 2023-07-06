@@ -8,7 +8,7 @@
         {{ list.name }}
       </RouterLink>
     </div>
-    <a @click="openMobileNav=!openMobileNav" :class="{'active':openMobileNav}" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
+    <a href=”#” @click.prevent="openMobileNav=!openMobileNav" :class="{'active':openMobileNav}" class="menuBtn tw-ml-auto tw-flex md:tw-hidden tw-cursor-pointer">
       <span v-for="i in 3" :key="'menu'+i" class="tw-bg-theme" />
     </a>
     <RouterLink to="/cart" :class="{'tw-cursor-not-allowed':route.path==='/cart', 'shake':globalStore.addingCart}" title="Go Shopping Cart" class="tw-bg-primary tw-relative tw-rounded-full tw-p-2.5 md:tw-p-3 tw-ml-6 tw-cursor-pointer hover:tw-brightness-90">

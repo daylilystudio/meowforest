@@ -10,8 +10,8 @@
             <span class="tw-col-span-2">Total</span>
           </div>
           <div class="tw-block md:tw-hidden tw-bg-gray-200 tw-rounded-lg tw-py-1 tw-px-4">Shop List</div>
-            <div v-for="(item, i) in globalStore.cart?.carts" :key="i" class="tw-relative tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-5 tw-border-b tw-border-solid tw-border-gray-200">
-              <a @click="router.push('/products/'+item.product.id)" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-items-center tw-cursor-pointer">
+            <div v-for="(item, i) in globalStore.cart?.carts" :key="`cart${i}`" class="tw-relative tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-5 tw-border-b tw-border-solid tw-border-gray-200">
+              <a href=”#” @click.prevent="router.push('/products/'+item.product.id)" class="tw-col-span-12 md:tw-col-span-6 tw-flex tw-items-center tw-cursor-pointer">
                 <img :src="item.product.imagesUrl[0]" :alt="item.product.title" class="tw-w-28 tw-mr-2">
                 {{ item.product.title }}
               </a>
@@ -28,7 +28,7 @@
                 <FontAwesomeIcon :icon="['far', 'trash-can']" />
               </p>
             </div>
-            <a class="tw-text-primary tw-font-bold tw-block tw-pt-6 tw-pb-2 tw-cursor-pointer" @click="showModal=true">
+            <a href=”#” @click.prevent="showModal=true" class="tw-text-primary tw-font-bold tw-block tw-pt-6 tw-pb-2 tw-cursor-pointer">
               Enter Coupon Code <FontAwesomeIcon :icon="['fas', 'caret-right']" />
             </a>
             <div class="tw-text-xl tw-text-right tw-font-bold">
@@ -39,7 +39,7 @@
             </div>
         </template>
         <div v-else class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-16 tw-mb-6">
-          <img src="@/assets/img/nodata.png" class="tw-w-full tw-h-auto" alt="no data">
+          <img src="@/assets/img/noData.png" class="tw-w-full tw-h-auto" alt="no data">
         </div>
       </NSpin>
     </template>
@@ -93,29 +93,41 @@ const nextBtnAllow = computed(() => {
   return true
 })
 const updateCart = async (qty, cartId, productId) => {
-  globalStore.loading = true
-  const res = await api.updateCart(cartId, { data: { product_id: productId, qty } })
-  if (res) {
-    globalStore.getCart()
-    window.$message.warning(res.data.message)
+  try {
+    globalStore.loading = true
+    const res = await api.updateCart(cartId, { data: { product_id: productId, qty } })
+    if (res) {
+      globalStore.getCart()
+      window.$message.warning(res.data.message)
+    }
+    globalStore.loading = false
+  } catch (err) {
+    window.$message.error(err.toString())
   }
-  globalStore.loading = false
 }
 const delCart = async (id) => {
-  globalStore.loading = true
-  const res = await api.delCart(id)
-  if (res) {
-    globalStore.getCart()
-    window.$message.warning(res.data.message)
+  try {
+    globalStore.loading = true
+    const res = await api.delCart(id)
+    if (res) {
+      globalStore.getCart()
+      window.$message.warning(res.data.message)
+    }
+    globalStore.loading = false
+  } catch (err) {
+    window.$message.error(err.toString())
   }
-  globalStore.loading = false
 }
 const enterCoupon = async (code) => {
   showModal.value = false
-  const res = await api.enterCoupon({ data: { code } })
-  if (res) {
-    globalStore.getCart()
-    window.$message.warning(res.data.message)
+  try {
+    const res = await api.enterCoupon({ data: { code } })
+    if (res) {
+      globalStore.getCart()
+      window.$message.warning(res.data.message)
+    }
+  } catch (err) {
+    window.$message.error(err.toString())
   }
 }
 onBeforeMount(() => {
@@ -133,7 +145,7 @@ const goNext = () => {
 const coupons = [
   {
     title: 'Love Cat',
-    code: 'lovecat',
+    code: 'loveCat',
     discount: 'All Product 10% OFF'
   },
   {
@@ -148,7 +160,7 @@ const method = [
     name: 'payment',
     option: [
       {
-        id: 'creditcard',
+        id: 'creditCard',
         txt: 'Credit Card',
         info: 'Visa, MasterCard, and JCB are all accepted.'
       },

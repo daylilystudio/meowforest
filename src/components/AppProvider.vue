@@ -17,7 +17,7 @@
 import { h } from 'vue'
 import { useLoadingBar, useDialog, useMessage, useNotification, NConfigProvider, NLoadingBarProvider, NDialogProvider, NNotificationProvider, NMessageProvider } from 'naive-ui'
 
-// globle naive tool
+// global naive tool
 function setupNaiveTools () {
   window.$loadingBar = useLoadingBar()
   window.$dialog = useDialog()

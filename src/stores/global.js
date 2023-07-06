@@ -30,19 +30,19 @@ export const useGlobalStore = defineStore('global', () => {
     }
   ])
   // favorite
-  const isfav = reactive({})
-  const favId = Object.keys(window.localStorage).filter(el => el.match(/meowforestFav/gi))
+  const isFav = reactive({})
+  const favId = Object.keys(window.localStorage).filter(el => el.match(/meowForestFav/gi))
   favId.forEach((el) => {
-    isfav[el] = true
+    isFav[el] = true
   })
   const toggleFav = (id) => {
-    const fav = window.localStorage.getItem('meowforestFav' + id)
+    const fav = window.localStorage.getItem('meowForestFav' + id)
     if (fav === 'y') {
-      window.localStorage.removeItem('meowforestFav' + id)
-      isfav['meowforestFav' + id] = false
+      window.localStorage.removeItem('meowForestFav' + id)
+      isFav['meowForestFav' + id] = false
     } else {
-      window.localStorage.setItem('meowforestFav' + id, 'y')
-      isfav['meowforestFav' + id] = true
+      window.localStorage.setItem('meowForestFav' + id, 'y')
+      isFav['meowForestFav' + id] = true
       window.$message.success('Added Fav !')
     }
   }
@@ -50,32 +50,44 @@ export const useGlobalStore = defineStore('global', () => {
   const products = ref([])
   async function getProducts () {
     if (products.value.length > 0) return
-    const res = await api.getProducts()
-    if (res.data.success) {
-      products.value = res.data.products
+    try {
+      const res = await api.getProducts()
+      if (res.data.success) {
+        products.value = res.data.products
+      }
+    } catch (err) {
+      window.$message.error(err.toString())
     }
   }
   // get carts
   const cart = ref([])
   async function getCart () {
-    loading.value = true
-    const res = await api.getCart()
-    cart.value = res.data.data
-    loading.value = false
+    try {
+      loading.value = true
+      const res = await api.getCart()
+      cart.value = res.data.data
+      loading.value = false
+    } catch (err) {
+      window.$message.error(err.toString())
+    }
   }
   // add to cart
   async function addCart (id, num) {
-    loadingAdd.value = true
-    const res = await api.addCart({ data: { product_id: id, qty: num } })
-    loadingAdd.value = false
-    addingCart.value = true
-    setTimeout(() => {
-      addingCart.value = false
-    }, 1100)
-    if (res) {
-      const icon = res.data.success ? 'success' : 'error'
-      window.$message[icon](res.data.message)
-      await getCart()
+    try {
+      loadingAdd.value = true
+      const res = await api.addCart({ data: { product_id: id, qty: num } })
+      loadingAdd.value = false
+      addingCart.value = true
+      setTimeout(() => {
+        addingCart.value = false
+      }, 1100)
+      if (res) {
+        const icon = res.data.success ? 'success' : 'error'
+        window.$message[icon](res.data.message)
+        await getCart()
+      }
+    } catch (err) {
+      window.$message.error(err.toString())
     }
   }
   // method
@@ -124,7 +136,7 @@ export const useGlobalStore = defineStore('global', () => {
     loadingAdd,
     addingCart,
     menu,
-    isfav,
+    isFav,
     toggleFav,
     getProducts,
     products,

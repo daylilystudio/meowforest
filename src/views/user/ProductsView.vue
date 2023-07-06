@@ -24,7 +24,7 @@
           <div class="tw-relative tw-overflow-hidden">
             <img class="tw-w-full group-hover:tw-scale-110" :src="list.imagesUrl[0]" alt="product image">
             <p @click.prevent="globalStore.toggleFav(list.id)" class="tw-text-second fa-xl tw-absolute tw-right-3 tw-top-3" title="Add Favorite">
-              <FontAwesomeIcon :icon="[globalStore.isfav['meowforestFav' + list.id] ? 'fas' : 'far', 'heart']" />
+              <FontAwesomeIcon :icon="[globalStore.isFav['meowForestFav' + list.id] ? 'fas' : 'far', 'heart']" />
             </p>
           </div>
           <p class="tw-font-bold tw-mt-3 tw-mb-1">{{ list.title }}</p>
@@ -33,7 +33,7 @@
         </RouterLink>
       </section>
       <div v-if="productsList.length===0" class="tw-opacity-50 tw-w-2/3 md:tw-w-72 tw-mx-auto tw-mt-10">
-        <img src="@/assets/img/nodata.png" class="tw-w-full tw-h-auto" alt="no data">
+        <img src="@/assets/img/noData.png" class="tw-w-full tw-h-auto" alt="no data">
       </div>
     </main>
   </div>

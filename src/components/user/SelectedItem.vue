@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useGlobalStore } from '@/stores/global.js'
@@ -54,19 +54,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-export default {
-  components: { Swiper, SwiperSlide },
-  setup () {
-    const router = useRouter()
-    const globalStore = useGlobalStore()
-    const { products } = storeToRefs(globalStore)
-    return {
-      router,
-      modules: [Autoplay, Pagination, Navigation],
-      products
-    }
-  }
-}
+const router = useRouter()
+const globalStore = useGlobalStore()
+const { products } = storeToRefs(globalStore)
+const modules = [Autoplay, Pagination, Navigation]
 </script>
 
 <style lang="scss" scoped>

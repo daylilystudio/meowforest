@@ -8,7 +8,7 @@
         </h4>
         <p class="tw-text-right tw-font-bold tw-text-primary tw-my-2 tw-mr-4">Order No. {{ orderInfo.create_at }}
           <br class="tw-block md:tw-hidden">
-          <a @click="copy" class="tw-bg-primary tw-rounded-full tw-text-sm tw-text-white tw-py-1 tw-px-3 tw-cursor-pointer">
+          <a href=”#” @click.prevent="copy" class="tw-bg-primary tw-rounded-full tw-text-sm tw-text-white tw-py-1 tw-px-3 tw-cursor-pointer">
             <FontAwesomeIcon :icon="['far', 'copy']" class="tw-mr-2" />COPY URL
           </a>
         </p>
@@ -16,7 +16,7 @@
           <div><span class="tw-font-bold tw-mr-1">Order Total</span> <span class="tw-text-notice">${{ Math.ceil(orderInfo.total)+orderInfo.user.shipping_money }}</span></div>
           <div><span class="tw-font-bold tw-mr-1">Order Date</span> {{ filter.date(orderInfo.create_at*1000) }}</div>
           <div><span class="tw-font-bold tw-mr-1">Shipping Method</span> {{ orderInfo.user.shipping_method }}</div>
-          <div><span class="tw-font-bold tw-mr-1">Payment Method</span> {{ orderInfo.user.payment_method==='atm'?'ATM transfer':'Credit ****'+orderInfo.user.card.slice(-4) }}<FontAwesomeIcon v-if="orderInfo.user?.payment_method==='creditcard'" :icon="['far', 'credit-card']" class="tw-opacity-40 tw-ml-1" /></div>
+          <div><span class="tw-font-bold tw-mr-1">Payment Method</span> {{ orderInfo.user.payment_method==='atm'?'ATM transfer':'Credit ****'+orderInfo.user.card.slice(-4) }}<FontAwesomeIcon v-if="orderInfo.user?.payment_method==='creditCard'" :icon="['far', 'credit-card']" class="tw-opacity-40 tw-ml-1" /></div>
           <div v-if="orderInfo.user.payment_method==='atm'"
             class="tw-text-primary tw-border-primary tw-border tw-border-solid tw-shadow-inner tw-rounded-xl tw-font-bold tw-col-span-2 md:tw-flex tw-items-center tw-py-3 tw-mt-2">
             <p class="tw-text-lg tw-text-center md:tw-px-8"><FontAwesomeIcon :icon="['fas', 'cat']" /> ATM transfer Info</p>
@@ -40,7 +40,7 @@
           <p :class="{'fa-rotate-180':!openProducts}"><FontAwesomeIcon :icon="['fas', 'angle-up']" /></p>
         </h4>
         <section :class="(openProducts?'tw-h-auto ':'tw-h-0')" class="tw-overflow-hidden tw-px-4">
-          <div v-for="(item, i) in orderInfo.products" :key="i" class="tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-4 tw-border-b tw-border-solid tw-border-gray-200">
+          <div v-for="(item, i) in orderInfo.products" :key="`order${i}`" class="tw-grid tw-grid-cols-12 tw-gap-y-4 tw-items-center tw-py-4 tw-border-b tw-border-solid tw-border-gray-200">
             <span class="tw-col-span-12 md:tw-col-span-6">
               {{ item.product.title }}
             </span>
@@ -80,13 +80,21 @@ const globalStore = useGlobalStore()
 const orderInfo = ref(null)
 const openProducts = ref(false)
 const getOrder = async (id) => {
-  globalStore.loading = true
-  const res = await api.getOrder(id)
-  orderInfo.value = res.data.success ? res.data.order : 'No order found'
-  globalStore.loading = false
+  try {
+    globalStore.loading = true
+    const res = await api.getOrder(id)
+    orderInfo.value = res.data.success ? res.data.order : 'No order found'
+    globalStore.loading = false
+  } catch (err) {
+    window.$message.error(err.toString())
+  }
 }
 onBeforeMount(async () => {
-  await getOrder(route.path.split('/')[2])
+  try {
+    await getOrder(route.path.split('/')[2])
+  } catch (err) {
+    window.$message.error(err.toString())
+  }
 })
 const copy = async () => {
   const inputNode = document.createElement('input')
