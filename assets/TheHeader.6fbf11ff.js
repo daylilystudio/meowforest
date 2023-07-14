@@ -1,1 +1,0 @@
-import{d as e,e as r,x as t,g as s}from"./index.b92c22bd.js";const a="/meowforest/assets/heroOther.c979ce42.jpg",m={__name:"TheHeader",setup(o){return(c,n)=>(e(),r("header",{class:"tw-h-64 md:tw-h-96 tw-bg-cover",style:t({backgroundImage:"url("+s(a)+")"})},null,4))}};export{m as _};
