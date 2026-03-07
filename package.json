@@ -18,13 +18,13 @@
     "js-cookie": "^3.0.1",
     "pinia": "^2.0.21",
     "sass": "^1.55.0",
-    "swiper": "^8.4.4",
+    "swiper": "^12.1.2",
     "vue": "^3.2.38",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@vitejs/plugin-vue": "^6.0.4",
     "autoprefixer": "^10.4.12",
     "eslint": "^8.22.0",
     "eslint-config-standard": "^17.0.0",
@@ -33,6 +33,6 @@
     "naive-ui": "^2.33.3",
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8",
-    "vite": "^3.2.8"
+    "vite": "^7.3.1"
   }
 }
