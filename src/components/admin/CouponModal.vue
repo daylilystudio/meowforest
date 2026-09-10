@@ -50,7 +50,7 @@ import { ref } from 'vue'
 import { NCard, NButton, NForm, NGrid, NGi, NFormItemGi, NInput, NInputNumber, NSwitch, NDatePicker } from 'naive-ui'
 const props = defineProps({
   temp: {
-    type: Boolean,
+    type: Object,
     default () { return {} }
   },
   isNew: {

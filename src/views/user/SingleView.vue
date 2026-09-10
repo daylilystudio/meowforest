@@ -86,7 +86,7 @@ import { NInputNumber, NTag } from 'naive-ui'
 import api from '@/utils/api'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Thumbs } from 'swiper'
+import { Thumbs } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'

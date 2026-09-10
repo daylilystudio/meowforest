@@ -49,7 +49,7 @@ import { storeToRefs } from 'pinia'
 import { useGlobalStore } from '@/stores/global.js'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Pagination, Navigation } from 'swiper'
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
