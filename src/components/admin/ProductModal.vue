@@ -22,7 +22,7 @@
             :custom-request="updateFile"
             @before-upload="beforeUpload"
             @remove="removeFile"
-            class="tw-mb-4"
+            class="tw:mb-4"
           />
           <NFormItemGi label="Product Name" path="title">
             <n-input v-model:value="data.title" placeholder="Product Name" />
@@ -65,11 +65,11 @@
         </NGi>
       </NGrid>
     </NForm>
-    <div class="tw-text-right">
-      <NButton @click="$emit('closeModal', false)" class="tw-mr-3">Cancel</NButton>
+    <div class="tw:text-right">
+      <NButton @click="$emit('closeModal', false)" class="tw:mr-3">Cancel</NButton>
       <NButton @click="$emit('updateProduct', data)" type="primary">
         {{ isNew ? 'Add' : 'Update' }}
-        <FontAwesomeIcon v-if="loading" class="fa-spin fa-lg tw-ml-2" :icon="['fas', 'spinner']" />
+        <FontAwesomeIcon v-if="loading" class="fa-spin fa-lg tw:ml-2" :icon="['fas', 'spinner']" />
       </NButton>
     </div>
   </NCard>

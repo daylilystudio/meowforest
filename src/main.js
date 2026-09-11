@@ -4,6 +4,7 @@ import router from './router'
 // index
 import App from './App.vue'
 // style
+import './assets/css/tailwind.css'
 import './assets/scss/main.scss'
 
 // filter

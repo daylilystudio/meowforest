@@ -1,5 +1,5 @@
 <template>
-  <NButton @click="isNew=true;showModal=true;temp={}" strong round color="#FF904F" class="tw-block tw-ml-auto tw-mb-4">
+  <NButton @click="isNew=true;showModal=true;temp={}" strong round color="#FF904F" class="tw:block tw:ml-auto tw:mb-4">
     Add Coupon +
   </NButton>
   <NSpace vertical :size="12">
@@ -10,7 +10,7 @@
       :pagination="false"
       :loading="loading"
     />
-    <NPagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
+    <NPagination class="tw:justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
   </NSpace>
   <NModal v-model:show="showModal" :mask-closable="false">
     <CouponModal :temp="temp" :isNew="isNew" :loading="loading" @update="update" @closeModal="v => showModal=v"/>
@@ -142,7 +142,7 @@ const createColumns = ({
       render (row) {
         return h('div', null, [
           h(NButton,
-            { type: 'primary', size: 'small', onClick: () => editList(row), class: 'tw-mr-2' },
+            { type: 'primary', size: 'small', onClick: () => editList(row), class: 'tw:mr-2' },
             { default: () => 'Edit' }),
           h(NButton,
             { size: 'small', onClick: () => clickDel(row) },

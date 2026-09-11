@@ -1,13 +1,13 @@
 <template>
-  <div class="tw-h-screen tw-relative">
+  <div class="tw:h-screen tw:relative">
     <NLayout position="absolute">
-      <NLayoutHeader class="tw-flex tw-items-center tw-justify-between tw-px-6 tw-h-16" bordered>
+      <NLayoutHeader class="tw:flex tw:items-center tw:justify-between tw:px-6 tw:h-16" bordered>
         <RouterLink to="/"><img src="@/assets/logo.svg" alt="Meow Forest" height="28"></RouterLink>
         <NMenu mode="horizontal" :options="menuOptions" style="--n-font-size:16px" />
       </NLayoutHeader>
       <NLayout has-sider position="absolute" style="top: 64px;">
-        <NLayout content-style="padding: 24px;" class="tw-bg-primary bg-paw">
-          <div v-if="route.path==='/admin/'||route.path==='/admin'" class="tips tw-shadow-main tw-relative tw-max-w-full tw-w-60 tw-ml-auto tw-bg-white tw-rounded-xl tw-text-center tw-p-2">
+        <NLayout content-style="padding: 24px;" class="tw:bg-primary bg-paw">
+          <div v-if="route.path==='/admin/'||route.path==='/admin'" class="tips tw:shadow-main tw:relative tw:max-w-full tw:w-60 tw:ml-auto tw:bg-white tw:rounded-xl tw:text-center tw:p-2">
             Please Click Menu !
           </div>
           <RouterView/>

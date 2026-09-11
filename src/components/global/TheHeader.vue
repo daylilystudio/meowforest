@@ -1,6 +1,6 @@
 <template>
   <header
-    class="tw-h-64 md:tw-h-96 tw-bg-cover"
+    class="tw:h-64 tw:md:h-96 tw:bg-cover"
     :style="{backgroundImage: 'url('+ bg +')'}" />
 </template>
 

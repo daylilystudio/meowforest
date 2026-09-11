@@ -21,7 +21,7 @@
           <NInput v-model:value="data.code" placeholder="Code" />
         </NFormItemGi>
         <NFormItemGi label="Due Date" path="due_date">
-          <NDatePicker class="tw-w-full" v-model:value="data.due_date" :is-date-disabled="(ts) => ts < Date.now()" type="datetime" clearable />
+          <NDatePicker class="tw:w-full" v-model:value="data.due_date" :is-date-disabled="(ts) => ts < Date.now()" type="datetime" clearable />
         </NFormItemGi>
         <NGi>
           <NGrid :x-gap="12" cols="2">
@@ -35,11 +35,11 @@
         </NGi>
       </NGrid>
     </NForm>
-    <div class="tw-text-right">
-      <NButton @click="$emit('closeModal', false)" class="tw-mr-3">Cancel</NButton>
+    <div class="tw:text-right">
+      <NButton @click="$emit('closeModal', false)" class="tw:mr-3">Cancel</NButton>
       <NButton @click="$emit('update', data)" type="primary">
         {{ isNew ? 'Add' : 'Update' }}
-        <FontAwesomeIcon v-if="loading" class="fa-spin fa-lg tw-ml-2" :icon="['fas', 'spinner']" />
+        <FontAwesomeIcon v-if="loading" class="fa-spin fa-lg tw:ml-2" :icon="['fas', 'spinner']" />
       </NButton>
     </div>
   </NCard>

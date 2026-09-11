@@ -1,30 +1,30 @@
 <template>
-  <header class="tw-relative tw-overflow-hidden tw-w-full tw-h-screen tw-flex md:tw-items-center tw-justify-center">
-    <div class="hero tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-right-0" />
-    <img class="heroTxt tw-relative tw-hidden sm:tw-block tw-w-5/6 tw-opacity-75" src="@/assets/img/meowForestTxt.svg" alt="Meow Forest">
-    <img class="heroTxt tw-relative sm:tw-hidden tw-w-7/12 tw-self-start tw-mt-36" src="@/assets/img/meowForestTxt_m.svg" alt="Meow Forest">
-    <span @click="scrollNext" class="fa-rotate-180 tw-absolute tw-text-white tw-bottom-10 tw-p-10 md:tw-hidden">
+  <header class="tw:relative tw:overflow-hidden tw:w-full tw:h-screen tw:flex tw:md:items-center tw:justify-center">
+    <div class="hero tw:absolute tw:top-0 tw:bottom-0 tw:left-0 tw:right-0" />
+    <img class="heroTxt tw:relative tw:hidden tw:sm:block tw:w-5/6 tw:opacity-75" src="@/assets/img/meowForestTxt.svg" alt="Meow Forest">
+    <img class="heroTxt tw:relative tw:sm:hidden tw:w-7/12 tw:self-start tw:mt-36" src="@/assets/img/meowForestTxt_m.svg" alt="Meow Forest">
+    <span @click="scrollNext" class="fa-rotate-180 tw:absolute tw:text-white tw:bottom-10 tw:p-10 tw:md:hidden">
       <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-bounce fa-2x" />
     </span>
   </header>
-  <section ref="circleRef" class="circleBlock tw-relative tw-mx-auto tw-text-center tw-flex tw-justify-between tw-gap-4 md:tw-gap-24">
-    <RouterLink v-for="list in circle" :key="list.alt" :to="list.link" class="tw-flex-1 tw-cursor-pointer hover:tw-scale-95 tw-duration-300">
-      <span class="circle tw-block tw-w-full tw-rounded-full" :style="{backgroundImage: 'url('+ list.img +')'}" />
-      <img :src="list.imgFont" class="tw-w-5/6 sm:tw-w-3/5 tw-pt-4" :alt="list.alt">
+  <section ref="circleRef" class="circleBlock tw:relative tw:mx-auto tw:text-center tw:flex tw:justify-between tw:gap-4 tw:md:gap-24">
+    <RouterLink v-for="list in circle" :key="list.alt" :to="list.link" class="tw:flex-1 tw:cursor-pointer tw:hover:scale-95 tw:duration-300">
+      <span class="circle tw:block tw:w-full tw:rounded-full" :style="{backgroundImage: 'url('+ list.img +')'}" />
+      <img :src="list.imgFont" class="tw:w-5/6 tw:sm:w-3/5 tw:pt-4" :alt="list.alt">
     </RouterLink>
   </section>
-  <section class="container tw-mt-20 tw-mb-28">
-    <img class="tw-w-full tw-hidden md:tw-block tw-opacity-60" src="@/assets/img/line.svg" alt="cat divider line">
-    <img class="tw-w-full md:tw-hidden" src="@/assets/img/line_m.svg" alt="cat divider line">
+  <section class="container tw:mt-20 tw:mb-28">
+    <img class="tw:w-full tw:hidden tw:md:block tw:opacity-60" src="@/assets/img/line.svg" alt="cat divider line">
+    <img class="tw:w-full tw:md:hidden" src="@/assets/img/line_m.svg" alt="cat divider line">
     <TheTitle titleTxt="關於喵森" subTxt="About Meow Forest" />
-    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-gap-x-20">
-      <div class="tw-relative">
-        <img class="tw-w-full tw-h-auto tw-opacity-0" src="@/assets/img/cats_a.png" alt="three cats(left)">
-        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats_a" src="@/assets/img/cats_a.png" alt="three cats(left)">
-        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats_b" src="@/assets/img/cats_b.png" alt="three cats(right)">
-        <img class="tw-w-full tw-h-auto tw-absolute tw-left-0 cats_c" src="@/assets/img/cats_c.png" alt="three cats(center)">
+    <div class="tw:flex tw:flex-col tw:lg:flex-row tw:items-center tw:gap-x-20">
+      <div class="tw:relative">
+        <img class="tw:w-full tw:h-auto tw:opacity-0" src="@/assets/img/cats_a.png" alt="three cats(left)">
+        <img class="tw:w-full tw:h-auto tw:absolute tw:left-0 cats_a" src="@/assets/img/cats_a.png" alt="three cats(left)">
+        <img class="tw:w-full tw:h-auto tw:absolute tw:left-0 cats_b" src="@/assets/img/cats_b.png" alt="three cats(right)">
+        <img class="tw:w-full tw:h-auto tw:absolute tw:left-0 cats_c" src="@/assets/img/cats_c.png" alt="three cats(center)">
       </div>
-      <div class="intro tw-w-2/3 tw-font-medium tw-leading-8 tw-mt-4 tw-pb-1">
+      <div class="intro tw:w-2/3 tw:font-medium tw:leading-8 tw:mt-4 tw:pb-1">
         <!-- <p>建立喵森之前，我是一個有三隻貓的貓奴，因為很熱衷尋找貓咪的食物跟用品，認識了很多貓相關產品，也很重視貓咪們的食物，想給他們天然無害的用品。</p>
         <p>漸漸開始熱衷研究貓用產品，有國外的品牌與台灣本土的產品，想把最好的貓咪各種用品，推薦給家裡有寶貝貓咪的主人們。</p>
         <p>喵森的名字由來，希望帶給大家的產品，像天然的森林一樣，純淨自然，讓貓咪們有著自由自在的環境，成為森系貓咪！</p> -->
@@ -34,26 +34,26 @@
       </div>
     </div>
   </section>
-  <section class="tw-bg-primary tw-py-20">
-    <p class="tw-text-white tw-text-center tw-text-3xl md:tw-text-4xl tw-font-bold">
+  <section class="tw:bg-primary tw:py-20">
+    <p class="tw:text-white tw:text-center tw:text-3xl tw:md:text-4xl tw:font-bold">
       SELECTED ITEM<br/>
-      <span class="tw-block tw-text-base tw-font-normal">The Best Product For You</span>
+      <span class="tw:block tw:text-base tw:font-normal">The Best Product For You</span>
     </p>
     <SelectedItem />
   </section>
-  <section class="container tw-pt-10">
+  <section class="container tw:pt-10">
     <TheTitle titleTxt="購物流程" subTxt="Shopping Process" />
-    <div class="tw-grid sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4 lg:tw-gap-6">
-      <div v-for="(item, i) in flow" :key="i" class="flow tw-flex tw-flex-col tw-bg-white">
-        <p class="tw-flex-1">
-          <span class="tw-text-primary tw-block tw-text-xl tw-font-bold tw-mb-2">{{ item.title }}</span>
+    <div class="tw:grid tw:sm:grid-cols-2 tw:lg:grid-cols-4 tw:gap-4 tw:lg:gap-6">
+      <div v-for="(item, i) in flow" :key="i" class="flow tw:flex tw:flex-col tw:bg-white">
+        <p class="tw:flex-1">
+          <span class="tw:text-primary tw:block tw:text-xl tw:font-bold tw:mb-2">{{ item.title }}</span>
           <span>{{ item.txt }}</span>
         </p>
-        <img class="tw-block tw-mx-auto tw-w-3/5 lg:tw-w-full tw-mt-6" :src="item.img" alt="cat display">
+        <img class="tw:block tw:mx-auto tw:w-3/5 tw:lg:w-full tw:mt-6" :src="item.img" alt="cat display">
       </div>
-      <div v-for="(card ,i) in notice" :key="i+card.title" class="notice lg:tw-col-span-2 tw-bg-white">
-        <span class="tw-block tw-text-xl tw-font-bold tw-mb-2">{{ card.title }}</span>
-        <ul class="tw-ml-6">
+      <div v-for="(card ,i) in notice" :key="i+card.title" class="notice tw:lg:col-span-2 tw:bg-white">
+        <span class="tw:block tw:text-xl tw:font-bold tw:mb-2">{{ card.title }}</span>
+        <ul class="tw:ml-6">
           <li v-for="list in card.content" :key="list">{{ list }}</li>
         </ul>
       </div>
@@ -175,7 +175,7 @@ const notice = [
 }
 .circle{
   padding-bottom: 100%;
-  background-color: var(--thirdColor);
+  background-color: var(--tw-color-third);
   background-size: cover;
   background-position: center;
 }
@@ -185,7 +185,7 @@ const notice = [
 }
 .flow, .notice{
   border-radius: 40px;
-  border: 2px solid var(--primaryColor);
+  border: 2px solid var(--tw-color-primary);
 }
 .flow{
   padding: 32px 32px 40px 32px;
@@ -195,7 +195,7 @@ const notice = [
 }
 .notice{
   padding: 32px;
-  border-color: var(--themeColor);
+  border-color: var(--tw-color-theme);
 }
 @keyframes zoom {
   0% {

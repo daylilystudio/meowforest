@@ -19,8 +19,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--themeColor);
-  background-color: var(--primaryColor);
+  color: var(--tw-color-theme);
+  background-color: var(--tw-color-primary);
 }
 
 a {
@@ -60,7 +60,7 @@ a {
     border-radius: 2px;
     left: 0;
     bottom: -6px;
-    background-color: var(--thirdColor);
+    background-color: var(--tw-color-third);
     transition: width .5s;
   }
   &:hover{

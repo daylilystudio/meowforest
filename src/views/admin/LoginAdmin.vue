@@ -1,7 +1,7 @@
 <template>
-  <div class="tw-relative tw-h-screen tw-overflow-hidden tw-flex tw-justify-center tw-items-center">
+  <div class="tw:relative tw:h-screen tw:overflow-hidden tw:flex tw:justify-center tw:items-center">
     <div class="bg bg-paw"></div>
-    <NSpin :show="loading" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-px-10 tw-py-6">
+    <NSpin :show="loading" class="tw:bg-white tw:rounded-2xl tw:shadow-xl tw:px-10 tw:py-6">
       <NForm ref="formRef" :model="model">
         <NFormItem path="username" label="Account">
           <NInput type="email" v-model:value="model.username" @keydown.enter.prevent />
@@ -11,7 +11,7 @@
         </NFormItem>
         <NRow :gutter="[0, 24]">
           <NCol :span="24">
-            <div class="tw-flex tw-justify-end">
+            <div class="tw:flex tw:justify-end">
               <NButton
                 :disabled="model.username === ''||model.password === ''"
                 round

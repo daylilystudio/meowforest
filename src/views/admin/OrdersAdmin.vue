@@ -7,7 +7,7 @@
       :pagination="false"
       :loading="loading"
     />
-    <NPagination class="tw-justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
+    <NPagination class="tw:justify-center" v-model:page="pagination.current" :page-count="pagination.total" @update:page="pageChange" />
   </NSpace>
   <NModal v-model:show="showModal" :mask-closable="true">
     <OrderModal :data="temp" @closeModal="v => showModal=v"/>
@@ -115,7 +115,7 @@ const createColumns = ({
       render (row) {
         return h('div', null, [
           h(NButton,
-            { type: 'primary', size: 'small', onClick: () => editList(row), class: 'tw-mr-2' },
+            { type: 'primary', size: 'small', onClick: () => editList(row), class: 'tw:mr-2' },
             { default: () => 'View' }),
           h(NButton,
             { size: 'small', onClick: () => clickDel(row) },

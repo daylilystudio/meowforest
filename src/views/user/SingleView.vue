@@ -1,20 +1,20 @@
 <template>
   <TheHeader />
   <main class="container">
-    <div class="tw-drop-shadow-main -tw-mt-24 tw-mb-4 tw-text-white">
-      <RouterLink to="/" class="tw-font-bold">Home</RouterLink> /
-      <RouterLink to="/products" class="tw-font-bold">Product List</RouterLink> /
+    <div class="tw:drop-shadow-main tw:-mt-24 tw:mb-4 tw:text-white">
+      <RouterLink to="/" class="tw:font-bold">Home</RouterLink> /
+      <RouterLink to="/products" class="tw:font-bold">Product List</RouterLink> /
       <span>{{ product.title }}</span>
     </div>
-    <div v-if="!noProduct" class="tw-shadow-main md:tw-grid tw-gap-8 tw-grid-cols-2 tw-bg-white tw-rounded-2xl tw-p-6 sm:tw-p-8">
+    <div v-if="!noProduct" class="tw:shadow-main tw:md:grid tw:gap-8 tw:grid-cols-2 tw:bg-white tw:rounded-2xl tw:p-6 tw:sm:p-8">
       <div>
-        <div class="tw-relative tw-w-full tw-h-0" style="padding-bottom:75%">
+        <div class="tw:relative tw:w-full tw:h-0" style="padding-bottom:75%">
           <Swiper
             v-if="product.imagesUrl?.length>0"
             :modules="modules"
             :thumbs="{ swiper: thumbsSwiper }"
             :allowTouchMove="product.imagesUrl?.length>1 ? true : false"
-            class="!tw-absolute tw-top-0 tw-w-full tw-h-full">
+            class="tw:absolute! tw:top-0 tw:w-full tw:h-full">
             <SwiperSlide
               v-for="(img, i) in product.imagesUrl" :key="`swiper${i}`"
               :style="{backgroundImage:`url(${img})`}" />
@@ -23,30 +23,30 @@
         <Swiper
           :allowTouchMove="false" :spaceBetween="8" :slidesPerView="5"
           watch-slides-progress :modules="modules" @swiper="setThumbsSwiper"
-          id="thumbs" class="tw-mt-2 tw-leading-none">
+          id="thumbs" class="tw:mt-2 tw:leading-none">
           <SwiperSlide v-for="(img, i) in product.imagesUrl" :key="i">
-            <img class="tw-w-full tw-cursor-pointer" :src="img" :alt="i">
+            <img class="tw:w-full tw:cursor-pointer" :src="img" :alt="i">
           </SwiperSlide>
         </Swiper>
       </div>
-      <div class="tw-flex tw-flex-col tw-mt-2 md:tw-mt-0">
-        <h2 class="tw-flex tw-justify-between tw-items-center">
+      <div class="tw:flex tw:flex-col tw:mt-2 tw:md:mt-0">
+        <h2 class="tw:flex tw:justify-between tw:items-center">
           {{ product.title }}
-          <FontAwesomeIcon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isFav['meowForestFav' + product.id]?'fas':'far', 'heart']" class="tw-text-notice tw-p-2 -tw-mr-2 tw-cursor-pointer" />
+          <FontAwesomeIcon @click="globalStore.toggleFav(product.id)" :icon="[globalStore.isFav['meowForestFav' + product.id]?'fas':'far', 'heart']" class="tw:text-notice tw:p-2 tw:-mr-2 tw:cursor-pointer" />
         </h2>
-        <NTag :bordered="false" round type="success" class="tw-self-start">{{ product.category }}</NTag>
-        <p class="tw-mt-6" v-html="product.description" />
-        <p class="tw-my-4">
-          <span class="tw-text-primary tw-text-2xl tw-font-bold tw-mr-3">NTD. {{ product.price }}</span>
+        <NTag :bordered="false" round type="success" class="tw:self-start">{{ product.category }}</NTag>
+        <p class="tw:mt-6" v-html="product.description" />
+        <p class="tw:my-4">
+          <span class="tw:text-primary tw:text-2xl tw:font-bold tw:mr-3">NTD. {{ product.price }}</span>
           <del>NTD. {{ product.origin_price }}</del>
         </p>
-        <p class="tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-4">
-          <NInputNumber class="tw-col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
-          <button type="button" :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="tw-bg-second hover:tw-brightness-90 tw-rounded-full tw-text-theme tw-font-bold tw-text-base tw-p-2.5 tw-border-0 tw-cursor-pointer">
+        <p class="tw:mt-auto tw:grid tw:grid-cols-2 tw:gap-4">
+          <NInputNumber class="tw:col-span-2" v-model:value="addNum" :min="1" size="large" button-placement="both" />
+          <button type="button" :disabled="globalStore.loadingAdd" @click="globalStore.addCart(product.id, addNum)" class="tw:bg-second tw:hover:brightness-90 tw:rounded-full tw:text-theme tw:font-bold tw:text-base tw:p-2.5 tw:border-0 tw:cursor-pointer">
             <FontAwesomeIcon :icon="['fas', 'plus']" /> Add to Cart
             <FontAwesomeIcon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
-          <button type="button" :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="tw-bg-third hover:tw-brightness-90 tw-rounded-full tw-text-theme tw-font-bold tw-text-base tw-p-2 tw-border-0 tw-cursor-pointer">
+          <button type="button" :disabled="globalStore.loadingAdd" @click="buy(product.id)" class="tw:bg-third tw:hover:brightness-90 tw:rounded-full tw:text-theme tw:font-bold tw:text-base tw:p-2 tw:border-0 tw:cursor-pointer">
             <FontAwesomeIcon :icon="['fas', 'dollar-sign']" /> Buy Now
             <FontAwesomeIcon v-show="globalStore.loadingAdd" class="fa-spin" :icon="['fas', 'spinner']" />
           </button>
@@ -55,25 +55,25 @@
     </div>
   </main>
   <!-- tab -->
-  <section v-if="!noProduct" class="container tw-mt-10 md:tw-pl-1">
-    <ul class="tw-flex tw-list-none tw-text-lg tw-font-bold">
-      <li @click="tab='spec'" :class="{'active':tab === 'spec'}" class="menuA tw-cursor-pointer tw-mr-8">Product Spec</li>
-      <li @click="tab='notice'" :class="{'active':tab === 'notice'}" class="menuA tw-cursor-pointer">Notice</li>
+  <section v-if="!noProduct" class="container tw:mt-10 tw:md:pl-1">
+    <ul class="tw:flex tw:list-none tw:text-lg tw:font-bold">
+      <li @click="tab='spec'" :class="{'active':tab === 'spec'}" class="menuA tw:cursor-pointer tw:mr-8">Product Spec</li>
+      <li @click="tab='notice'" :class="{'active':tab === 'notice'}" class="menuA tw:cursor-pointer">Notice</li>
     </ul>
-    <div v-if="tab==='spec'" class="tw-mt-8" v-html="product.content" />
-    <div v-if="tab==='notice'" class="tw-mt-8">
+    <div v-if="tab==='spec'" class="tw:mt-8" v-html="product.content" />
+    <div v-if="tab==='notice'" class="tw:mt-8">
       <template v-for="list in notice" :key="list.title">
-        <p class="tw-font-bold tw-mt-4">
-          <FontAwesomeIcon :icon="['fas', 'paw']" class="tw-mr-2" />{{ list.title }}
+        <p class="tw:font-bold tw:mt-4">
+          <FontAwesomeIcon :icon="['fas', 'paw']" class="tw:mr-2" />{{ list.title }}
         </p>
-        <p v-for="item in list.content" :key="item" class="tw-ml-6">
+        <p v-for="item in list.content" :key="item" class="tw:ml-6">
           {{ item }}
         </p>
       </template>
     </div>
   </section>
-  <img v-if="noProduct" src="@/assets/img/noData.png" class="tw-block tw-w-3/5 sm:tw-w-60 tw-h-auto tw-mx-auto tw-mt-32" alt="no data">
-  <RouterLink to="/products" class="hover:tw-brightness-90 tw-bg-third tw-rounded-full tw-block tw-font-bold tw-text-center tw-w-3/5 sm:tw-w-60 tw-p-4 tw-mt-10 tw-mx-auto">
+  <img v-if="noProduct" src="@/assets/img/noData.png" class="tw:block tw:w-3/5 tw:sm:w-60 tw:h-auto tw:mx-auto tw:mt-32" alt="no data">
+  <RouterLink to="/products" class="tw:hover:brightness-90 tw:bg-third tw:rounded-full tw:block tw:font-bold tw:text-center tw:w-3/5 tw:sm:w-60 tw:p-4 tw:mt-10 tw:mx-auto">
     Back To Product List
   </RouterLink>
 </template>
@@ -170,7 +170,7 @@ const notice = [
 
 <style scoped>
   .menuA::after{
-    background-color: var(--secondColor);
+    background-color: var(--tw-color-second);
   }
   .active::after{
     width: 100%;

@@ -7,51 +7,51 @@
     role="dialog"
     aria-modal="true"
   >
-    <section class="md:tw-flex">
-      <NList class="tw-flex-1">
-        <p class="tw-text-primary tw-text-xl tw-font-bold md:tw-mb-2">User Info</p>
+    <section class="tw:md:flex">
+      <NList class="tw:flex-1">
+        <p class="tw:text-primary tw:text-xl tw:font-bold tw:md:mb-2">User Info</p>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Name</span>{{ data.user.name }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Name</span>{{ data.user.name }}
         </NListItem>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Email</span>{{ data.user.email }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Email</span>{{ data.user.email }}
         </NListItem>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Phone</span>{{ data.user.tel }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Phone</span>{{ data.user.tel }}
         </NListItem>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Address</span>{{ data.user.address }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Address</span>{{ data.user.address }}
         </NListItem>
       </NList>
-      <NList class="tw-flex-1 tw-mt-6 md:tw-mt-auto">
-        <p class="tw-text-primary tw-text-xl tw-font-bold md:tw-mb-2">Order Info</p>
+      <NList class="tw:flex-1 tw:mt-6 tw:md:mt-auto">
+        <p class="tw:text-primary tw:text-xl tw:font-bold tw:md:mb-2">Order Info</p>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Order at</span>{{ filter.date(data.create_at*1000) }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Order at</span>{{ filter.date(data.create_at*1000) }}
         </NListItem>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Shipping</span>{{ data.user.shipping_method }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Shipping</span>{{ data.user.shipping_method }}
         </NListItem>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Paid</span>
-          <NTag :bordered="false" :type="data.is_paid?'success':''" size="small" style="--n-height:21.5px" class="tw-mr-1">{{ data.is_paid ? 'Yes' : 'No' }}</NTag>
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Paid</span>
+          <NTag :bordered="false" :type="data.is_paid?'success':''" size="small" style="--n-height:21.5px" class="tw:mr-1">{{ data.is_paid ? 'Yes' : 'No' }}</NTag>
           {{ data.user.payment_method==='atm'?'ATM':'Credit' }} {{ data.paid_date ? '/ '+filter.date(data.paid_date*1000) : '' }}
         </NListItem>
         <NListItem>
-          <span class="tw-font-bold tw-w-1/4 tw-inline-block">Message</span>{{ data.message?data.message:'-' }}
+          <span class="tw:font-bold tw:w-1/4 tw:inline-block">Message</span>{{ data.message?data.message:'-' }}
         </NListItem>
-        <NListItem class="tw-text-second tw-text-base tw-font-bold">
-          <span class="tw-w-1/4 tw-inline-block">Total</span>$ {{ filter.currency(Math.ceil(data.total)+data.user.shipping_money) }}
+        <NListItem class="tw:text-second tw:text-base tw:font-bold">
+          <span class="tw:w-1/4 tw:inline-block">Total</span>$ {{ filter.currency(Math.ceil(data.total)+data.user.shipping_money) }}
         </NListItem>
       </NList>
     </section>
     <NDataTable
-      class="tw-mt-6"
+      class="tw:mt-6"
       :bordered="false"
       :columns="columns"
       :data="Object.values(data.products)"
       :pagination="false"
     />
-    <div class="tw-text-right tw-mt-4">
+    <div class="tw:text-right tw:mt-4">
       <NButton @click="$emit('closeModal', false)">Close</NButton>
     </div>
   </NCard>

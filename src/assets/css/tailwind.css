@@ -1,0 +1,25 @@
+/* Tailwind 4 進入點
+ *
+ * 必須是 .css 而非 .scss：Vite 會自行解析 Sass 產出的 CSS @import，
+ * 在 Tailwind 插件看到之前就把檔案內嵌掉（並把 prefix(tw) 誤判為 media query）。
+ *
+ * theme 放進 layer（僅 CSS 變數），utilities 刻意不放進 layer：
+ * v4 預設把 utilities 包在 @layer 裡，而無層級的樣式會贏過有層級的樣式，
+ * 會讓 reset.scss 的 p{margin:0}、main.scss 的 a{color:inherit} 蓋掉 utility。
+ * 不加 layer() 即回到 v3 行為（class 選擇器以特異性勝過元素選擇器）。
+ *
+ * 未載入 preflight.css，等同 v3 的 corePlugins: { preflight: false }
+ */
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" prefix(tw);
+
+/* 原 tailwind.config.js 的 theme.extend */
+@theme {
+  --color-primary: #669C49;
+  --color-second: #FF904F;
+  --color-third: #E9DECC;
+  --color-theme: #665340;
+  --color-notice: #E93E5D;
+  --shadow-main: 0 0 20px rgba(0, 0, 0, 0.2);
+  --drop-shadow-main: 0 0 6px rgba(0, 0, 0, 1);
+}

@@ -1,11 +1,11 @@
 <template>
-  <div class="tw-relative tw-text-white">
-    <p v-if="products.length===0" class="tw-text-center tw-py-20">
+  <div class="tw:relative tw:text-white">
+    <p v-if="products.length===0" class="tw:text-center tw:py-20">
       <FontAwesomeIcon class="fa-spin fa-xl" :icon="['fas', 'spinner']" />
     </p>
     <Swiper
       v-if="products.length>0"
-      class="container !tw-py-10"
+      class="container tw:py-10!"
       :modules="modules"
       :autoplay="{
         delay: 3000,
@@ -24,20 +24,20 @@
     >
       <SwiperSlide
         v-for="item in products" :key="item.title"
-        class="!tw-overflow-hidden tw-border-2 tw-border-white tw-border-solid tw-font-bold tw-cursor-pointer"
+        class="tw:overflow-hidden! tw:border-2 tw:border-white tw:border-solid tw:font-bold tw:cursor-pointer"
         @click="router.push('/products/'+item.id)">
         <div style="border-radius:40px" :style="{backgroundImage: 'url('+ item.imagesUrl[0] +')'}"
-          class="tw-absolute tw-top-0 tw-bg-cover tw-bg-center tw-w-full tw-h-full" />
-        <p class="tw-bg-second tw-text-theme tw-relative tw-text-lg tw-rounded-full tw-py-1 tw-px-5">
+          class="tw:absolute tw:top-0 tw:bg-cover tw:bg-center tw:w-full tw:h-full" />
+        <p class="tw:bg-second tw:text-theme tw:relative tw:text-lg tw:rounded-full tw:py-1 tw:px-5">
           {{ item.category }}
         </p>
-        <span class="tw-relative tw-text-xl tw-mt-1 tw-drop-shadow-main">{{ item.title }}</span>
+        <span class="tw:relative tw:text-xl tw:mt-1 tw:drop-shadow-main">{{ item.title }}</span>
       </SwiperSlide>
     </Swiper>
-    <div class="swiper-navigation-prev tw-hidden md:tw-block tw-z-10 tw-absolute tw-left-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">
+    <div class="swiper-navigation-prev tw:hidden tw:md:block tw:z-10 tw:absolute tw:left-4 tw:top-1/2 tw:-translate-y-1/2 tw:cursor-pointer">
       <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-2xl fa-rotate-270" />
     </div>
-    <div class="swiper-navigation-next tw-hidden md:tw-block tw-z-10 tw-absolute tw-right-4 tw-top-1/2 -tw-translate-y-1/2 tw-cursor-pointer">
+    <div class="swiper-navigation-next tw:hidden tw:md:block tw:z-10 tw:absolute tw:right-4 tw:top-1/2 tw:-translate-y-1/2 tw:cursor-pointer">
       <FontAwesomeIcon :icon="['fas', 'paw']" class="fa-2xl fa-rotate-90" />
     </div>
   </div>
