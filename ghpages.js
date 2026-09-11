@@ -10,6 +10,6 @@ const callback = err => {
 }
 
 /**
- * This task pushes to the `master` branch of the configured `repo`.
+ * 將 dist 的內容發佈到 `repo` 的 `gh-pages` 分支。
  */
 ghpages.publish('dist', options, callback)

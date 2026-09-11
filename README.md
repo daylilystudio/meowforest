@@ -2,15 +2,15 @@
   
   
 ## DEMO
-[Link](http://daylilystudio.github.io/meowforest)  
+[Link](https://daylilystudio.github.io/meowforest)  
   
 ## Introduction
-the website is a E-commerce type portfolio.  
-Design and develope by [Daylily](https://daylily.tw).  
-Use Vue3, tailwind, naive-ui, pinia  
+The website is an E-commerce type portfolio.  
+Designed and developed by [Daylily](https://daylily.tw).  
+Use Vue3, Vue Router, Pinia, Tailwind CSS, naive-ui, Swiper  
   
 ## Project Setup
-- #### creat .env file
+- #### create .env file
 VITE_API =(API URL from HexSchool)  
 VITE_PATH =(API account)  
 
@@ -21,4 +21,13 @@ npm install
 ```sh
 npm run dev
 ```
-(node version: 16.16.0)
+(node version: see `.nvmrc` / `engines` in package.json)
+
+- #### other scripts
+```sh
+npm run build     # build for production
+npm run preview   # preview the production build
+npm run lint      # check code style
+npm run lint:fix  # check and auto-fix
+npm run deploy    # build, then publish dist to the gh-pages branch
+```
