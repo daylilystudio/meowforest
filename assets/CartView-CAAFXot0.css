@@ -1,0 +1,1 @@
+input~i[data-v-13f8c1c1]{border:2px solid var(--tw-color-theme);opacity:.4;position:relative}input:checked~i[data-v-13f8c1c1]{border-color:var(--tw-color-primary);opacity:1}input:checked~i[data-v-13f8c1c1]:after{content:"";background-color:var(--tw-color-primary);border-radius:99px;width:66%;height:66%;position:absolute;top:50%;left:50%;transform:translate(-50%)translateY(-50%)}

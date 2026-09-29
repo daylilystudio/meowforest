@@ -1,0 +1,1 @@
+import{l as e}from"./runtime-core.esm-bundler-BljLEjaH.js";function t(t,n){return e(()=>{for(let e of n)if(t[e]!==void 0)return t[e];return t[n[n.length-1]]})}export{t};

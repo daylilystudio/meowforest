@@ -1,0 +1,1 @@
+import{F as e,Tt as t,p as n,st as r}from"./runtime-core.esm-bundler-BljLEjaH.js";var i=`/meowforest/assets/heroOther-BEYEZNbI.jpg`,a={__name:`TheHeader`,setup(a){return(a,o)=>(e(),n(`header`,{class:`tw:h-64 tw:md:h-96 tw:bg-cover`,style:t({backgroundImage:`url(`+r(i)+`)`})},null,4))}};export{a as t};

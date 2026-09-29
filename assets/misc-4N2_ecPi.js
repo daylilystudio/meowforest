@@ -1,0 +1,1 @@
+function e(e){return Object.keys(e)}function t(e=8){return Math.random().toString(16).slice(2,2+e)}function n(e,t){let n=[];for(let r=0;r<e;++r)n.push(t);return n}export{n,e as r,t};

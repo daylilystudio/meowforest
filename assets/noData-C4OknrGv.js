@@ -1,0 +1,1 @@
+var e=`/meowforest/assets/noData-D7OKoDCd.png`;export{e as t};
