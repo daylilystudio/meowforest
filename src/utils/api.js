@@ -15,7 +15,6 @@ instance.interceptors.request.use(
     const token = Cookies.get('meowForestToken') || null
     if (token) {
       config.headers.Authorization = token
-      instance.defaults.headers.common.Authorization = token
     }
     return config
   },

@@ -78,4 +78,22 @@ const router = createRouter({
   }
 })
 
+// 動態載入的頁面 chunk 失效時（dev server 重新預打包依賴、或重新部署後舊檔名已不存在），
+// 換頁會直接失敗而停在原頁。此時重新整理並前往目標頁，拿到最新的檔案。
+// 用 sessionStorage 記錄，避免檔案真的不存在時無限重新整理。
+const CHUNK_ERROR = /Failed to fetch dynamically imported module|Importing a module script failed|error loading dynamically imported module|Unable to preload CSS/i
+router.onError((err, to) => {
+  if (!CHUNK_ERROR.test(err?.message)) return
+  const key = 'chunkReloaded'
+  try {
+    if (sessionStorage.getItem(key) === to.fullPath) return
+    sessionStorage.setItem(key, to.fullPath)
+  } catch {}
+  window.location.hash = to.fullPath
+  window.location.reload()
+})
+router.afterEach(() => {
+  try { sessionStorage.removeItem('chunkReloaded') } catch {}
+})
+
 export default router

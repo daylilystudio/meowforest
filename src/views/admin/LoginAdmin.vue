@@ -63,7 +63,7 @@ const login = async () => {
     }
   } catch (err) {
     loading.value = false
-    window.$message.error(err)
+    window.$message.error(err.toString())
   }
 }
 </script>

@@ -36,13 +36,14 @@ const check = async () => {
       router.push('/login')
     }
   } catch (err) {
-    window.$message.error(err)
+    window.$message.error(err.toString())
   }
 }
 const logout = async () => {
   try {
     const res = await api.logout()
     if (res.data.success) {
+      document.cookie = 'meowForestToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT'
       window.$notification.success({
         content: 'Logout Success!',
         duration: 2000
@@ -50,7 +51,7 @@ const logout = async () => {
       router.push('/login')
     }
   } catch (err) {
-    window.$message.error(err)
+    window.$message.error(err.toString())
   }
 }
 onBeforeMount(() => {
